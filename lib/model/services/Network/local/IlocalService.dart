@@ -1,9 +1,14 @@
-abstract class ILocalService{
-    Future<void> initializeDB();
-  Future<List<Map>> getQuotes() ;
+abstract class ILocalService {
+  Future<void> initializeDB();
+  //Future<bool> checkQuoteExist(int id);
 
-  Future<void>addQuote(Map<String, dynamic> query);
+  Future<void> addTodayQuote(Map<String, dynamic> query);
+  Future<Map> getTodayQuote();
+  Future<void> updateTodayQuote(Map<String, dynamic> query);
 
-  Future<void>deleteQuote(int id);
-   
+  
+
+  Future<void> addFavQuote(Map<String, dynamic> query);
+  Future<List<Map>> getFavQuotes();
+  Future<void> removeFromFav(String quoteText);
 }

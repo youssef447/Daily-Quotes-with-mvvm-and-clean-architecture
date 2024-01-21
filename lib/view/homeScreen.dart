@@ -36,8 +36,7 @@ class HomeScreen extends StatelessWidget {
           BlocProvider(
             create: (context) => PopularCubit()..getPopularQuotes(),
           ),
-
-            BlocProvider(
+          BlocProvider(
             create: (context) => RandomCubit(),
           ),
         ],
@@ -55,7 +54,8 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         overlayColor: MaterialStateProperty.all<Color>(
-                            Colors.transparent),
+                          Colors.transparent,
+                        ),
                         onTap: () {
                           cubit.changeTab(0);
                         },

@@ -13,11 +13,13 @@ class AwesomeDialogUtil {
     AwesomeDialog(
       context: context,
       dialogBorderRadius: BorderRadius.circular(30),
-      body: Text(body,
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: AppColors.selectedItemColor,
-              )),
-      title: "VERIFICATION",
+      body: Text(
+        body,
+        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: AppColors.selectedItemColor,
+            ),
+      ),
+      title: title,
       dialogType: DialogType.success,
       padding: const EdgeInsets.all(15),
       dialogBackgroundColor: AppColors.defaultColor,

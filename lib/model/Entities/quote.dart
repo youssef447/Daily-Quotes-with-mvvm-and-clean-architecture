@@ -1,9 +1,13 @@
 class Quote {
+  int ?id;
   String quote, author;
-  int id;
+  bool fav,today;
+
   Quote({
     required this.quote,
     required this.author,
-    required this.id,
+     this.id,
+     required this.fav,
+     required this.today,
   });
 }

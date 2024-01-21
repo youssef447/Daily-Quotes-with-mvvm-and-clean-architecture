@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:dailyquotes/Widgets/FadeInDown.dart';
 import 'package:dailyquotes/core/utils/defaultAwesomeDialog.dart';
 import 'package:dailyquotes/core/utils/globales.dart';
 import 'package:dailyquotes/view-model/TabsCubit/todayCubit.dart';
@@ -44,40 +45,53 @@ class TodayScreen extends StatelessWidget {
               : Stack(
                   children: [
                     Center(
-                      child: DefaultContainer(
-                        quote: cubit.quote!,
-                        height: height * 0.7,
-                        stackButtons: [
-                          Positioned(
-                            right: 50,
-                            bottom: -15,
-                            child: InkWell(
-                              onTap: () {
-                                cubit.addToPopular(cubit.quote!);
-                              },
-                              child: CircleAvatar(
-                                backgroundColor: AppColors.gradientColors[2],
-                                child:  Icon(
-                                cubit.fav?  Icons.favorite: Icons.favorite_outline,
-                                  color: Colors.white,
+                      child: FadeInDown(
+                        child: DefaultContainer(
+                          quote: todayQuote,
+                        height: height * 0.68, //longRectangle
+                                     //   height: height * 0.23, //shortRectangle
+                          stackButtons: [
+                            Positioned(
+                              right: 50,
+                              bottom: -15,
+                              child: InkWell(
+                                overlayColor: MaterialStateProperty.all<Color>(
+                                  Colors.transparent,
+                                ),
+                                onTap: () {
+                              todayQuote.fav == false
+                                      ? cubit.addToPopular(todayQuote)
+                                      : cubit.removeFromPopular(todayQuote);
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: AppColors.gradientColors[2],
+                                  child: Icon(
+                                   todayQuote.fav == false
+                                        ? Icons.favorite_outline
+                                        : Icons.favorite,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Positioned(
-                            bottom: -15,
-                            child: InkWell(
-                              onTap: () {},
-                              child: CircleAvatar(
-                                backgroundColor: AppColors.gradientColors[2],
-                                child: const Icon(
-                                  Icons.share,
-                                  color: Colors.white,
+                            Positioned(
+                              bottom: -15,
+                              child: InkWell(
+                                overlayColor: MaterialStateProperty.all<Color>(
+                                  Colors.transparent,
+                                ),
+                                onTap: () {},
+                                child: CircleAvatar(
+                                  backgroundColor: AppColors.gradientColors[2],
+                                  child: const Icon(
+                                    Icons.share,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     state is AddToPopularLoadingState

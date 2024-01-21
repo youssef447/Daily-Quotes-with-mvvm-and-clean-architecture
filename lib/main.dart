@@ -17,6 +17,7 @@ void main() async{
   configurationDependencies();
     Bloc.observer = MyBlocObserver();
 
+
   runApp(const MyApp());
 }
 

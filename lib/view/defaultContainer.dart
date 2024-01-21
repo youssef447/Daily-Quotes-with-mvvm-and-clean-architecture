@@ -1,5 +1,6 @@
 import 'package:dailyquotes/model/Entities/quote.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 import '../core/utils/appColors.dart';
 
@@ -35,11 +36,6 @@ class DefaultContainer extends StatelessWidget {
                   17,
                 ),
               ),
-              /*   gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                colors: AppColors.gradientColors,
-              ), */
             ),
           ),
         ),
@@ -63,6 +59,7 @@ class DefaultContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
+            
               Expanded(
                 child: Center(
                   child: Row(
@@ -70,17 +67,18 @@ class DefaultContainer extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.format_quote_sharp,
-                        color: AppColors.defaultColor,
+                        color: Colors.white,
                       ),
                       Expanded(
                         child: SingleChildScrollView(
                           child: Text(
-                            quote.quote,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(fontWeight: FontWeight.normal),
                             textAlign: TextAlign.center,
+                            quote.quote,
+                            style: GoogleFonts.gabriela(
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(fontWeight: FontWeight.normal)),
                           ),
                         ),
                       ),
@@ -90,10 +88,11 @@ class DefaultContainer extends StatelessWidget {
               ),
               Text(
                 '-${quote.author}',
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: AppColors.defaultColor,
-                      fontWeight: FontWeight.w900,
-                    ),
+                style: GoogleFonts.xanhMono(
+                  textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: AppColors.defaultColor,
+                      ),
+                ),
               ),
             ],
           ),
