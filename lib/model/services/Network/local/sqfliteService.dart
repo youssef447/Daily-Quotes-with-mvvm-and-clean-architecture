@@ -57,15 +57,15 @@ class SqfliteService implements ILocalService {
   }
 
   @override
-  Future<void> updateTodayQuote(Map<String, dynamic> query) async {    await initializeDB();
+  Future<void> updateTodayQuote(Map<String, dynamic> query) async {
+    await initializeDB();
 
-      await _database!.update(
+    await _database!.update(
       todayTableName,
       query,
       where: 'id= ?',
       whereArgs: [1],
-    ); 
-      
+    );
   }
 
   @override

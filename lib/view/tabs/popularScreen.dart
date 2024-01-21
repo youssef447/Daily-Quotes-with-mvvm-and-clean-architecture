@@ -5,6 +5,7 @@ import 'package:dailyquotes/view/errorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../core/utils/globales.dart';
 import '../../core/utils/sharedAssets.dart';
@@ -125,7 +126,16 @@ class PopularScreen extends StatelessWidget {
                                     Positioned(
                                       bottom: -15,
                                       child: InkWell(
-                                        onTap: () {},
+                                        overlayColor:
+                                            MaterialStateProperty.all<Color>(
+                                          Colors.transparent,
+                                        ),
+                                        onTap: () async {
+                                          await Share.share(
+                                            '“${cubit.popularQuotes[itemIndex].quote}”\n\n- ${cubit.popularQuotes[itemIndex].author}\n\n\n$sharingMyGit',
+                                            subject: 'Check Today\'s Quote',
+                                          );
+                                        },
                                         child: CircleAvatar(
                                           backgroundColor:
                                               AppColors.gradientColors[2],

@@ -10,6 +10,7 @@ import 'package:dailyquotes/view/errorScreen.dart';
 import 'package:dailyquotes/view/defaultContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../core/utils/appColors.dart';
 
@@ -48,8 +49,8 @@ class TodayScreen extends StatelessWidget {
                       child: FadeInDown(
                         child: DefaultContainer(
                           quote: todayQuote,
-                        height: height * 0.68, //longRectangle
-                                     //   height: height * 0.23, //shortRectangle
+                          height: height * 0.68, //longRectangle
+                          //   height: height * 0.23, //shortRectangle
                           stackButtons: [
                             Positioned(
                               right: 50,
@@ -59,14 +60,14 @@ class TodayScreen extends StatelessWidget {
                                   Colors.transparent,
                                 ),
                                 onTap: () {
-                              todayQuote.fav == false
+                                  todayQuote.fav == false
                                       ? cubit.addToPopular(todayQuote)
                                       : cubit.removeFromPopular(todayQuote);
                                 },
                                 child: CircleAvatar(
                                   backgroundColor: AppColors.gradientColors[2],
                                   child: Icon(
-                                   todayQuote.fav == false
+                                    todayQuote.fav == false
                                         ? Icons.favorite_outline
                                         : Icons.favorite,
                                     color: Colors.white,
@@ -80,7 +81,10 @@ class TodayScreen extends StatelessWidget {
                                 overlayColor: MaterialStateProperty.all<Color>(
                                   Colors.transparent,
                                 ),
-                                onTap: () {},
+                                onTap: () async {
+                                  await Share.share(
+                                      '“${todayQuote.quote}”\n\n- ${todayQuote.author}\n\n\n$sharingMyGit');
+                                },
                                 child: CircleAvatar(
                                   backgroundColor: AppColors.gradientColors[2],
                                   child: const Icon(

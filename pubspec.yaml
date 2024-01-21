@@ -45,7 +45,7 @@ dependencies:
   get_it: ^7.6.4
   lottie: ^3.0.0
   google_fonts: ^6.1.0
-
+  share_plus: ^7.2.1
   carousel_slider: ^4.2.1
 
 dev_dependencies:
