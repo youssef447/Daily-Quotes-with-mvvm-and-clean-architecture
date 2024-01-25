@@ -6,7 +6,6 @@ class QuoteModel extends Quote {
     required super.quote,
     required super.author,
     super.fav = false,
-    super.today = false,
   });
 
   factory QuoteModel.fromRemoteJson(Map<dynamic, dynamic> json) {
@@ -30,7 +29,7 @@ class QuoteModel extends Quote {
       if (id != null) 'id': id,
       'q': quote,
       'a': author,
-      'fav': fav==false? 0 :1,
+      'fav': fav == false ? 0 : 1,
     };
   }
 }

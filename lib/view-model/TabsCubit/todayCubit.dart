@@ -3,6 +3,7 @@ import 'package:dailyquotes/model/Models/quoteModel.dart';
 import 'package:dailyquotes/model/repositories/iReqRepo.dart';
 import 'package:dailyquotes/model/services/Network/local/cach_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../core/utils/globales.dart';
 import 'todayStates.dart';
@@ -15,12 +16,7 @@ class TodayCubit extends Cubit<TodayStates> {
     emit(GetTodayQuoteLoadingState());
     if (CacheHelper.containsKey('date')) {
       DateTime date = DateTime.parse(CacheHelper.getData(key: 'date'));
-      Duration duration = DateTime.now().difference(date);
-      print('eeeeeeeeeee $date');
-      print('eeeeeeeeeee ${DateTime.now()}');
 
-      print('eeeeeeeeeee ${duration.inDays}');
-      print('eeeeeeeeeee $duration');
       //if same day
       // if (date.difference(DateTime.now()).inDays != 0) {
       if (DateTime.now().isAfter(date) && DateTime.now().day > date.day) {
@@ -106,6 +102,15 @@ class TodayCubit extends Cubit<TodayStates> {
     });
   }
 
+  shareQuote() async {
+    try {
+      await Share.share(
+        '“${todayQuote.quote}”\n\n- ${todayQuote.author}\n\n\n$sharingMyGit',
+      );
+    } catch (e) {
+      emit(SharingQuoteErrorState(e.toString()));
+    }
+  }
   /*  getQuoteByKey({
     required String keyword,
   }) async {

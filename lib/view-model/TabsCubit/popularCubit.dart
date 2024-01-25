@@ -1,6 +1,7 @@
 import 'package:dailyquotes/core/Di/injection.dart';
 import 'package:dailyquotes/model/repositories/iReqRepo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../core/utils/globales.dart';
 import '../../model/Models/quoteModel.dart';
@@ -17,6 +18,7 @@ class PopularCubit extends Cubit<PopularStates> {
 
     locators.get<IReqRepo>().getFavQuotes().then((value) {
       popularQuotes = value;
+      
       emit(GetPopularSucessState());
     }).catchError((onError) {
       emit(GetPopularErrorState(onError.toString()));
@@ -29,9 +31,10 @@ class PopularCubit extends Cubit<PopularStates> {
     );
     locators.get<IReqRepo>().removeFromFav(quote.quote).then((value) {
       if (quote.quote == todayQuote.quote) {
-        locators.get<IReqRepo>().updateTodayQuote(todayQuote).then((value) {
-          todayQuote.fav = false;
+        todayQuote.fav = false;
 
+        locators.get<IReqRepo>().updateTodayQuote(todayQuote).then((value) {
+          todayQuote = value;
           emit(RemoveFromPopularSuccessState());
 
           getPopularQuotes();
@@ -47,5 +50,15 @@ class PopularCubit extends Cubit<PopularStates> {
     }).catchError((error) {
       emit(RemoveFromPopularErrorState(onError.toString()));
     });
+  }
+
+  shareQuote(QuoteModel quote) async {
+    try {
+      await Share.share(
+        '“${quote.quote}”\n\n- ${quote.author}\n\n\n$sharingMyGit',
+      );
+    } catch (e) {
+      emit(SharingQuoteErrorState(e.toString()));
+    }
   }
 }

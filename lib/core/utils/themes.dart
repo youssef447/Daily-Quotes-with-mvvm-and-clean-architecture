@@ -48,7 +48,7 @@ ThemeData darkTheme = ThemeData(
       fontWeight: FontWeight.bold,
     ),
     titleSmall: TextStyle(
-      fontSize: 12.0,
+      fontSize: 13.0,
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),

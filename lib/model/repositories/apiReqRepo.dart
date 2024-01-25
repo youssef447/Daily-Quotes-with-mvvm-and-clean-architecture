@@ -3,13 +3,13 @@ import 'package:dailyquotes/model/Models/quoteModel.dart';
 import 'package:dailyquotes/model/repositories/iReqRepo.dart';
 import 'package:dailyquotes/model/services/Network/local/IlocalService.dart';
 import 'package:dailyquotes/model/services/Network/local/cach_helper.dart';
-import 'package:dailyquotes/model/services/iReqService.dart';
+import 'package:dailyquotes/model/services/iRemoteService.dart';
 
 class ApiReqRepo implements IReqRepo {
-  late final IReqService _remoteService;
+  late final IRemoteService _remoteService;
   late final ILocalService _localService;
   ApiReqRepo({
-    required IReqService remoteService,
+    required IRemoteService remoteService,
     required ILocalService localService,
   }) {
     _remoteService = remoteService;
@@ -19,7 +19,7 @@ class ApiReqRepo implements IReqRepo {
   ///first scenario, get quote from Api then add  it to local Database
   @override
   Future<QuoteModel> reqTodayQuote() async {
-    final response = await _remoteService.reqTodayService();
+    final response = await _remoteService.reqTodayQuoteService();
     final model = QuoteModel.fromRemoteJson(response.data[0]);
 
     await CacheHelper.saveData(
@@ -30,12 +30,11 @@ class ApiReqRepo implements IReqRepo {
   }
 
   ///called once when we first put our first stored quote, after calling reqTodayQuote Function
-    @override
+  @override
   Future<QuoteModel> addTodayQuote(QuoteModel model) async {
     await _localService.addTodayQuote(model.toMap());
     return model;
   }
-
 
   ///getting Today's quote from database
   @override
@@ -48,8 +47,6 @@ class ApiReqRepo implements IReqRepo {
   ///only updates where id =1 as todays quote is always first row and others are favourites, this method only called when we update fav state and when we get todays quote after a day been passed
   @override
   Future<QuoteModel> updateTodayQuote(QuoteModel model) async {
-  
-
     await _localService.updateTodayQuote(model.toMap());
 
     return model;
@@ -68,25 +65,51 @@ class ApiReqRepo implements IReqRepo {
     await _localService.removeFromFav(quoteText);
   }
 
-
   @override
   Future<void> addFavQuote(QuoteModel model) async {
     await _localService.addFavQuote(model.toMap());
-   
   }
 
-
-
-
- 
   @override
   Future<List<Quote>> reqWithKeyRepo({required String keyword}) async {
     final List<Quote> list = [];
-    final response = await _remoteService.reqWithKeyService(keyword: keyword);
+    final response =
+        await _remoteService.reqWithKeyQuoteService(keyword: keyword);
     (response.data as List).map(
       (e) => list.add(QuoteModel.fromRemoteJson(e)),
     );
 
     return list;
-  } 
+  }
+
+  @override
+  Future<QuoteModel> getRandomQuote() async {
+    var map = await _remoteService.reqRandomQuoteService();
+
+    return QuoteModel.fromRemoteJson(map.data[0]);
+  }
+
+  @override
+  Future<void> addMyQuote(QuoteModel model) async {
+    await _localService.addMyQuoteService(model.toMap());
+  }
+
+  @override
+  Future<List<QuoteModel>> getMyQuotes() async {
+    var list = await _localService.geMyQuotes();
+
+    final res = list.map((e) => QuoteModel.fromLocalJson(e)).toList();
+    return res;
+  }
+
+  @override
+  Future<void> deleteMyQuote(int id)async {
+     await _localService.deleteMyQuoteService(id);
+
+  }
+
+  @override
+  Future<void> updateMyQuote(QuoteModel model) async {
+    await _localService.updateMyQuoteService(model.toMap());
+  }
 }

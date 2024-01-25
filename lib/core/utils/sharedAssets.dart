@@ -9,5 +9,8 @@ class ImageAssets {
 class AnimsAssets {
   static const String singleQuote = "$animsPath/singleQuote.json";
   static const String fav = "$animsPath/fav.json";
+    static const String add = "$animsPath/add.json";
+
+
 
 }

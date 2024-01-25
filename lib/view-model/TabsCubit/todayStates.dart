@@ -1,7 +1,6 @@
 abstract class TodayStates {}
 
 class TodayInitialState extends TodayStates {}
-
 class GetTodayQuoteLoadingState extends TodayStates {}
 
 class GetTodayQuoteSuccessState extends TodayStates {}
@@ -32,3 +31,12 @@ class RemoveFromPopularErrorState extends TodayStates {
     this.err,
   );
 }
+
+
+class SharingQuoteErrorState extends TodayStates {
+  final String err;
+  SharingQuoteErrorState(
+    this.err,
+  );
+}
+

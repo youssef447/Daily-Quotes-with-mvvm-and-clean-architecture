@@ -23,3 +23,21 @@ class AddToPopularErrorState extends RandomStates {
     this.err,
   );
 }
+
+
+class RemoveFromPopularLoadingState extends RandomStates {}
+
+class RemoveFromPopularSuccessState extends RandomStates {}
+
+class RemoveFromPopularErrorState extends RandomStates {
+  final String err;
+  RemoveFromPopularErrorState(
+    this.err,
+  );
+}
+class SharingQuoteErrorState extends RandomStates {
+  final String err;
+  SharingQuoteErrorState(
+    this.err,
+  );
+}

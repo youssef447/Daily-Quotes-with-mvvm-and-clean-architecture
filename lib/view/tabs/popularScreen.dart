@@ -1,12 +1,13 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dailyquotes/Widgets/FadeInDown.dart';
+import 'package:dailyquotes/Widgets/defaultCarouselSlider.dart';
 import 'package:dailyquotes/core/utils/appColors.dart';
 import 'package:dailyquotes/view/errorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:share_plus/share_plus.dart';
 
+import '../../core/utils/defaultAwesomeDialog.dart';
 import '../../core/utils/globales.dart';
 import '../../core/utils/sharedAssets.dart';
 import '../../view-model/TabsCubit/popularCubit.dart';
@@ -14,12 +15,28 @@ import '../../view-model/TabsCubit/popularStates.dart';
 import '../defaultContainer.dart';
 
 class PopularScreen extends StatelessWidget {
-  const PopularScreen({super.key});
+  final bool longRectangle;
+  const PopularScreen({super.key, required this.longRectangle});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PopularCubit, PopularStates>(
-      listener: (BuildContext context, PopularStates state) {},
+      listener: (BuildContext context, PopularStates state) {
+        if (state is RemoveFromPopularErrorState) {
+          AwesomeDialogUtil.error(
+            context: context,
+            body: 'Error removing Quote from Favorite',
+            title: 'Failed',
+          );
+        }
+        if (state is SharingQuoteErrorState) {
+          AwesomeDialogUtil.error(
+            context: context,
+            body: 'Error Sharing Quote, ${state.err} please try again',
+            title: 'Failed',
+          );
+        }
+      },
       builder: (context, state) {
         var cubit = PopularCubit.get(context);
         return RefreshIndicator(
@@ -40,6 +57,7 @@ class PopularScreen extends StatelessWidget {
                             Lottie.asset(
                               AnimsAssets.fav,
                               frameRate: const FrameRate(120),
+                              repeat: false,
                             ),
                             Text(
                               'No Quotes Added Yet',
@@ -71,34 +89,17 @@ class PopularScreen extends StatelessWidget {
                         )
                       : SizedBox(
                           height: double.infinity,
-                          child: CarouselSlider.builder(
+                          child: DefaultCarouselSlider(
                             itemCount: cubit.popularQuotes.length,
-                            options: CarouselOptions(
-                              enableInfiniteScroll: false,
-                              scrollPhysics:
-                                  const AlwaysScrollableScrollPhysics(),
-                              //   viewportFraction: 0.8, //longRecatngle
-                              viewportFraction: 0.3, //shortRecatngle
-
-                              initialPage: 0,
-                              reverse: true,
-                              autoPlay: true,
-                              autoPlayInterval: const Duration(seconds: 3),
-                              autoPlayAnimationDuration:
-                                  const Duration(seconds: 2),
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              enlargeCenterPage: true,
-                              enlargeFactor: 0.3,
-                              scrollDirection: Axis.vertical,
-                            ),
+                            viewPortFraction: longRectangle ? 0.8 : 0.3,
                             itemBuilder: (BuildContext context, int itemIndex,
                                 int pageViewIndex) {
                               return FadeInDown(
                                 child: DefaultContainer(
                                   quote: cubit.popularQuotes[itemIndex],
-                                  height: height * 0.23,
-                                  //   height: height * 0.68, //longRectangle
-
+                                  height: longRectangle
+                                      ? height * 0.68
+                                      : height * 0.23,
                                   stackButtons: [
                                     Positioned(
                                       right: 50,
@@ -131,16 +132,14 @@ class PopularScreen extends StatelessWidget {
                                           Colors.transparent,
                                         ),
                                         onTap: () async {
-                                          await Share.share(
-                                            '“${cubit.popularQuotes[itemIndex].quote}”\n\n- ${cubit.popularQuotes[itemIndex].author}\n\n\n$sharingMyGit',
-                                            subject: 'Check Today\'s Quote',
-                                          );
+                                          await cubit.shareQuote(
+                                              cubit.popularQuotes[itemIndex]);
                                         },
                                         child: CircleAvatar(
                                           backgroundColor:
                                               AppColors.gradientColors[2],
-                                          child: const Icon(
-                                            Icons.share,
+                                          child: const FaIcon(
+                                            FontAwesomeIcons.share,
                                             color: Colors.white,
                                           ),
                                         ),

@@ -8,6 +8,7 @@ class SqfliteService implements ILocalService {
 
   final String todayTableName = "TodayQuote";
   final String favTableName = "FavoriteQuotes";
+  final String myQuotesTableName = "MyQuotes";
 
   Database? _database;
 
@@ -15,10 +16,15 @@ class SqfliteService implements ILocalService {
   Future<void> initializeDB() async {
     if (_database == null) {
       String path = await getDatabasesPath();
-
+      print('eh');
+      print(path);
+      print(join(path, dbName));
       _database = await openDatabase(
         join(path, dbName),
         onCreate: (database, version) async {
+          await database.execute(
+            "CREATE TABLE $myQuotesTableName(id INTEGER PRIMARY KEY AUTOINCREMENT, q TEXT NOT NULL, a TEXT NOT NULL, fav bool NOT NULL)",
+          );
           await database.execute(
             "CREATE TABLE $todayTableName(id INTEGER PRIMARY KEY AUTOINCREMENT, q TEXT NOT NULL, a TEXT NOT NULL, fav bool NOT NULL)",
           );
@@ -52,6 +58,7 @@ class SqfliteService implements ILocalService {
     final map = await _database!.query(
       todayTableName,
     );
+    print('eeaaaaaaaaaaaaaaaaaaaaaaaaa $map');
 
     return map[0];
   }
@@ -100,5 +107,52 @@ class SqfliteService implements ILocalService {
       where: "q= ?",
       whereArgs: [quoteText],
     );
+  }
+
+  @override
+  Future<void> addMyQuoteService(Map<String, dynamic> query) async {
+    await initializeDB();
+
+    await _database!.transaction(
+      (txn) => txn.insert(
+        myQuotesTableName,
+        query,
+      ),
+    );
+  }
+
+  @override
+  Future<void> deleteMyQuoteService(int id) async {
+    await initializeDB();
+
+    await _database!.delete(
+      myQuotesTableName,
+      where: "id= ?",
+      whereArgs: [id],
+    );
+  }
+
+  @override
+  Future<void> updateMyQuoteService(Map<String, dynamic> query) async {
+    await initializeDB();
+
+  var test=  await _database!.update(
+      myQuotesTableName,
+      query,
+      where: 'id= ?',
+      whereArgs: [query['id']],
+    );
+    print('sssssssssssssssssssssssss $test');
+  }
+
+  @override
+  Future<List<Map>> geMyQuotes() async {
+    await initializeDB();
+    //database.rawQuery('select* from $table');
+    List<Map> list = await _database!.query(
+      myQuotesTableName,
+    );
+
+    return list;
   }
 }

@@ -1,24 +1,43 @@
 import 'package:bloc/bloc.dart';
 import 'package:dailyquotes/core/utils/globales.dart';
 import 'package:dailyquotes/core/utils/themes.dart';
-import 'package:dailyquotes/view/homeScreen.dart';
+import 'package:dailyquotes/model/services/Network/local/awesomeNotificationService.dart';
+import 'package:dailyquotes/view/HomePage/homeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'core/Di/injection.dart';
 import 'core/utils/apiConstants.dart';
 import 'model/services/Network/local/cach_helper.dart';
 import 'model/services/Network/remote/dio_helper.dart';
 import 'view-model/blocObserver.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsBinding binding = WidgetsFlutterBinding
+      .ensureInitialized(); //عشان اتاكد انه هيخلص كل الawaits قبل الرن
+  FlutterNativeSplash.preserve(
+    widgetsBinding: binding,
+  );
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await CacheHelper.init();
   DioHelper.init(baseUrl: ApiConstants.baseUrl);
   configurationDependencies();
-    Bloc.observer = MyBlocObserver();
+  noitificationsEnabled =
+          CacheHelper.getData(key: 'notifications') ?? true;
+        print('fe eh $noitificationsEnabled');
+  if (noitificationsEnabled) {
+    await locators.get<AwesomeNotificationService>().init();
+    
+  }
 
-
+  Bloc.observer = MyBlocObserver();
+  //await NotificationService().init();
+/*   final response = await DioHelper.getData(method: 'image');
+  print(response.data); */
   runApp(const MyApp());
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +49,7 @@ class MyApp extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
     return MaterialApp(
       title: 'Daily Quotes',
+      //navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: darkTheme,
       home: const HomeScreen(),
