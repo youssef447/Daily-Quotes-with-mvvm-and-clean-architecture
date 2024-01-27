@@ -20,7 +20,6 @@ class TodayCubit extends Cubit<TodayStates> {
       //if same day
       // if (date.difference(DateTime.now()).inDays != 0) {
       if (DateTime.now().isAfter(date) && DateTime.now().day > date.day) {
-        print('finalllyyyyyy');
         locators.get<IReqRepo>().reqTodayQuote().then((value) {
           locators.get<IReqRepo>().updateTodayQuote(value).then((value) {
             todayQuote = value;
@@ -111,9 +110,5 @@ class TodayCubit extends Cubit<TodayStates> {
       emit(SharingQuoteErrorState(e.toString()));
     }
   }
-  /*  getQuoteByKey({
-    required String keyword,
-  }) async {
-    await locators.get<IReqRepo>().reqWithKeyRepo(keyword: keyword);
-  } */
+  
 }

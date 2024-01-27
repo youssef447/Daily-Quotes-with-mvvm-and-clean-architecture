@@ -58,7 +58,6 @@ class SqfliteService implements ILocalService {
     final map = await _database!.query(
       todayTableName,
     );
-    print('eeaaaaaaaaaaaaaaaaaaaaaaaaa $map');
 
     return map[0];
   }
@@ -136,13 +135,12 @@ class SqfliteService implements ILocalService {
   Future<void> updateMyQuoteService(Map<String, dynamic> query) async {
     await initializeDB();
 
-  var test=  await _database!.update(
+    await _database!.update(
       myQuotesTableName,
       query,
       where: 'id= ?',
       whereArgs: [query['id']],
     );
-    print('sssssssssssssssssssssssss $test');
   }
 
   @override

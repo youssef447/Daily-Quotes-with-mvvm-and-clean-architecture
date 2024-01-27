@@ -5,6 +5,7 @@ import 'package:dailyquotes/model/Models/quoteModel.dart';
 import 'package:dailyquotes/view-model/addEditQuoteStates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../Widgets/FadeInDown.dart';
 import '../core/utils/appColors.dart';
@@ -127,9 +128,11 @@ class _AddEditQuoteState extends State<AddEditQuote> {
                             },
                             child: CircleAvatar(
                               backgroundColor: Colors.white,
+                              radius: 22.sp,
                               child: Icon(
                                 widget.edit == true ? Icons.done : Icons.add,
                                 color: AppColors.selectedItemColor,
+                                size: 25.sp,
                               ),
                             ),
                           ),

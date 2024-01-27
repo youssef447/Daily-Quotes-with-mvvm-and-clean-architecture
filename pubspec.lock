@@ -222,6 +222,14 @@ packages:
       url: "https://pub-web.flutter-io.cn"
     source: hosted
     version: "2.3.9"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "8cf100b8e4973dc570b6415a2090b0bfaa8756ad333db46939efc3e774ee100d"
+      url: "https://pub-web.flutter-io.cn"
+    source: hosted
+    version: "5.9.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -661,14 +669,6 @@ packages:
       url: "https://pub-web.flutter-io.cn"
     source: hosted
     version: "0.6.1"
-  timezone:
-    dependency: "direct main"
-    description:
-      name: timezone
-      sha256: "1cfd8ddc2d1cfd836bc93e67b9be88c3adaeca6f40a00ca999104c30693cdca0"
-      url: "https://pub-web.flutter-io.cn"
-    source: hosted
-    version: "0.9.2"
   typed_data:
     dependency: transitive
     description:

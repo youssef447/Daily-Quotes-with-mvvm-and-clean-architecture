@@ -115,8 +115,8 @@ class AwesomeNotificationService {
       actionButtons: actionButtons,
       schedule: scheduled
           ? NotificationCalendar(
-              hour: 8,
-              minute: 0,
+              hour: 00,
+              minute: 00,
               timeZone:
                   await _service.getLocalTimeZoneIdentifier() //America/New_York
               )

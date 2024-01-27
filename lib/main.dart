@@ -5,6 +5,7 @@ import 'package:dailyquotes/model/services/Network/local/awesomeNotificationServ
 import 'package:dailyquotes/view/HomePage/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/Di/injection.dart';
 import 'core/utils/apiConstants.dart';
@@ -24,18 +25,13 @@ void main() async {
   await CacheHelper.init();
   DioHelper.init(baseUrl: ApiConstants.baseUrl);
   configurationDependencies();
-  noitificationsEnabled =
-          CacheHelper.getData(key: 'notifications') ?? true;
-        print('fe eh $noitificationsEnabled');
+  noitificationsEnabled = CacheHelper.getData(key: 'notifications') ?? true;
   if (noitificationsEnabled) {
     await locators.get<AwesomeNotificationService>().init();
-    
   }
 
   Bloc.observer = MyBlocObserver();
-  //await NotificationService().init();
-/*   final response = await DioHelper.getData(method: 'image');
-  print(response.data); */
+  
   runApp(const MyApp());
   FlutterNativeSplash.remove();
 }
@@ -47,12 +43,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height - AppBar().preferredSize.height;
     width = MediaQuery.of(context).size.width;
-    return MaterialApp(
-      title: 'Daily Quotes',
-      //navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      theme: darkTheme,
-      home: const HomeScreen(),
-    );
+    return ScreenUtilInit(
+        builder: (context, child) {
+          return MaterialApp(
+            title: 'Daily Quotes',
+            //navigatorKey: navigatorKey,
+            debugShowCheckedModeBanner: false,
+            theme: darkTheme,
+            home: const HomeScreen(),
+          );
+        });
   }
 }

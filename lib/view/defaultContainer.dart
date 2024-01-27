@@ -1,6 +1,7 @@
 import 'package:dailyquotes/Widgets/defaultFormField.dart';
 import 'package:dailyquotes/model/Entities/quote.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 import '../core/utils/appColors.dart';
@@ -71,9 +72,10 @@ class DefaultContainer extends StatelessWidget {
                         ? CrossAxisAlignment.start
                         : CrossAxisAlignment.center,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.format_quote_sharp,
                         color: Colors.white,
+                        size: 20.sp,
                       ),
                       Expanded(
                         child: quote != null
@@ -149,8 +151,7 @@ class DefaultContainer extends StatelessWidget {
             ],
           ),
         ),
-      ... stackButtons
-            
+        ...stackButtons
       ],
     );
   }

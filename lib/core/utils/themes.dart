@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'appColors.dart';
 
@@ -10,13 +9,13 @@ ThemeData darkTheme = ThemeData(
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: AppColors.defaultColor,
   ),
-  appBarTheme: const AppBarTheme(
-    titleTextStyle:  TextStyle(
-      fontSize: 18.0,
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(
+      fontSize: 18.0.sp,
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
-    titleSpacing: 20.0,
+    titleSpacing: 20.0.sp,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: AppColors.defaultColor,
       statusBarIconBrightness: Brightness.light,
@@ -33,22 +32,20 @@ ThemeData darkTheme = ThemeData(
     refreshBackgroundColor: AppColors.defaultColor,
     linearMinHeight: 5,
   ),
-
-  
   dividerTheme: const DividerThemeData(thickness: 1.5, color: Colors.white),
-  textTheme: const TextTheme(
+  textTheme: TextTheme(
     titleLarge: TextStyle(
-      fontSize: 22.0,
+      fontSize: 22.0.sp,
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
     titleMedium: TextStyle(
-      fontSize: 15.0,
+      fontSize: 15.0.sp,
       color: Colors.white,
       fontWeight: FontWeight.bold,
     ),
     titleSmall: TextStyle(
-      fontSize: 13.0,
+      fontSize: 13.0.sp,
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
