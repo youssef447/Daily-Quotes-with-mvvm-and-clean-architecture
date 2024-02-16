@@ -1,5 +1,5 @@
 import 'package:dailyquotes/core/Di/injection.dart';
-import 'package:dailyquotes/model/repositories/iReqRepo.dart';
+import 'package:dailyquotes/model/repositories/iRepo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -16,7 +16,7 @@ class PopularCubit extends Cubit<PopularStates> {
   getPopularQuotes() {
     emit(GetPopularLoadingState());
 
-    locators.get<IReqRepo>().getFavQuotes().then((value) {
+    locators.get<IRepo>().getFavQuotes().then((value) {
       popularQuotes = value;
       
       emit(GetPopularSucessState());
@@ -29,11 +29,11 @@ class PopularCubit extends Cubit<PopularStates> {
     emit(
       RemoveFromPopularLoadingState(),
     );
-    locators.get<IReqRepo>().removeFromFav(quote.quote).then((value) {
+    locators.get<IRepo>().removeFromFav(quote.quote).then((value) {
       if (quote.quote == todayQuote.quote) {
         todayQuote.fav = false;
 
-        locators.get<IReqRepo>().updateTodayQuote(todayQuote).then((value) {
+        locators.get<IRepo>().updateTodayQuote(todayQuote).then((value) {
           todayQuote = value;
           emit(RemoveFromPopularSuccessState());
 

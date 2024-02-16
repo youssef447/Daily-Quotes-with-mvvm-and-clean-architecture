@@ -1,4 +1,4 @@
-import 'package:dailyquotes/model/services/Network/local/awesomeNotificationService.dart';
+import 'package:dailyquotes/model/services/awesomeNotificationService.dart';
 import 'package:dailyquotes/model/services/Network/local/cach_helper.dart';
 import 'package:dailyquotes/view-model/homeStates.dart';
 

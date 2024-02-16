@@ -1,14 +1,14 @@
 import 'package:dailyquotes/model/Entities/quote.dart';
 import 'package:dailyquotes/model/Models/quoteModel.dart';
-import 'package:dailyquotes/model/repositories/iReqRepo.dart';
+import 'package:dailyquotes/model/repositories/iRepo.dart';
 import 'package:dailyquotes/model/services/Network/local/IlocalService.dart';
 import 'package:dailyquotes/model/services/Network/local/cach_helper.dart';
 import 'package:dailyquotes/model/services/iRemoteService.dart';
 
-class ApiReqRepo implements IReqRepo {
+class QuoteRepo implements IRepo {
   late final IRemoteService _remoteService;
   late final ILocalService _localService;
-  ApiReqRepo({
+  QuoteRepo({
     required IRemoteService remoteService,
     required ILocalService localService,
   }) {

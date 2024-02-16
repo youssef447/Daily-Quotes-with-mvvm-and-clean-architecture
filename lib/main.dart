@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dailyquotes/core/utils/globales.dart';
 import 'package:dailyquotes/core/utils/themes.dart';
-import 'package:dailyquotes/model/services/Network/local/awesomeNotificationService.dart';
+import 'package:dailyquotes/model/services/awesomeNotificationService.dart';
 import 'package:dailyquotes/view/HomePage/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

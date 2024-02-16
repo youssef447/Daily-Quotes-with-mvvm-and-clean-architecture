@@ -2,7 +2,7 @@ import 'package:dailyquotes/model/Models/quoteModel.dart';
 
 import '../Entities/quote.dart';
 
-abstract class IReqRepo {
+abstract class IRepo {
   Future<QuoteModel> reqTodayQuote();
   Future<QuoteModel> updateTodayQuote(QuoteModel model);
   Future<QuoteModel> getTodayQuote();
