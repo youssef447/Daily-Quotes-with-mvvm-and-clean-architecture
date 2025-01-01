@@ -1,23 +1,26 @@
 import 'dart:ui';
 
 import 'package:dailyquotes/core/Widgets/dialogs/default_awesome_dialog.dart';
-import 'package:dailyquotes/core/utils/utils.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
 
 import 'package:dailyquotes/core/Widgets/error_page.dart';
 import 'package:dailyquotes/core/Widgets/cards/quote_card.dart';
+import 'package:dailyquotes/features/home_page/presentation/controller/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../core/animations/fade_In_down_animation.dart';
+import '../../../../../core/enums/card_shape.dart';
 import '../../../../../core/theme/app_colors.dart';
 
 import '../../controller/today_quotes_cubit.dart';
 import '../../controller/today_quotes_states.dart';
 
 class TodayQuotePage extends StatelessWidget {
-  final bool longRectangle;
-  const TodayQuotePage({super.key, required this.longRectangle});
+  const TodayQuotePage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +48,11 @@ class TodayQuotePage extends StatelessWidget {
         }
       }, builder: (context, state) {
         var cubit = TodayQuoteCubit.get(context);
+        final isRectangle =
+            context.read<HomeCubit>().cardShape == CardShape.rectangle;
 
         return RefreshIndicator(
-          backgroundColor: AppColors.defaultColor,
+          backgroundColor: AppColors.background,
           color: AppColors.gradientColors[1],
           triggerMode: RefreshIndicatorTriggerMode.anywhere,
           onRefresh: () async {
@@ -82,7 +87,7 @@ class TodayQuotePage extends StatelessWidget {
                                   child: FadeInDownAnimation(
                                     child: QuoteCard(
                                       quote: todayQuote,
-                                      height: longRectangle
+                                      height: isRectangle
                                           ? height * 0.68
                                           : height * 0.23,
                                       stackButtons: [

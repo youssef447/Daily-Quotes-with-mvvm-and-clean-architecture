@@ -2,11 +2,9 @@ abstract class AddEditQuoteStates {}
 
 class AddEditQuoteInitialState extends AddEditQuoteStates {}
 
-
-
 class AddMyQuoteLoadingState extends AddEditQuoteStates {}
 
-class AddMyQuoteSuccessState extends AddEditQuoteStates {}
+class AddMyQuotesPageuccessState extends AddEditQuoteStates {}
 
 class AddMyQuoteErrorState extends AddEditQuoteStates {
   final String err;
@@ -15,7 +13,7 @@ class AddMyQuoteErrorState extends AddEditQuoteStates {
 
 class EditMyQuoteLoadingState extends AddEditQuoteStates {}
 
-class EditMyQuoteSuccessState extends AddEditQuoteStates {}
+class EditMyQuotesPageuccessState extends AddEditQuoteStates {}
 
 class EditMyQuoteErrorState extends AddEditQuoteStates {
   final String err;

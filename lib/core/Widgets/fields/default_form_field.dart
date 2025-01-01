@@ -77,23 +77,25 @@ class DefaultFormField extends StatelessWidget {
       maxLines: expand != null ? null : maxLines,
       expands: expand != null ? true : false,
       //style of search text
-      style:  style??GoogleFonts.gabriela(
-        textStyle: Theme.of(context)
-            .textTheme
-            .titleLarge!
-            .copyWith(fontWeight: FontWeight.normal),
-      ),
+      style: style ??
+          GoogleFonts.gabriela(
+            textStyle: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(fontWeight: FontWeight.normal),
+          ),
       //onFieldSubmitted: ((value) => print(contoller.text)),
       focusNode: focusNode,
 
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: hintStyle??GoogleFonts.gabriela(
-          textStyle: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(fontWeight: FontWeight.normal),
-        ),
+        hintStyle: hintStyle ??
+            GoogleFonts.gabriela(
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(fontWeight: FontWeight.normal),
+            ),
         helperText: helperText,
         enabled: enabled ?? true,
         label: label,
@@ -108,7 +110,7 @@ class DefaultFormField extends StatelessWidget {
               .titleSmall!
               .copyWith(fontWeight: FontWeight.normal),
         ),
-        // focusColor: defaultColor,
+        // focusColor: background,
         labelText: labelText,
         helperStyle: helperText != null
             ? GoogleFonts.gabriela(

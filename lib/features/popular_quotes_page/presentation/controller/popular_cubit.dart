@@ -3,7 +3,7 @@ import 'package:dailyquotes/features/home_page/data/repositories/quote_repo.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../core/utils/utils.dart';
+import '../../../../core/utils/globales.dart';
 import '../../../home_page/data/models/quoteModel.dart';
 import 'popular_states.dart';
 

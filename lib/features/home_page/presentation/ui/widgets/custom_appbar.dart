@@ -21,7 +21,7 @@ class CustomAppbar extends StatelessWidget {
         children: [
           Text(
             'Quotez',
-            style: Theme.of(context).textTheme.titleLarge!,
+            style: AppTextStyles.font18MediumAmita,
           ),
           const Spacer(),
           InkWell(
@@ -49,36 +49,50 @@ class CustomAppbar extends StatelessWidget {
                             : 'Do You Wish To Enable Notifications',
                       ));
             },
-            child: Icon(
-              noitificationsEnabled
-                  ? Icons.notifications_active
-                  : Icons.notifications_off,
-              color: noitificationsEnabled
-                  ? AppColors.selectedItemColor
-                  : Colors.white,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: Icon(
+                noitificationsEnabled
+                    ? Icons.notifications_active
+                    : Icons.notifications_off,
+                color: noitificationsEnabled
+                    ? AppColors.selectedItemColor
+                    : Colors.white,
+                size: 30.sp,
+              ),
             ),
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          horizontalSpace(16),
           InkWell(
             overlayColor: WidgetStatePropertyAll<Color>(
               Colors.transparent,
             ),
             onTap: longRectOnTap,
-            child: Icon(
-              Icons.book_online_sharp,
-              color: longColor,
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              child: SvgPicture.asset(
+                ImageAssets.rectangle,
+                color: longColor,
+                width: longColor == AppColors.selectedItemColor ? 24.w : 18.w,
+                height: longColor == AppColors.selectedItemColor ? 24.h : 18.h,
+              ),
             ),
           ),
+          horizontalSpace(16),
           InkWell(
             overlayColor: WidgetStatePropertyAll<Color>(
               Colors.transparent,
             ),
             onTap: squareOnTap,
-            child: Icon(
-              Icons.rectangle,
-              color: squareColor,
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              child: SvgPicture.asset(
+                ImageAssets.card,
+                color: squareColor,
+                width: squareColor == AppColors.selectedItemColor ? 24.w : 18.w,
+                height:
+                    squareColor == AppColors.selectedItemColor ? 24.h : 18.h,
+              ),
             ),
           ),
         ],

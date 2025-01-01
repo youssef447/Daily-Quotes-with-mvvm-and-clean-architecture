@@ -1,6 +1,6 @@
 import 'package:dailyquotes/core/theme/app_colors.dart';
 import 'package:dailyquotes/core/Widgets/dialogs/default_awesome_dialog.dart';
-import 'package:dailyquotes/core/utils/utils.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
 import 'package:dailyquotes/core/constants/assets.dart';
 import 'package:dailyquotes/features/random_quote_page/presentation/controller/random_cubit.dart';
 import 'package:dailyquotes/features/random_quote_page/presentation/controller/random_states.dart';
@@ -11,17 +11,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../../core/Widgets/buttons/default_button.dart';
+import '../../../../../core/enums/card_shape.dart';
+import '../../../../home_page/presentation/controller/home_cubit.dart';
 
-class RandomScreen extends StatefulWidget {
-  final bool longRectangle;
-
-  const RandomScreen({super.key, required this.longRectangle});
+class RandomQuotePage extends StatefulWidget {
+  const RandomQuotePage({super.key});
 
   @override
-  State<RandomScreen> createState() => _RandomScreenState();
+  State<RandomQuotePage> createState() => _RandomQuotePageState();
 }
 
-class _RandomScreenState extends State<RandomScreen>
+class _RandomQuotePageState extends State<RandomQuotePage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -70,6 +70,9 @@ class _RandomScreenState extends State<RandomScreen>
         },
         builder: (context, state) {
           var cubit = RandomCubit.get(context);
+          final isRectangle =
+              context.read<HomeCubit>().cardShape == CardShape.rectangle;
+
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -78,9 +81,7 @@ class _RandomScreenState extends State<RandomScreen>
                   : state is GetRandomSuccessState
                       ? QuoteCard(
                           quote: cubit.quote!,
-                          height: widget.longRectangle
-                              ? height * 0.68
-                              : height * 0.23,
+                          height: isRectangle ? height * 0.68 : height * 0.23,
                           stackButtons: [
                               Positioned(
                                 right: 50,

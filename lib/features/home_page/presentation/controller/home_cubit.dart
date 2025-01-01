@@ -1,21 +1,42 @@
 import 'package:dailyquotes/features/home_page/presentation/controller/home_states.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/injection.dart';
-import '../../../../core/utils/utils.dart';
+import '../../../../core/enums/card_shape.dart';
+import '../../../../core/utils/globales.dart';
 import '../../../../core/services/Network/local/cach_helper.dart';
 import '../../../../core/services/notifications/awesome_notification_service.dart';
+import '../../../my_quotes_page/presentation/ui/pages/my_quotes_page.dart';
+import '../../../popular_quotes_page/presentation/ui/pages/popular_quotes_page.dart';
+import '../../../random_quote_page/presentation/ui/pages/random_quote_page.dart';
+import '../../../today_quote_page/presentation/ui/pages/today_quote_page.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
-  static HomeCubit get(context) => BlocProvider.of(context);
-  late bool longRectangle;
+
+  Widget getCurrentTab() {
+    switch (currentTab) {
+      case QuoteTab.today:
+        return TodayQuotePage();
+      case QuoteTab.popular:
+        return PopularQuotesPage();
+      case QuoteTab.random:
+        return RandomQuotePage();
+      case QuoteTab.MyQuotesPage:
+        return MyQuotesPage();
+    }
+  }
+
+  late CardShape cardShape;
 
   getNotificationShapeCaches() async {
     emit(GetShapeLoadingState());
     try {
-      longRectangle = CacheHelper.getData(key: 'Long') ?? false;
+      cardShape = (CacheHelper.getData(key: 'square') as bool?) ?? false
+          ? CardShape.square
+          : CardShape.rectangle;
 
       emit(GetShapeSuccessState());
     } catch (e) {
@@ -23,9 +44,9 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  changeShape(bool val) async {
-    await CacheHelper.saveData(key: 'Long', value: val);
-    longRectangle = val;
+  changeShape(CardShape val) async {
+    await CacheHelper.saveData(key: 'square', value: val == CardShape.square);
+    cardShape = val;
     emit(ChangeShapeState());
   }
 
@@ -67,7 +88,7 @@ enum QuoteTab {
   today,
   popular,
   random,
-  myquotes,
+  MyQuotesPage,
 }
 
 extension QuoteTabExtension on QuoteTab {
@@ -79,7 +100,7 @@ extension QuoteTabExtension on QuoteTab {
         return 'Popular';
       case QuoteTab.random:
         return 'Random';
-      case QuoteTab.myquotes:
+      case QuoteTab.MyQuotesPage:
         return 'My Quotes';
     }
   }

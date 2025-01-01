@@ -6,7 +6,7 @@ class QuoteLocalService {
 
   final String todayTableName = "TodayQuote";
   final String favTableName = "FavoriteQuotes";
-  final String myQuotesTableName = "MyQuotes";
+  final String MyQuotesPageTableName = "MyQuotesPage";
 
   Database? _database;
 
@@ -20,7 +20,7 @@ class QuoteLocalService {
         join(path, dbName),
         onCreate: (database, version) async {
           await database.execute(
-            "CREATE TABLE $myQuotesTableName(id INTEGER PRIMARY KEY AUTOINCREMENT, q TEXT NOT NULL, a TEXT NOT NULL, fav bool NOT NULL)",
+            "CREATE TABLE $MyQuotesPageTableName(id INTEGER PRIMARY KEY AUTOINCREMENT, q TEXT NOT NULL, a TEXT NOT NULL, fav bool NOT NULL)",
           );
           await database.execute(
             "CREATE TABLE $todayTableName(id INTEGER PRIMARY KEY AUTOINCREMENT, q TEXT NOT NULL, a TEXT NOT NULL, fav bool NOT NULL)",
@@ -99,43 +99,43 @@ class QuoteLocalService {
     );
   }
 
-  Future<void> addMyQuoteService(Map<String, dynamic> query) async {
+  Future<void> addMyQuotesPageervice(Map<String, dynamic> query) async {
     await initializeDB();
 
     await _database!.transaction(
       (txn) => txn.insert(
-        myQuotesTableName,
+        MyQuotesPageTableName,
         query,
       ),
     );
   }
 
-  Future<void> deleteMyQuoteService(int id) async {
+  Future<void> deleteMyQuotesPageervice(int id) async {
     await initializeDB();
 
     await _database!.delete(
-      myQuotesTableName,
+      MyQuotesPageTableName,
       where: "id= ?",
       whereArgs: [id],
     );
   }
 
-  Future<void> updateMyQuoteService(Map<String, dynamic> query) async {
+  Future<void> updateMyQuotesPageervice(Map<String, dynamic> query) async {
     await initializeDB();
 
     await _database!.update(
-      myQuotesTableName,
+      MyQuotesPageTableName,
       query,
       where: 'id= ?',
       whereArgs: [query['id']],
     );
   }
 
-  Future<List<Map>> geMyQuotes() async {
+  Future<List<Map>> geMyQuotesPage() async {
     await initializeDB();
     //database.rawQuery('select* from $table');
     List<Map> list = await _database!.query(
-      myQuotesTableName,
+      MyQuotesPageTableName,
     );
 
     return list;

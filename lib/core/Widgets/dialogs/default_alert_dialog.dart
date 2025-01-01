@@ -2,7 +2,7 @@ import 'package:dailyquotes/core/theme/app_colors.dart';
 import 'package:flutter/Material.dart';
 
 import '../buttons/default_button.dart';
-import '../../utils/utils.dart';
+import '../../utils/globales.dart';
 
 abstract class DefaultAlertDialog {
   static AlertDialog Info({
@@ -34,7 +34,7 @@ abstract class DefaultAlertDialog {
           ),
         ),
       ],
-      backgroundColor: AppColors.defaultColor,
+      backgroundColor: AppColors.background,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -93,7 +93,7 @@ abstract class DefaultAlertDialog {
           ),
         ),
       ],
-      backgroundColor: AppColors.defaultColor,
+      backgroundColor: AppColors.background,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

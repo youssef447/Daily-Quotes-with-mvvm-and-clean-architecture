@@ -22,7 +22,7 @@ abstract class AwesomeDialogUtil {
       title: title,
       dialogType: DialogType.success,
       padding: const EdgeInsets.all(15),
-      dialogBackgroundColor: AppColors.defaultColor,
+      dialogBackgroundColor: AppColors.background,
       btnOkColor: AppColors.selectedItemColor,
       buttonsTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ abstract class AwesomeDialogUtil {
     Function()? btnOkOnPress,
   }) {
     AwesomeDialog(
-      dialogBackgroundColor: AppColors.defaultColor,
+      dialogBackgroundColor: AppColors.background,
       dialogBorderRadius: BorderRadius.circular(30),
       context: context,
       body: msg == null

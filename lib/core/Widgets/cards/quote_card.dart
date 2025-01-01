@@ -111,7 +111,7 @@ class QuoteCard extends StatelessWidget {
                       style: GoogleFonts.xanhMono(
                         textStyle:
                             Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: AppColors.defaultColor,
+                                  color: AppColors.background,
                                 ),
                       ),
                     )
@@ -123,7 +123,7 @@ class QuoteCard extends StatelessWidget {
                             textStyle: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: AppColors.defaultColor),
+                                .copyWith(color: AppColors.background),
                           ),
                         ),
                         Expanded(
@@ -135,13 +135,13 @@ class QuoteCard extends StatelessWidget {
                               textStyle: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(color: AppColors.defaultColor),
+                                  .copyWith(color: AppColors.background),
                             ),
                             hintStyle: GoogleFonts.xanhMono(
                               textStyle: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(color: AppColors.defaultColor),
+                                  .copyWith(color: AppColors.background),
                             ),
                             context: context,
                           ),

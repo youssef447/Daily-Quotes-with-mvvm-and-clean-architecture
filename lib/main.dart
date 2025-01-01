@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:dailyquotes/core/utils/utils.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
 import 'package:dailyquotes/core/theme/themes.dart';
 
 import 'package:dailyquotes/features/home_page/presentation/ui/pages/home_page.dart';

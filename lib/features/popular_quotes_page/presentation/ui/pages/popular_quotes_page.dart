@@ -9,15 +9,16 @@ import '../../../../../core/Widgets/loading/default_loading_indicator.dart';
 import '../../../../../core/Widgets/sliders/default_carousel_slider.dart';
 import '../../../../../core/animations/fade_In_down_animation.dart';
 import '../../../../../core/Widgets/dialogs/default_awesome_dialog.dart';
-import '../../../../../core/utils/utils.dart';
+import '../../../../../core/enums/card_shape.dart';
+import '../../../../../core/utils/globales.dart';
 import 'package:dailyquotes/core/constants/assets.dart';
+import '../../../../home_page/presentation/controller/home_cubit.dart';
 import '../../controller/popular_cubit.dart';
 import '../../controller/popular_states.dart';
 import '../../../../../core/Widgets/cards/quote_card.dart';
 
-class PopularScreen extends StatelessWidget {
-  final bool longRectangle;
-  const PopularScreen({super.key, required this.longRectangle});
+class PopularQuotesPage extends StatelessWidget {
+  const PopularQuotesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +43,11 @@ class PopularScreen extends StatelessWidget {
         },
         builder: (context, state) {
           var cubit = PopularCubit.get(context);
+          final isRectangle =
+              context.read<HomeCubit>().cardShape == CardShape.rectangle;
+
           return RefreshIndicator(
-            backgroundColor: AppColors.defaultColor,
+            backgroundColor: AppColors.background,
             color: AppColors.gradientColors[1],
             triggerMode: RefreshIndicatorTriggerMode.anywhere,
             onRefresh: () async {
@@ -92,13 +96,13 @@ class PopularScreen extends StatelessWidget {
                             height: double.infinity,
                             child: DefaultCarouselSlider(
                               itemCount: cubit.popularQuotes.length,
-                              viewPortFraction: longRectangle ? 0.8 : 0.3,
+                              viewPortFraction: isRectangle ? 0.8 : 0.3,
                               itemBuilder: (BuildContext context, int itemIndex,
                                   int pageViewIndex) {
                                 return FadeInDownAnimation(
                                   child: QuoteCard(
                                     quote: cubit.popularQuotes[itemIndex],
-                                    height: longRectangle
+                                    height: isRectangle
                                         ? height * 0.68
                                         : height * 0.23,
                                     stackButtons: [

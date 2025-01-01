@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
-import '../../utils/utils.dart';
+import '../../utils/globales.dart';
 
 abstract class DefaultBottomSheet {
   static Default(

@@ -1,27 +1,26 @@
-abstract class MyQuotesStates {}
+abstract class MyQuotesPageStates {}
 
-class MyQuotesInitialState extends MyQuotesStates {}
+class MyQuotesPageInitialState extends MyQuotesPageStates {}
 
-class GetMyQuotesLoadingState extends MyQuotesStates {}
+class GetMyQuotesPageLoadingState extends MyQuotesPageStates {}
 
-class GetMyQuotesSuccessState extends MyQuotesStates {}
+class GetMyQuotesPageSuccessState extends MyQuotesPageStates {}
 
-class GetMyQuotesErrorState extends MyQuotesStates {
+class GetMyQuotesPageErrorState extends MyQuotesPageStates {
   final String err;
-  GetMyQuotesErrorState(this.err);
+  GetMyQuotesPageErrorState(this.err);
 }
 
+class RemoveMyQuoteLoadingState extends MyQuotesPageStates {}
 
+class RemoveMyQuotesPageuccessState extends MyQuotesPageStates {}
 
-class RemoveMyQuoteLoadingState extends MyQuotesStates {}
-
-class RemoveMyQuoteSuccessState extends MyQuotesStates {}
-
-class RemoveMyQuoteErrorState extends MyQuotesStates {
+class RemoveMyQuoteErrorState extends MyQuotesPageStates {
   final String err;
   RemoveMyQuoteErrorState(this.err);
 }
-class SharingQuoteErrorState extends MyQuotesStates {
+
+class SharingQuoteErrorState extends MyQuotesPageStates {
   final String err;
   SharingQuoteErrorState(
     this.err,

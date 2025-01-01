@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/animations/fade_In_down_animation.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/Widgets/dialogs/default_awesome_dialog.dart';
-import '../../../../../core/utils/utils.dart';
+import '../../../../../core/utils/globales.dart';
 import '../../controller/add_edit_quote_cubit.dart';
 import '../../../../../core/Widgets/cards/quote_card.dart';
 
@@ -55,7 +55,7 @@ class _AddEditQuoteState extends State<AddEditQuote> {
             title: 'Failed',
           );
         }
-        if (state is AddMyQuoteSuccessState) {
+        if (state is AddMyQuotesPageuccessState) {
           AwesomeDialogUtil.sucess(
             context: context,
             body: 'Quote Added!, refresh to reflect changes',
@@ -63,7 +63,7 @@ class _AddEditQuoteState extends State<AddEditQuote> {
             btnOkOnPress: () => Navigator.of(context).pop(),
           );
         }
-        if (state is EditMyQuoteSuccessState) {
+        if (state is EditMyQuotesPageuccessState) {
           AwesomeDialogUtil.sucess(
             context: context,
             body: 'Quote Upadated!',

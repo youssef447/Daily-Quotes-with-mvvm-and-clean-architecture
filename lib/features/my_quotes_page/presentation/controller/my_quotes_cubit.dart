@@ -5,29 +5,29 @@ import 'package:dailyquotes/features/my_quotes_page/presentation/controller/my_q
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../core/utils/utils.dart';
+import '../../../../core/utils/globales.dart';
 
-class MyQuotesCubit extends Cubit<MyQuotesStates> {
-  MyQuotesCubit() : super(MyQuotesInitialState());
+class MyQuotesPageCubit extends Cubit<MyQuotesPageStates> {
+  MyQuotesPageCubit() : super(MyQuotesPageInitialState());
 
-  static MyQuotesCubit get(context) => BlocProvider.of(context);
-  List<QuoteModel> myQuotes = [];
+  static MyQuotesPageCubit get(context) => BlocProvider.of(context);
+  List<QuoteModel> MyQuotesPage = [];
 
-  getMyQuotes() {
-    emit(GetMyQuotesLoadingState());
-    locators.get<QuoteRepo>().getMyQuotes().then((value) {
-      myQuotes = value;
-      emit(GetMyQuotesSuccessState());
+  getMyQuotesPage() {
+    emit(GetMyQuotesPageLoadingState());
+    locators.get<QuoteRepo>().getMyQuotesPage().then((value) {
+      MyQuotesPage = value;
+      emit(GetMyQuotesPageSuccessState());
     }).catchError((onError) {
-      emit(GetMyQuotesErrorState(onError.toString()));
+      emit(GetMyQuotesPageErrorState(onError.toString()));
     });
   }
 
   removeMyQuote(int id) {
     emit(RemoveMyQuoteLoadingState());
     locators.get<QuoteRepo>().deleteMyQuote(id).then((value) {
-      emit(RemoveMyQuoteSuccessState());
-      getMyQuotes();
+      emit(RemoveMyQuotesPageuccessState());
+      getMyQuotesPage();
     }).catchError((onError) {
       emit(RemoveMyQuoteErrorState(onError.toString()));
     });

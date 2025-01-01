@@ -5,9 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_colors.dart';
 
 ThemeData darkTheme = ThemeData(
-  scaffoldBackgroundColor: AppColors.defaultColor,
-  floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    backgroundColor: AppColors.defaultColor,
+  scaffoldBackgroundColor: AppColors.background,
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: AppColors.background,
   ),
   appBarTheme: AppBarTheme(
     titleTextStyle: TextStyle(
@@ -17,19 +17,19 @@ ThemeData darkTheme = ThemeData(
     ),
     titleSpacing: 20.0.sp,
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: AppColors.defaultColor,
+      statusBarColor: AppColors.background,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: AppColors.defaultColor,
+      systemNavigationBarColor: AppColors.background,
     ),
-    backgroundColor: AppColors.defaultColor,
+    backgroundColor: AppColors.background,
     elevation: 0.0,
     iconTheme: IconThemeData(
       color: Colors.white,
     ),
   ),
-  progressIndicatorTheme: const ProgressIndicatorThemeData(
+  progressIndicatorTheme: ProgressIndicatorThemeData(
     color: Colors.white,
-    refreshBackgroundColor: AppColors.defaultColor,
+    refreshBackgroundColor: AppColors.background,
     linearMinHeight: 5,
   ),
   dividerTheme: const DividerThemeData(thickness: 1.5, color: Colors.white),

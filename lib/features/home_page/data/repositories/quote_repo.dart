@@ -73,22 +73,22 @@ class QuoteRepo {
   }
 
   Future<void> addMyQuote(QuoteModel model) async {
-    await _localService.addMyQuoteService(model.toMap());
+    await _localService.addMyQuotesPageervice(model.toMap());
   }
 
-  Future<List<QuoteModel>> getMyQuotes() async {
-    var list = await _localService.geMyQuotes();
+  Future<List<QuoteModel>> getMyQuotesPage() async {
+    var list = await _localService.geMyQuotesPage();
 
     final res = list.map((e) => QuoteModel.fromLocalJson(e)).toList();
     return res;
   }
 
   Future<void> deleteMyQuote(int id) async {
-    await _localService.deleteMyQuoteService(id);
+    await _localService.deleteMyQuotesPageervice(id);
   }
 
   Future<void> updateMyQuote(QuoteModel model) async {
-    await _localService.updateMyQuoteService(model.toMap());
+    await _localService.updateMyQuotesPageervice(model.toMap());
   }
 
 //-------- Not Used Yet ----------

@@ -16,7 +16,7 @@ class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
     locators
         .get<QuoteRepo>()
         .addMyQuote(model)
-        .then((value) => emit(AddMyQuoteSuccessState()))
+        .then((value) => emit(AddMyQuotesPageuccessState()))
         .catchError((onError) {
       emit(AddMyQuoteErrorState(onError.toString()));
     });
@@ -25,7 +25,7 @@ class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
   editMyQuote(QuoteModel quote) {
     emit(EditMyQuoteLoadingState());
     locators.get<QuoteRepo>().updateMyQuote(quote).then((value) {
-      emit(EditMyQuoteSuccessState());
+      emit(EditMyQuotesPageuccessState());
     }).catchError((onError) {
       emit(EditMyQuoteErrorState(onError.toString()));
     });

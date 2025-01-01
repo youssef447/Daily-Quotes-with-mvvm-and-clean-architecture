@@ -11,27 +11,40 @@ class CustomTabs extends StatelessWidget {
       return current is ChangeTabState;
     }, builder: (context, value) {
       final cubit = BlocProvider.of<HomeCubit>(context);
-      return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(QuoteTab.values.length, (index) {
-            final bool selected = cubit.currentTab == QuoteTab.values[index];
-            return InkWell(
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+            children: List.generate(QuoteTab.values.length, (index) {
+          final bool selected = cubit.currentTab == QuoteTab.values[index];
+          return Padding(
+            padding: EdgeInsetsDirectional.only(
+                end: index == QuoteTab.values.length - 1 ? 0 : 20.w),
+            child: InkWell(
               overlayColor: WidgetStatePropertyAll<Color>(
                 Colors.transparent,
               ),
               onTap: () {
                 cubit.changeTab(QuoteTab.values[index]);
               },
-              child: Text(
-                QuoteTab.values[index].getName,
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: selected
-                          ? AppColors.selectedItemColor
-                          : AppColors.unselectedItemColor,
-                    ),
+              child: AnimatedDefaultTextStyle(
+                curve: Curves.decelerate,
+                style: AppTextStyles.font14MediumABeeZee.copyWith(
+                  color: selected
+                      ? AppColors.selectedItemColor
+                      : AppColors.unselectedItemColor,
+                  fontWeight: selected
+                      ? AppFontWeights.extraBold
+                      : AppFontWeights.medium,
+                ),
+                duration: const Duration(milliseconds: 300),
+                child: Text(
+                  QuoteTab.values[index].getName,
+                ),
               ),
-            );
-          }));
+            ),
+          );
+        })),
+      );
     });
   }
 }

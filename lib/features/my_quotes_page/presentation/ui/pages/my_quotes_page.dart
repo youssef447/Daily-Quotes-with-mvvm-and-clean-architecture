@@ -11,22 +11,22 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../../core/Widgets/sliders/default_carousel_slider.dart';
 import '../../../../../core/animations/fade_In_down_animation.dart';
+import '../../../../../core/enums/card_shape.dart';
 import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/utils/utils.dart';
+import '../../../../../core/utils/globales.dart';
 import 'package:dailyquotes/core/constants/assets.dart';
 import '../../../../add_edit_quote/presentation/ui/pages/add_edit_quote_page.dart';
 import '../../../../../core/Widgets/cards/quote_card.dart';
+import '../../../../home_page/presentation/controller/home_cubit.dart';
 
-class MyQuotes extends StatefulWidget {
-  final bool longRectangle;
-
-  const MyQuotes({super.key, required this.longRectangle});
+class MyQuotesPage extends StatefulWidget {
+  const MyQuotesPage({super.key});
 
   @override
-  State<MyQuotes> createState() => _MyQuotesState();
+  State<MyQuotesPage> createState() => _MyQuotesPageState();
 }
 
-class _MyQuotesState extends State<MyQuotes>
+class _MyQuotesPageState extends State<MyQuotesPage>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   @override
@@ -48,19 +48,22 @@ class _MyQuotesState extends State<MyQuotes>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MyQuotesCubit()..getMyQuotes(),
-      child: BlocConsumer<MyQuotesCubit, MyQuotesStates>(
+      create: (context) => MyQuotesPageCubit()..getMyQuotesPage(),
+      child: BlocConsumer<MyQuotesPageCubit, MyQuotesPageStates>(
         listener: (context, state) {
-          if (state is RemoveMyQuoteSuccessState) {
+          if (state is RemoveMyQuotesPageuccessState) {
             Navigator.of(context).pop();
           }
         },
         builder: (context, state) {
-          var cubit = MyQuotesCubit.get(context);
+          var cubit = MyQuotesPageCubit.get(context);
+          final isRectangle =
+              context.read<HomeCubit>().cardShape == CardShape.rectangle;
+
           return Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: cubit.myQuotes.isNotEmpty
+            floatingActionButton: cubit.MyQuotesPage.isNotEmpty
                 ? FloatingActionButton(
                     shape: const CircleBorder(),
                     onPressed: () {
@@ -77,13 +80,13 @@ class _MyQuotesState extends State<MyQuotes>
                   )
                 : null,
             body: RefreshIndicator(
-              backgroundColor: AppColors.defaultColor,
+              backgroundColor: AppColors.background,
               color: AppColors.gradientColors[1],
               triggerMode: RefreshIndicatorTriggerMode.anywhere,
               onRefresh: () async {
-                return await cubit.getMyQuotes();
+                return await cubit.getMyQuotesPage();
               },
-              child: cubit.myQuotes.isEmpty
+              child: cubit.MyQuotesPage.isEmpty
                   ? CustomScrollView(
                       slivers: [
                         SliverFillRemaining(
@@ -123,8 +126,8 @@ class _MyQuotesState extends State<MyQuotes>
                   : SizedBox(
                       height: double.infinity,
                       child: DefaultCarouselSlider(
-                        itemCount: cubit.myQuotes.length,
-                        viewPortFraction: widget.longRectangle ? 0.8 : 0.3,
+                        itemCount: cubit.MyQuotesPage.length,
+                        viewPortFraction: isRectangle ? 0.8 : 0.3,
                         itemBuilder: (BuildContext context, int itemIndex,
                             int pageViewIndex) {
                           return FadeInDownAnimation(
@@ -133,8 +136,8 @@ class _MyQuotesState extends State<MyQuotes>
                               alignment: Alignment.topRight,
                               children: [
                                 QuoteCard(
-                                  quote: cubit.myQuotes[itemIndex],
-                                  height: widget.longRectangle
+                                  quote: cubit.MyQuotesPage[itemIndex],
+                                  height: isRectangle
                                       ? height * 0.68
                                       : height * 0.23,
                                   stackButtons: [
@@ -147,7 +150,7 @@ class _MyQuotesState extends State<MyQuotes>
                                         ),
                                         onTap: () async {
                                           await cubit.shareQuote(
-                                              cubit.myQuotes[itemIndex]);
+                                              cubit.MyQuotesPage[itemIndex]);
                                         },
                                         child: CircleAvatar(
                                           backgroundColor:
@@ -174,8 +177,8 @@ class _MyQuotesState extends State<MyQuotes>
                                                   controller,
                                               child: AddEditQuote(
                                                 edit: true,
-                                                quote:
-                                                    cubit.myQuotes[itemIndex],
+                                                quote: cubit
+                                                    .MyQuotesPage[itemIndex],
                                               ));
                                         },
                                         child: CircleAvatar(
@@ -216,7 +219,8 @@ class _MyQuotesState extends State<MyQuotes>
                                                   Navigator.of(context).pop(),
                                               onYesClicked: () {
                                                 cubit.removeMyQuote(cubit
-                                                    .myQuotes[itemIndex].id!);
+                                                    .MyQuotesPage[itemIndex]
+                                                    .id!);
                                               }),
                                         ),
                                       );

@@ -1,20 +1,23 @@
 import 'package:dailyquotes/core/theme/app_colors.dart';
 import 'package:dailyquotes/core/Widgets/dialogs/default_alert_dialog.dart';
-import 'package:dailyquotes/core/utils/utils.dart';
+import 'package:dailyquotes/core/theme/app_text_styles.dart';
+import 'package:dailyquotes/core/theme/text/app_font_weights.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
 
 import 'package:dailyquotes/features/home_page/presentation/controller/home_cubit.dart';
 import 'package:dailyquotes/features/home_page/presentation/controller/home_states.dart';
 import 'package:dailyquotes/core/Widgets/error_page.dart';
-import 'package:dailyquotes/features/my_quotes_page/presentation/ui/pages/my_quotes_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/Widgets/dialogs/default_awesome_dialog.dart';
 import '../../../../../core/Widgets/loading/default_loading_indicator.dart';
 
-import '../../../../popular_quotes_page/presentation/ui/pages/popular_quotes_page.dart';
-import '../../../../random_quote_page/presentation/ui/pages/random_quote_page.dart';
-import '../../../../today_quote_page/presentation/ui/pages/today_quote_page.dart';
+import '../../../../../core/constants/assets.dart';
+import '../../../../../core/enums/card_shape.dart';
+import '../../../../../core/helpers/spacing_helper.dart';
 
 part '../widgets/customTabs.dart';
 part '../widgets/custom_appbar.dart';
@@ -50,48 +53,44 @@ class HomePage extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              var cubit = HomeCubit.get(context);
-              final List<Widget> tabs = [
-                TodayQuotePage(longRectangle: cubit.longRectangle),
-                PopularScreen(longRectangle: cubit.longRectangle),
-                RandomScreen(longRectangle: cubit.longRectangle),
-                MyQuotes(longRectangle: cubit.longRectangle),
-              ];
+              var cubit = context.read<HomeCubit>();
 
-              return state is GetShapeLoadingState
-                  ? const DefaultLoadingIndicator()
-                  : state is GetShapeErrorState
-                      ? ErrorPage(
-                          errMsg: state.err,
-                          retry: () async {
-                            await cubit.getNotificationShapeCaches();
-                          })
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Column(
-                            children: [
-                              CustomAppbar(
-                                cubit: cubit,
-                                longRectOnTap: () {
-                                  cubit.changeShape(true);
-                                },
-                                longColor: cubit.longRectangle
-                                    ? AppColors.selectedItemColor
-                                    : Colors.white,
-                                squareOnTap: () {
-                                  cubit.changeShape(false);
-                                },
-                                squareColor: cubit.longRectangle
-                                    ? Colors.white
-                                    : AppColors.selectedItemColor,
-                              ),
-                              const CustomTabs(),
-                              Expanded(
-                                child: tabs[cubit.currentTab.index],
-                              ),
-                            ],
-                          ),
-                        );
+              if (state is GetShapeLoadingState) {
+                return const DefaultLoadingIndicator();
+              }
+
+              if (state is GetShapeErrorState) {
+                return ErrorPage(
+                    errMsg: state.err,
+                    retry: () async {
+                      await cubit.getNotificationShapeCaches();
+                    });
+              }
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  children: [
+                    CustomAppbar(
+                        cubit: cubit,
+                        longRectOnTap: () {
+                          cubit.changeShape(CardShape.rectangle);
+                        },
+                        longColor: cubit.cardShape == CardShape.rectangle
+                            ? AppColors.selectedItemColor
+                            : Colors.white,
+                        squareOnTap: () {
+                          cubit.changeShape(CardShape.square);
+                        },
+                        squareColor: cubit.cardShape == CardShape.square
+                            ? AppColors.selectedItemColor
+                            : Colors.white),
+                    const CustomTabs(),
+                    Expanded(
+                      child: cubit.getCurrentTab(),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ),
