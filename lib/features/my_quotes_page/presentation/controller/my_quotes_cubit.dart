@@ -1,6 +1,6 @@
 import 'package:dailyquotes/core/di/injection.dart';
-import 'package:dailyquotes/data/Models/quoteModel.dart';
-import 'package:dailyquotes/data/repositories/quote_repo.dart';
+import 'package:dailyquotes/features/home_page/data/models/quoteModel.dart';
+import 'package:dailyquotes/features/home_page/data/repositories/quote_repo.dart';
 import 'package:dailyquotes/features/my_quotes_page/presentation/controller/my_quotes_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
@@ -15,7 +15,7 @@ class MyQuotesCubit extends Cubit<MyQuotesStates> {
 
   getMyQuotes() {
     emit(GetMyQuotesLoadingState());
-    locators.get<QuoteRepoImp>().getMyQuotes().then((value) {
+    locators.get<QuoteRepo>().getMyQuotes().then((value) {
       myQuotes = value;
       emit(GetMyQuotesSuccessState());
     }).catchError((onError) {
@@ -25,7 +25,7 @@ class MyQuotesCubit extends Cubit<MyQuotesStates> {
 
   removeMyQuote(int id) {
     emit(RemoveMyQuoteLoadingState());
-    locators.get<QuoteRepoImp>().deleteMyQuote(id).then((value) {
+    locators.get<QuoteRepo>().deleteMyQuote(id).then((value) {
       emit(RemoveMyQuoteSuccessState());
       getMyQuotes();
     }).catchError((onError) {

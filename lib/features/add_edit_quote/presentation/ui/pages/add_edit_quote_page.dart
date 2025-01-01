@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:dailyquotes/core/Widgets/dialogs/default_alert_dialog.dart';
-import 'package:dailyquotes/data/Models/quoteModel.dart';
+import 'package:dailyquotes/features/home_page/data/models/quoteModel.dart';
 import 'package:dailyquotes/features/add_edit_quote/presentation/controller/add_edit_quote_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -61,11 +61,13 @@ class TodayQuotePage extends StatelessWidget {
                   ? CustomScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
                       slivers: [
-                        ErrorPage(
-                            errMsg: state.err,
-                            retry: () async {
-                              await cubit.getTodayQuote();
-                            }),
+                        SliverToBoxAdapter(
+                          child: ErrorPage(
+                              errMsg: state.err,
+                              retry: () async {
+                                await cubit.getTodayQuote();
+                              }),
+                        ),
                       ],
                     )
                   : LayoutBuilder(

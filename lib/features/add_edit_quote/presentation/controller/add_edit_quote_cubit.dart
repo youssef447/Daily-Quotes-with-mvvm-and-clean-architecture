@@ -1,9 +1,9 @@
-import 'package:dailyquotes/data/Models/quoteModel.dart';
+import 'package:dailyquotes/features/home_page/data/models/quoteModel.dart';
 import 'package:dailyquotes/features/add_edit_quote/presentation/controller/add_edit_quote_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/injection.dart';
-import 'package:dailyquotes/data/repositories/quote_repo.dart';
+import 'package:dailyquotes/features/home_page/data/repositories/quote_repo.dart';
 
 class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
   AddEditQuoteCubit() : super(AddEditQuoteInitialState());
@@ -14,7 +14,7 @@ class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
     emit(AddMyQuoteLoadingState());
     QuoteModel model = QuoteModel(quote: quote, author: author);
     locators
-        .get<QuoteRepoImp>()
+        .get<QuoteRepo>()
         .addMyQuote(model)
         .then((value) => emit(AddMyQuoteSuccessState()))
         .catchError((onError) {
@@ -24,7 +24,7 @@ class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
 
   editMyQuote(QuoteModel quote) {
     emit(EditMyQuoteLoadingState());
-    locators.get<QuoteRepoImp>().updateMyQuote(quote).then((value) {
+    locators.get<QuoteRepo>().updateMyQuote(quote).then((value) {
       emit(EditMyQuoteSuccessState());
     }).catchError((onError) {
       emit(EditMyQuoteErrorState(onError.toString()));

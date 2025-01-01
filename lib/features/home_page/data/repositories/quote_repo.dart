@@ -1,13 +1,13 @@
-import 'package:dailyquotes/data/Models/quoteModel.dart';
+import 'package:dailyquotes/features/home_page/data/models/quoteModel.dart';
 
-import '../../core/services/Network/local/cach_helper.dart';
+import '../../../../core/services/Network/local/cach_helper.dart';
 import '../data_sources/quote_local_service.dart';
 import '../data_sources/quote_remote_service.dart';
 
-class QuoteRepoImp {
+class QuoteRepo {
   late final QuoteRemoteService _remoteService;
   late final QuoteLocalService _localService;
-  QuoteRepoImp({
+  QuoteRepo({
     required QuoteRemoteService remoteService,
     required QuoteLocalService localService,
   }) {

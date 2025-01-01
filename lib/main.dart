@@ -21,9 +21,10 @@ void main() async {
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
 
   await initUiConfigs(binding);
+
   await initNetworkServices();
-  await initNotifications();
   configurationDependencies();
+  await initNotifications();
 
   runApp(const MyApp());
   FlutterNativeSplash.remove();

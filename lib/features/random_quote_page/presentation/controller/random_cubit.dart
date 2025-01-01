@@ -1,6 +1,6 @@
 import 'package:dailyquotes/core/di/injection.dart';
-import 'package:dailyquotes/data/Models/quoteModel.dart';
-import 'package:dailyquotes/data/repositories/quote_repo.dart';
+import 'package:dailyquotes/features/home_page/data/models/quoteModel.dart';
+import 'package:dailyquotes/features/home_page/data/repositories/quote_repo.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
@@ -16,7 +16,7 @@ class RandomCubit extends Cubit<RandomStates> {
 
   getRandomQuote() {
     emit(GetRandomLoadingState());
-    locators.get<QuoteRepoImp>().getRandomQuote().then((value) {
+    locators.get<QuoteRepo>().getRandomQuote().then((value) {
       quote = value;
       emit(GetRandomSuccessState());
     }).catchError((onError) {
@@ -27,7 +27,7 @@ class RandomCubit extends Cubit<RandomStates> {
   addToPopular() {
     emit(AddToPopularLoadingState());
     quote!.fav = true;
-    locators.get<QuoteRepoImp>().addFavQuote(quote!).then((value) {
+    locators.get<QuoteRepo>().addFavQuote(quote!).then((value) {
       emit(AddToPopularSuccessState());
     }).catchError((onError) {
       emit(AddToPopularErrorState(onError.toString()));
@@ -37,7 +37,7 @@ class RandomCubit extends Cubit<RandomStates> {
   removeFromPopular() {
     emit(RemoveFromPopularLoadingState());
     quote!.fav = false;
-    locators.get<QuoteRepoImp>().removeFromFav(quote!.quote).then((value) {
+    locators.get<QuoteRepo>().removeFromFav(quote!.quote).then((value) {
       emit(RemoveFromPopularSuccessState());
     }).catchError((error) {
       emit(RemoveFromPopularErrorState(onError.toString()));

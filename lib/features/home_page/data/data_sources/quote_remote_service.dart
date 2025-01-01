@@ -1,7 +1,7 @@
 import 'package:dailyquotes/core/constants/api_constants.dart';
 import 'package:dio/dio.dart';
 
-import '../../core/services/Network/remote/dio_helper.dart';
+import '../../../../core/services/Network/remote/dio_helper.dart';
 
 class QuoteRemoteService {
   Future<Response<dynamic>> reqTodayQuoteService() async {

@@ -85,34 +85,9 @@ class HomePage extends StatelessWidget {
                                     ? Colors.white
                                     : AppColors.selectedItemColor,
                               ),
-                              CustomTabs(
-                                todayOnTap: () {
-                                  cubit.changeTab(0);
-                                },
-                                todayColor: cubit.currentTabIndex == 0
-                                    ? AppColors.selectedItemColor
-                                    : AppColors.unselectedItemColor,
-                                popularOnTap: () {
-                                  cubit.changeTab(1);
-                                },
-                                popularColor: cubit.currentTabIndex == 1
-                                    ? AppColors.selectedItemColor
-                                    : AppColors.unselectedItemColor,
-                                randomOnTap: () {
-                                  cubit.changeTab(2);
-                                },
-                                randomColor: cubit.currentTabIndex == 2
-                                    ? AppColors.selectedItemColor
-                                    : AppColors.unselectedItemColor,
-                                myQuotesOnTap: () {
-                                  cubit.changeTab(3);
-                                },
-                                myQuotesColor: cubit.currentTabIndex == 3
-                                    ? AppColors.selectedItemColor
-                                    : AppColors.unselectedItemColor,
-                              ),
+                              const CustomTabs(),
                               Expanded(
-                                child: tabs[cubit.currentTabIndex],
+                                child: tabs[cubit.currentTab.index],
                               ),
                             ],
                           ),

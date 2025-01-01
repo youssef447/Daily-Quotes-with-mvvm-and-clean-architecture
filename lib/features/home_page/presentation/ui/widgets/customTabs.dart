@@ -1,68 +1,37 @@
 part of '../pages/home_page.dart';
 
 class CustomTabs extends StatelessWidget {
-  final Function() todayOnTap, popularOnTap, randomOnTap, myQuotesOnTap;
-  final Color todayColor, popularColor, randomColor, myQuotesColor;
   const CustomTabs({
     super.key,
-    required this.todayOnTap,
-    required this.popularOnTap,
-    required this.randomOnTap,
-    required this.todayColor,
-    required this.popularColor,
-    required this.randomColor,
-    required this.myQuotesColor,
-    required this.myQuotesOnTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        InkWell(
-          overlayColor: WidgetStatePropertyAll<Color>(
-            Colors.transparent,
-          ),
-          onTap: todayOnTap,
-          child: Text(
-            'Today',
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: todayColor,
-                ),
-          ),
-        ),
-        InkWell(
-          overlayColor: WidgetStatePropertyAll<Color>(Colors.transparent),
-          onTap: popularOnTap,
-          child: Text(
-            'Popular',
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: popularColor,
-                ),
-          ),
-        ),
-        InkWell(
-          overlayColor: WidgetStatePropertyAll<Color>(Colors.transparent),
-          onTap: randomOnTap,
-          child: Text(
-            'Random',
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: randomColor,
-                ),
-          ),
-        ),
-        InkWell(
-          overlayColor: WidgetStatePropertyAll<Color>(Colors.transparent),
-          onTap: myQuotesOnTap,
-          child: Text(
-            'My Quotes',
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: myQuotesColor,
-                ),
-          ),
-        ),
-      ],
-    );
+    return BlocBuilder<HomeCubit, HomeStates>(buildWhen: (previous, current) {
+      return current is ChangeTabState;
+    }, builder: (context, value) {
+      final cubit = BlocProvider.of<HomeCubit>(context);
+      return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(QuoteTab.values.length, (index) {
+            final bool selected = cubit.currentTab == QuoteTab.values[index];
+            return InkWell(
+              overlayColor: WidgetStatePropertyAll<Color>(
+                Colors.transparent,
+              ),
+              onTap: () {
+                cubit.changeTab(QuoteTab.values[index]);
+              },
+              child: Text(
+                QuoteTab.values[index].getName,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: selected
+                          ? AppColors.selectedItemColor
+                          : AppColors.unselectedItemColor,
+                    ),
+              ),
+            );
+          }));
+    });
   }
 }

@@ -1,4 +1,4 @@
-import 'package:dailyquotes/data/Models/quoteModel.dart';
+import 'package:dailyquotes/features/home_page/data/models/quoteModel.dart';
 
 //final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 late bool noitificationsEnabled;

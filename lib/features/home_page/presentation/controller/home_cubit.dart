@@ -29,10 +29,10 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(ChangeShapeState());
   }
 
-  int currentTabIndex = 0;
+  QuoteTab currentTab = QuoteTab.today;
 
-  changeTab(int index) {
-    currentTabIndex = index;
+  changeTab(QuoteTab tab) {
+    currentTab = tab;
     emit(ChangeTabState());
   }
 
@@ -59,6 +59,28 @@ class HomeCubit extends Cubit<HomeStates> {
       ).catchError((onError) {
         emit(ChangeNotificationErrorState(onError.toString()));
       });
+    }
+  }
+}
+
+enum QuoteTab {
+  today,
+  popular,
+  random,
+  myquotes,
+}
+
+extension QuoteTabExtension on QuoteTab {
+  String get getName {
+    switch (this) {
+      case QuoteTab.today:
+        return 'Today';
+      case QuoteTab.popular:
+        return 'Popular';
+      case QuoteTab.random:
+        return 'Random';
+      case QuoteTab.myquotes:
+        return 'My Quotes';
     }
   }
 }
