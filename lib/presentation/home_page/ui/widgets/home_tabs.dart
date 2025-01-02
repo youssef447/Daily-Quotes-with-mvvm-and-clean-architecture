@@ -18,7 +18,7 @@ class HomeTabs extends StatelessWidget {
           final bool selected = cubit.currentTab == QuoteTab.values[index];
           return Padding(
             padding: EdgeInsetsDirectional.only(
-                end: index == QuoteTab.values.length - 1 ? 0 : 20.w),
+                end: index == QuoteTab.values.length - 1 ? 0 : 30.w),
             child: InkWell(
               overlayColor: WidgetStatePropertyAll<Color>(
                 Colors.transparent,

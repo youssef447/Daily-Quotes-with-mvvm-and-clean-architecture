@@ -1,8 +1,8 @@
 import 'package:dailyquotes/core/di/injection.dart';
-import 'package:dailyquotes/domain/usecases/add_quote_to_popular.dart';
+import 'package:dailyquotes/domain/usecases/add_quote_to_popular_usecase.dart';
 import 'package:dailyquotes/domain/usecases/remove_quote_from_popular_usecase.dart';
 
-import 'package:dailyquotes/domain/usecases/today_quote_usecase.dart';
+import 'package:dailyquotes/domain/usecases/get_today_quote_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -12,7 +12,8 @@ import '../../../domain/entity/quote_entity.dart';
 import 'today_quotes_states.dart';
 
 class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
-  TodayQuoteUsecase todayQuoteUsecase = locators.get<TodayQuoteUsecase>();
+  GetTodayQuoteUsecase getTodayQuoteUsecase =
+      locators.get<GetTodayQuoteUsecase>();
   AddQuoteToPopularUsecase addQuoteToPopularUsecase =
       locators.get<AddQuoteToPopularUsecase>();
   RemoveQuoteFromPopularUsecase removeQuoteFromPopularUsecase =
@@ -23,7 +24,7 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
   getTodayQuote() async {
     emit(GetTodayQuoteLoadingState());
 
-    final res = await todayQuoteUsecase.getTodayQuote();
+    final res = await getTodayQuoteUsecase.getTodayQuote();
     if (res.isSuccess) {
       todayQuote = res.data!;
       emit(GetTodayQuoteSuccessState());

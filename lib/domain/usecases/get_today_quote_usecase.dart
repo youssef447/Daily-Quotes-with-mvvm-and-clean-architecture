@@ -4,10 +4,10 @@ import '../../data/models/quote_model.dart';
 import '../../data/repositories/quote_repo.dart';
 import '../entity/quote_entity.dart';
 
-class TodayQuoteUsecase {
+class GetTodayQuoteUsecase {
   final QuoteRepo _quoteRepo;
 
-  TodayQuoteUsecase(this._quoteRepo);
+  GetTodayQuoteUsecase(this._quoteRepo);
 
   Future<ApiResult<QuoteEntity>> getTodayQuote() async {
     //Not Cached Yet
@@ -34,6 +34,17 @@ class TodayQuoteUsecase {
 
     //same day but now is after 8 am (cache is range 12 am To 7:59 am as its the same day)
     //or not same day or only 1 day and cach was before 8 am (example cache was range 12 am to 7 am previous day)
+
+    if ((DateTime.now().difference(cachedDate).inDays == 0 &&
+        DateTime.now().hour > 8 &&
+        cachedDate.hour >= 8)) {
+      final res = await _quoteRepo.getCachedTodayQuote();
+      if (res.isSuccess) {
+        return ApiResult.success(data: res.data!);
+      } else {
+        return ApiResult.error(res.errorMessage!);
+      }
+    }
     return _requestTodayQuote();
   }
 
