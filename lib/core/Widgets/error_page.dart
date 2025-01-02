@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ErrorPage extends StatelessWidget {
   final String errMsg;
@@ -12,7 +13,7 @@ class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

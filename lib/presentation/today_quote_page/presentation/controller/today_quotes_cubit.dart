@@ -17,8 +17,8 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
       locators.get<AddQuoteToPopularUsecase>();
   RemoveQuoteFromPopularUsecase removeQuoteFromPopularUsecase =
       locators.get<RemoveQuoteFromPopularUsecase>();
+
   TodayQuoteCubit() : super(TodayInitialState());
-  static TodayQuoteCubit get(context) => BlocProvider.of(context);
   late QuoteEntity todayQuote;
   getTodayQuote() async {
     emit(GetTodayQuoteLoadingState());
@@ -53,7 +53,9 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
     );
 
     final res = await removeQuoteFromPopularUsecase.removeQuoteFromPopular(
-        todayQuote, true);
+      todayQuote,
+      true,
+    );
     if (res.isSuccess) {
       todayQuote = res.data!;
       emit(RemoveFromPopularSuccessState());
