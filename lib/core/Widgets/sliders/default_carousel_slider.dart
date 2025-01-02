@@ -3,7 +3,7 @@ import 'package:dailyquotes/core/extensions/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../presentation/home_page/presentation/controller/home_cubit.dart';
+import '../../../presentation/home_page/controller/home_cubit.dart';
 import '../../enums/card_shape.dart';
 
 class DefaultCarouselSlider extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 import '../../../domain/entity/quote_entity.dart';
-import '../../../presentation/home_page/presentation/controller/home_cubit.dart';
+import '../../../presentation/home_page/controller/home_cubit.dart';
 import '../../enums/card_shape.dart';
 import '../fields/default_form_field.dart';
 import '../../theme/app_colors.dart';

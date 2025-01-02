@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dailyquotes/core/utils/globales.dart';
 import 'package:dailyquotes/core/theme/themes.dart';
 
-import 'package:dailyquotes/presentation/home_page/presentation/ui/pages/home_page.dart';
+import 'package:dailyquotes/presentation/home_page/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,7 @@ import 'core/utils/blocObserver.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'core/services/notifications/awesome_notification_service.dart';
-import 'presentation/home_page/presentation/controller/home_cubit.dart';
+import 'presentation/home_page/controller/home_cubit.dart';
 
 void main() async {
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
