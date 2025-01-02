@@ -1,5 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../theme/app_colors.dart';
 
@@ -12,12 +14,12 @@ abstract class AwesomeDialogUtil {
   }) {
     AwesomeDialog(
       context: context,
-      dialogBorderRadius: BorderRadius.circular(30),
+      dialogBorderRadius: BorderRadius.circular(30.r),
       body: Text(
         body,
-        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-              color: AppColors.selectedItemColor,
-            ),
+        style: AppTextStyles.font14MediumABeeZee.copyWith(
+          color: AppColors.selectedItemColor,
+        ),
       ),
       title: title,
       dialogType: DialogType.success,
@@ -40,7 +42,7 @@ abstract class AwesomeDialogUtil {
   }) {
     AwesomeDialog(
       dialogBackgroundColor: AppColors.background,
-      dialogBorderRadius: BorderRadius.circular(30),
+      dialogBorderRadius: BorderRadius.circular(30.r),
       context: context,
       body: msg == null
           ? Text(
@@ -63,7 +65,7 @@ abstract class AwesomeDialogUtil {
       buttonsTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
           ),
-      padding: const EdgeInsets.all(15),
+      padding: EdgeInsets.all(15.h),
       btnOkOnPress: btnOkOnPress ?? () {},
     ).show();
   }

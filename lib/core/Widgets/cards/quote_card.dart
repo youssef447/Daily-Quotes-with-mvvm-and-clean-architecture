@@ -1,58 +1,71 @@
+import 'package:dailyquotes/core/extensions/context_extension.dart';
+import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
-import '../../../features/home_page/data/models/quoteModel.dart';
+import '../../../domain/entity/quote_entity.dart';
+import '../../../presentation/home_page/presentation/controller/home_cubit.dart';
+import '../../enums/card_shape.dart';
 import '../fields/default_form_field.dart';
 import '../../theme/app_colors.dart';
 
 class QuoteCard extends StatelessWidget {
-  final QuoteModel? quote;
-  final double height;
+  final QuoteEntity? quote;
+  final bool isForm;
+
   final List<Widget> stackButtons;
   final TextEditingController? authorController;
   final TextEditingController? quoteController;
 
-  const QuoteCard({
-    super.key,
-    this.quote,
-    required this.height,
-    required this.stackButtons,
-    this.authorController,
-    this.quoteController,
-  });
+  const QuoteCard(
+      {super.key,
+      this.quote,
+      required this.stackButtons,
+      this.authorController,
+      this.quoteController,
+      this.isForm = false});
 
   @override
   Widget build(BuildContext context) {
+    final isRectangle =
+        context.read<HomeCubit>().cardShape == CardShape.rectangle || isForm;
+    final height = isRectangle ? context.height * 0.6 : context.height * 0.3;
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.bottomRight,
       children: [
         Transform.rotate(
-          angle: -math.pi * 0.02, // 45 degrees in radians
-
-          child: Container(
+          angle: isRectangle
+              ? -math.pi * 0.02 // 45 degrees in radians
+              : -math.pi * 0.04,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
             width: double.infinity,
+            clipBehavior: Clip.none,
             height: height,
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.h),
             decoration: BoxDecoration(
               color: AppColors.selectedItemColor.withOpacity(0.6),
-              borderRadius: const BorderRadius.all(
+              borderRadius: BorderRadius.all(
                 Radius.circular(
-                  17,
+                  17.r,
                 ),
               ),
             ),
           ),
         ),
-        Container(
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
           width: double.infinity,
           height: height,
-          padding: const EdgeInsets.all(8),
-          decoration: const BoxDecoration(
+          clipBehavior: Clip.none,
+          padding: EdgeInsets.all(8.h),
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.all(
               Radius.circular(
-                18,
+                17.r,
               ),
             ),
             gradient: LinearGradient(
@@ -84,9 +97,7 @@ class QuoteCard extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   quote!.quote,
                                   style: GoogleFonts.gabriela(
-                                    textStyle: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
+                                    textStyle: AppTextStyles.font22MediumABeeZee
                                         .copyWith(
                                             fontWeight: FontWeight.normal),
                                   ),

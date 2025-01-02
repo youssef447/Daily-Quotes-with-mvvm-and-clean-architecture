@@ -2,9 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:dailyquotes/core/utils/globales.dart';
 import 'package:dailyquotes/core/theme/themes.dart';
 
-import 'package:dailyquotes/features/home_page/presentation/ui/pages/home_page.dart';
+import 'package:dailyquotes/presentation/home_page/presentation/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/di/injection.dart';
@@ -16,6 +17,7 @@ import 'core/utils/blocObserver.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'core/services/notifications/awesome_notification_service.dart';
+import 'presentation/home_page/presentation/controller/home_cubit.dart';
 
 void main() async {
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
@@ -35,19 +37,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height - AppBar().preferredSize.height;
-    width = MediaQuery.of(context).size.width;
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         /* fontSizeResolver: (fontSize, instance) =>
           FontSizeResolvers.height(fontSize, instance), */
         builder: (context, child) {
-          return MaterialApp(
-            title: 'Daily Quotes',
-            //navigatorKey: navigatorKey,
-            debugShowCheckedModeBanner: false,
-            theme: darkTheme,
-            home: const HomePage(),
+          return BlocProvider(
+            create: (context) => HomeCubit()..getNotificationShapeCaches(),
+            child: MaterialApp(
+              title: 'Daily Quotes',
+              debugShowCheckedModeBanner: false,
+              theme: darkTheme,
+              home: const HomePage(),
+            ),
           );
         });
   }
@@ -81,6 +83,9 @@ Future<void> initUiConfigs(WidgetsBinding binding) async {
   FlutterNativeSplash.preserve(
     widgetsBinding: binding,
   );
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   Bloc.observer = MyBlocObserver();
