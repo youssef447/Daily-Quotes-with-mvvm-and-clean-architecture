@@ -1,0 +1,55 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+     
+jobs:
+  build:
+    name: Build & Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      -  name: Build & Release
+         uses: actions/setup-java@v4
+         with:
+          distribution: 'zulu'
+          #java-version: '17.0.1'
+          cache: gradle
+      - name: Set Up Flutter    
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "master"
+      #- name: Set up Dart SDK
+        #uses: dart-lang/setup-dart@v1
+        #with:
+          #sdk: 3.5.0-47.0.dev          
+      #- name: Install Dependencies    
+        #run: flutter pub get
+      #- name: Test flutter app
+       # run: flutter test
+        # build apk
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Build appBundle
+        run: flutter build appbundle
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Releases
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+              
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/flutter-apk/app-release.apk,build/app/outputs/bundle/release/app-release.aab"
+          tag: v1.0.0
+          token: ${{secrets.github_token}}

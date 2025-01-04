@@ -1,158 +1,173 @@
+import 'package:dailyquotes/core/extensions/context_extension.dart';
+import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
+import 'package:dailyquotes/core/widgets/animations/scale_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
-import '../../../data/Models/quoteModel.dart';
+import '../../../domain/entity/quote_entity.dart';
+import '../../../presentation/home_page/controller/home_cubit.dart';
+import '../../enums/card_shape.dart';
 import '../fields/default_form_field.dart';
-import '../../theme/app_colors.dart';
+import '../../theme/colors/app_colors.dart';
 
 class QuoteCard extends StatelessWidget {
-  final QuoteModel? quote;
-  final double height;
+  final QuoteEntity? quote;
+  final bool isForm;
+
   final List<Widget> stackButtons;
   final TextEditingController? authorController;
   final TextEditingController? quoteController;
 
-  const QuoteCard({
-    super.key,
-    this.quote,
-    required this.height,
-    required this.stackButtons,
-    this.authorController,
-    this.quoteController,
-  });
+  const QuoteCard(
+      {super.key,
+      this.quote,
+      required this.stackButtons,
+      this.authorController,
+      this.quoteController,
+      this.isForm = false});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.bottomRight,
-      children: [
-        Transform.rotate(
-          angle: -math.pi * 0.02, // 45 degrees in radians
-
-          child: Container(
-            width: double.infinity,
-            height: height,
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.selectedItemColor.withOpacity(0.6),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(
-                  17,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          height: height,
-          padding: const EdgeInsets.all(8),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                18,
-              ),
-            ),
-            gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              colors: AppColors.gradientColors,
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: Center(
-                  child: Row(
-                    crossAxisAlignment: quote != null
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.format_quote_sharp,
-                        color: Colors.white,
-                        size: 20.sp,
-                      ),
-                      Expanded(
-                        child: quote != null
-                            ? SingleChildScrollView(
-                                child: Text(
-                                  textAlign: TextAlign.center,
-                                  quote!.quote,
-                                  style: GoogleFonts.gabriela(
-                                    textStyle: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(
-                                            fontWeight: FontWeight.normal),
-                                  ),
-                                ),
-                              )
-                            : DefaultFormField(
-                                controller: quoteController!,
-                                borderNone: true,
-                                enabled: true,
-                                hintText: 'Add Your Quote',
-                                context: context,
-                                expand: true,
-                              ),
-                      ),
-                    ],
+    final isRectangle =
+        context.read<HomeCubit>().cardShape == CardShape.rectangle || isForm;
+    final height = isRectangle ? context.height * 0.6 : context.height * 0.3;
+    return ScaleAnimation(
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.bottomRight,
+        children: [
+          Transform.rotate(
+            angle: isRectangle
+                ? -math.pi * 0.02 // 45 degrees in radians
+                : -math.pi * 0.04,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              width: double.infinity,
+              clipBehavior: Clip.none,
+              height: height,
+              padding: EdgeInsets.all(8.h),
+              decoration: BoxDecoration(
+                color: AppColors.selectedItemColor.withOpacity(0.6),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    17.r,
                   ),
                 ),
               ),
-              quote != null
-                  ? Text(
-                      '-${quote!.author}',
-                      style: GoogleFonts.xanhMono(
-                        textStyle:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: AppColors.defaultColor,
-                                ),
-                      ),
-                    )
-                  : Row(
+            ),
+          ),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            width: double.infinity,
+            height: height,
+            clipBehavior: Clip.none,
+            padding: EdgeInsets.all(8.h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  17.r,
+                ),
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: AppColors.gradientColors,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: Center(
+                    child: Row(
+                      crossAxisAlignment: quote != null
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          '-',
-                          style: GoogleFonts.xanhMono(
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: AppColors.defaultColor),
-                          ),
+                        Icon(
+                          Icons.format_quote_sharp,
+                          color: Colors.white,
+                          size: 20.sp,
                         ),
                         Expanded(
-                          child: DefaultFormField(
-                            controller: authorController!,
-                            borderNone: true,
-                            hintText: 'Your Name',
+                          child: quote != null
+                              ? SingleChildScrollView(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    quote!.quote,
+                                    style: GoogleFonts.gabriela(
+                                      textStyle: AppTextStyles
+                                          .font22MediumABeeZee
+                                          .copyWith(
+                                              fontWeight: FontWeight.normal),
+                                    ),
+                                  ),
+                                )
+                              : DefaultFormField(
+                                  controller: quoteController!,
+                                  borderNone: true,
+                                  enabled: true,
+                                  hintText: 'Add Your Quote',
+                                  context: context,
+                                  expand: true,
+                                ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                quote != null
+                    ? Text(
+                        '-${quote!.author}',
+                        style: GoogleFonts.xanhMono(
+                          textStyle:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: AppColors.background,
+                                  ),
+                        ),
+                      )
+                    : Row(
+                        children: [
+                          Text(
+                            '-',
                             style: GoogleFonts.xanhMono(
                               textStyle: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(color: AppColors.defaultColor),
+                                  .copyWith(color: AppColors.background),
                             ),
-                            hintStyle: GoogleFonts.xanhMono(
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(color: AppColors.defaultColor),
-                            ),
-                            context: context,
                           ),
-                        ),
-                      ],
-                    ),
-            ],
+                          Expanded(
+                            child: DefaultFormField(
+                              controller: authorController!,
+                              borderNone: true,
+                              hintText: 'Your Name',
+                              style: GoogleFonts.xanhMono(
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: AppColors.background),
+                              ),
+                              hintStyle: GoogleFonts.xanhMono(
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: AppColors.background),
+                              ),
+                              context: context,
+                            ),
+                          ),
+                        ],
+                      ),
+              ],
+            ),
           ),
-        ),
-        ...stackButtons
-      ],
+          ...stackButtons
+        ],
+      ),
     );
   }
 }

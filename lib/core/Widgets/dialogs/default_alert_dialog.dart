@@ -1,8 +1,9 @@
-import 'package:dailyquotes/core/theme/app_colors.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
+
 import 'package:flutter/Material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../buttons/default_button.dart';
-import '../../utils/utils.dart';
 
 abstract class DefaultAlertDialog {
   static AlertDialog Info({
@@ -17,16 +18,16 @@ abstract class DefaultAlertDialog {
       icon: Icon(
         icon,
         color: iconColor ?? Colors.black,
-        size: 45,
+        size: 45.sp,
       ),
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         DefaultButton(
-          height: 35,
+          height: 35.h,
           foregroundColor: Colors.white,
           backgroundColor: AppColors.selectedItemColor,
-          raduis: 20,
-          width: width * 0.5 * 0.5,
+          raduis: 20.r,
+          width: 70.w,
           onClicked: onOkClicked,
           child: Text(
             buttonText ?? 'OK',
@@ -34,7 +35,7 @@ abstract class DefaultAlertDialog {
           ),
         ),
       ],
-      backgroundColor: AppColors.defaultColor,
+      backgroundColor: AppColors.background,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -46,7 +47,7 @@ abstract class DefaultAlertDialog {
         ],
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(25.r),
       ),
     );
   }
@@ -69,11 +70,11 @@ abstract class DefaultAlertDialog {
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
         DefaultButton(
-          height: 35,
+          height: 35.h,
           foregroundColor: Colors.white,
           backgroundColor: AppColors.selectedItemColor,
-          raduis: 20,
-          width: width * 0.5 * 0.5,
+          raduis: 20.r,
+          width: 100.w,
           onClicked: onYesClicked,
           child: Text(
             buttonText ?? 'Yes',
@@ -81,11 +82,11 @@ abstract class DefaultAlertDialog {
           ),
         ),
         DefaultButton(
-          height: 35,
+          height: 35.h,
           foregroundColor: Colors.white,
           backgroundColor: AppColors.selectedItemColor,
-          raduis: 20,
-          width: width * 0.5 * 0.5,
+          raduis: 20.r,
+          width: 100.w,
           onClicked: onNoClicked,
           child: Text(
             buttonText ?? 'No',
@@ -93,7 +94,7 @@ abstract class DefaultAlertDialog {
           ),
         ),
       ],
-      backgroundColor: AppColors.defaultColor,
+      backgroundColor: AppColors.background,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -105,7 +106,7 @@ abstract class DefaultAlertDialog {
         ],
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(25.r),
       ),
     );
   }

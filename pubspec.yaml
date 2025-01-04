@@ -52,7 +52,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   awesome_notifications: ^0.10.0
   flutter_colorpicker: ^1.1.0
-
+  flutter_svg: ^2.0.16
   
 flutter_native_splash:
   android: true

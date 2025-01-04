@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../theme/colors/app_colors.dart';
+
 class DefaultLoadingIndicator extends StatelessWidget {
   const DefaultLoadingIndicator({super.key});
 
@@ -8,9 +10,13 @@ class DefaultLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 100.w,
-        height: 100.h,
-        child: CircularProgressIndicator(),
+        width: 50.w,
+        height: 50.h,
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+          backgroundColor: Colors.white60,
+          strokeWidth: 2.0,
+        ),
       ),
     );
   }
