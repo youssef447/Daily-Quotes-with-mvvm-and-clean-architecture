@@ -3,10 +3,7 @@ part of '../pages/my_quotes_page.dart';
 class NoQuotes extends StatelessWidget {
   const NoQuotes({
     super.key,
-    required this.controller,
   });
-
-  final AnimationController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +20,6 @@ class NoQuotes extends StatelessWidget {
                 onTap: () {
                   DefaultBottomSheet.Default(
                     context: context,
-                    transitionAnimationController: controller,
                     child: AddEditQuoteSheet(),
                   );
                 },

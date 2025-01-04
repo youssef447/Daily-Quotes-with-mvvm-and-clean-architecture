@@ -20,13 +20,14 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
       locators.get<RemoveQuoteFromPopularUsecase>();
 
   TodayQuoteCubit() : super(TodayInitialState());
-  late QuoteEntity todayQuote;
+  late QuoteEntity _todayQuote;
+  QuoteEntity get todayQuote => _todayQuote;
   getTodayQuote() async {
     emit(GetTodayQuoteLoadingState());
 
     final res = await getTodayQuoteUsecase.getTodayQuote();
     if (res.isSuccess) {
-      todayQuote = res.data!;
+      _todayQuote = res.data!;
       emit(GetTodayQuoteSuccessState());
     } else {
       emit(GetTodayQuoteErrorState(res.errorMessage!));
@@ -39,9 +40,9 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
     );
 
     final res =
-        await addQuoteToPopularUsecase.addQuoteToPopular(todayQuote, true);
+        await addQuoteToPopularUsecase.addQuoteToPopular(_todayQuote, true);
     if (res.isSuccess) {
-      todayQuote = res.data!;
+      _todayQuote = res.data!;
       emit(AddToPopularSuccessState());
     } else {
       emit(AddToPopularErrorState(res.errorMessage!));
@@ -54,11 +55,11 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
     );
 
     final res = await removeQuoteFromPopularUsecase.removeQuoteFromPopular(
-      todayQuote,
+      _todayQuote,
       true,
     );
     if (res.isSuccess) {
-      todayQuote = res.data!;
+      _todayQuote = res.data!;
       emit(RemoveFromPopularSuccessState());
     } else {
       emit(RemoveFromPopularErrorState(res.errorMessage!));
@@ -68,7 +69,7 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
   shareQuote() async {
     try {
       await Share.share(
-        '“${todayQuote.quote}”\n\n- ${todayQuote.author}\n\n\n$sharingMyGit',
+        '“${_todayQuote.quote}”\n\n- ${_todayQuote.author}\n\n\n$sharingMyGit',
       );
     } catch (e) {
       emit(SharingQuoteErrorState(e.toString()));

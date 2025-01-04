@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../theme/app_colors.dart';
+import '../../theme/colors/app_colors.dart';
 
 class DefaultLoadingIndicator extends StatelessWidget {
   const DefaultLoadingIndicator({super.key});

@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/animations/fade_In_down_animation.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/animations/fade_In_down_animation.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
 import '../../../../domain/entity/quote_entity.dart';
 import '../../controller/add_edit_quote_cubit.dart';

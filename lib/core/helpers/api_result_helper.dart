@@ -16,7 +16,7 @@ class ApiResult<T> {
   }
 
   // Factory for error
-  factory ApiResult.error(String errorMessage) {
+  factory ApiResult.error([String? errorMessage, int? statusCode]) {
     return ApiResult._(type: ApiResultType.error, errorMessage: errorMessage);
   }
 

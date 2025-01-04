@@ -4,10 +4,10 @@ import '../../data/data_sources/quote_local_service.dart';
 import '../../domain/usecases/add_quote_to_popular_usecase.dart';
 import '../../domain/usecases/remove_quote_from_popular_usecase.dart';
 import '../../domain/usecases/get_today_quote_usecase.dart';
-import '../services/notifications/awesome_notification_service.dart';
 
 import '../../data/data_sources/quote_remote_service.dart';
 import '../../data/repositories/quote_repo.dart';
+import '../services/notifications/awesome_notification_service.dart';
 
 final locators = GetIt.instance;
 

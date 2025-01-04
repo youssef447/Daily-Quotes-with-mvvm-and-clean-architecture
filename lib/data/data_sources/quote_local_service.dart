@@ -6,7 +6,7 @@ class QuoteLocalService {
 
   final String todayTableName = "TodayQuote";
   final String favTableName = "FavoriteQuotes";
-  final String MyQuotesPageTableName = "MyQuotesPage";
+  final String MyQuotesTableName = "MyQuotesPage";
 
   Database? _database;
 
@@ -20,7 +20,7 @@ class QuoteLocalService {
         join(path, dbName),
         onCreate: (database, version) async {
           await database.execute(
-            "CREATE TABLE $MyQuotesPageTableName(id INTEGER PRIMARY KEY AUTOINCREMENT, q TEXT NOT NULL, a TEXT NOT NULL, fav bool NOT NULL)",
+            "CREATE TABLE $MyQuotesTableName(id INTEGER PRIMARY KEY AUTOINCREMENT, q TEXT NOT NULL, a TEXT NOT NULL, fav bool NOT NULL)",
           );
           await database.execute(
             "CREATE TABLE $todayTableName(id INTEGER PRIMARY KEY AUTOINCREMENT, q TEXT NOT NULL, a TEXT NOT NULL, fav bool NOT NULL)",
@@ -104,7 +104,7 @@ class QuoteLocalService {
 
     await _database!.transaction(
       (txn) => txn.insert(
-        MyQuotesPageTableName,
+        MyQuotesTableName,
         query,
       ),
     );
@@ -114,7 +114,7 @@ class QuoteLocalService {
     await initializeDB();
 
     await _database!.delete(
-      MyQuotesPageTableName,
+      MyQuotesTableName,
       where: "id= ?",
       whereArgs: [id],
     );
@@ -124,7 +124,7 @@ class QuoteLocalService {
     await initializeDB();
 
     await _database!.update(
-      MyQuotesPageTableName,
+      MyQuotesTableName,
       query,
       where: 'id= ?',
       whereArgs: [query['id']],
@@ -135,7 +135,7 @@ class QuoteLocalService {
     await initializeDB();
     //database.rawQuery('select* from $table');
     List<Map> list = await _database!.query(
-      MyQuotesPageTableName,
+      MyQuotesTableName,
     );
 
     return list;

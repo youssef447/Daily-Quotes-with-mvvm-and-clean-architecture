@@ -2,7 +2,7 @@ import 'package:dailyquotes/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../theme/app_colors.dart';
+import '../../theme/colors/app_colors.dart';
 
 abstract class DefaultBottomSheet {
   static Default(

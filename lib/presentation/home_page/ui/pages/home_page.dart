@@ -1,4 +1,5 @@
-import 'package:dailyquotes/core/theme/app_colors.dart';
+import 'package:dailyquotes/core/extensions/context_extension.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 import 'package:dailyquotes/core/widgets/dialogs/default_alert_dialog.dart';
 import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
 import 'package:dailyquotes/core/theme/text/app_font_weights.dart';
@@ -7,15 +8,18 @@ import 'package:dailyquotes/core/utils/globales.dart';
 import 'package:dailyquotes/core/widgets/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../core/routes/app_routes.dart';
 import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
 import '../../../../core/widgets/loading/default_loading_indicator.dart';
 
 import '../../../../core/constants/assets.dart';
 import '../../../../core/enums/card_shape.dart';
 import '../../../../core/helpers/spacing_helper.dart';
+
 import '../../controller/home_cubit.dart';
 import '../../controller/home_states.dart';
 
@@ -65,7 +69,7 @@ class HomePage extends StatelessWidget {
                   });
             }
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               child: Column(
                 children: [
                   HomeAppbar(

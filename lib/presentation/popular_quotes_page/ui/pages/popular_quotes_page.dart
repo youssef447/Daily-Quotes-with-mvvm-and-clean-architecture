@@ -1,20 +1,24 @@
-import 'package:dailyquotes/core/theme/app_colors.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 import 'package:dailyquotes/core/widgets/error_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/theme/text/app_text_styles.dart';
 import '../../../../core/widgets/loading/default_loading_indicator.dart';
 import '../../../../core/widgets/sliders/default_carousel_slider.dart';
-import '../../../../core/animations/fade_In_down_animation.dart';
+import '../../../../core/widgets/animations/fade_In_down_animation.dart';
 import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
 
 import 'package:dailyquotes/core/constants/assets.dart';
 import '../../controller/popular_cubit.dart';
 import '../../controller/popular_states.dart';
 import '../../../../core/widgets/cards/quote_card.dart';
+part '../widgets/no_popular_widget.dart';
+part '../widgets/erro_popular_widget.dart';
 
 class PopularQuotesPage extends StatelessWidget {
   const PopularQuotesPage({super.key});
@@ -53,43 +57,13 @@ class PopularQuotesPage extends StatelessWidget {
               return await cubit.getPopularQuotes();
             },
             child: cubit.popularQuotes.isEmpty
-                ? CustomScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    slivers: [
-                        SliverFillRemaining(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Lottie.asset(
-                                AnimsAssets.fav,
-                                frameRate: const FrameRate(120),
-                                repeat: false,
-                              ),
-                              Text(
-                                'No Quotes Added Yet',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      color: AppColors.selectedItemColor,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ])
+                ? const NoPopularQuotesWidget()
                 : state is GetPopularLoadingState
                     ? const DefaultLoadingIndicator()
                     : state is GetPopularErrorState
-                        ? CustomScrollView(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            slivers: [
-                              ErrorPage(
-                                  errMsg: state.err,
-                                  retry: () async {
-                                    await cubit.getPopularQuotes();
-                                  }),
-                            ],
+                        ? ErrorPopularWidget(
+                            errorMsg: state.err,
+                            cubit: cubit,
                           )
                         : SizedBox(
                             height: double.infinity,

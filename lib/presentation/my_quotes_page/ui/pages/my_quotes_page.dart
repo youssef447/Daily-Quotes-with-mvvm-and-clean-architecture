@@ -13,9 +13,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/widgets/sliders/default_carousel_slider.dart';
-import '../../../../core/animations/fade_In_down_animation.dart';
+import '../../../../core/widgets/animations/fade_In_down_animation.dart';
 
-import '../../../../core/theme/app_colors.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 
 import 'package:dailyquotes/core/constants/assets.dart';
 import '../../../add_edit_quote/ui/pages/add_edit_quote_page.dart';
@@ -23,32 +23,10 @@ import '../../../../core/widgets/cards/quote_card.dart';
 part '../widgets/no_quotes.dart';
 part '../widgets/delete_quote_button.dart';
 
-class MyQuotesPage extends StatefulWidget {
+class MyQuotesPage extends StatelessWidget {
   const MyQuotesPage({super.key});
 
   @override
-  State<MyQuotesPage> createState() => _MyQuotesPageState();
-}
-
-class _MyQuotesPageState extends State<MyQuotesPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -70,9 +48,7 @@ class _MyQuotesPageState extends State<MyQuotesPage>
                     shape: const CircleBorder(),
                     onPressed: () {
                       DefaultBottomSheet.Default(
-                          context: context,
-                          transitionAnimationController: controller,
-                          child: AddEditQuoteSheet());
+                          context: context, child: AddEditQuoteSheet());
                     },
                     child: const Icon(
                       Icons.format_quote_outlined,
@@ -91,7 +67,7 @@ class _MyQuotesPageState extends State<MyQuotesPage>
               child: state is GetMyQuotesPageLoadingState
                   ? const DefaultLoadingIndicator()
                   : cubit.MyQuotesPage.isEmpty
-                      ? NoQuotes(controller: controller)
+                      ? NoQuotes()
                       : Stack(
                           alignment: Alignment.center,
                           children: [
@@ -131,8 +107,6 @@ class _MyQuotesPageState extends State<MyQuotesPage>
                                               onTap: () async {
                                                 DefaultBottomSheet.Default(
                                                     context: context,
-                                                    transitionAnimationController:
-                                                        controller,
                                                     child: AddEditQuoteSheet(
                                                       quote: cubit.MyQuotesPage[
                                                           itemIndex],

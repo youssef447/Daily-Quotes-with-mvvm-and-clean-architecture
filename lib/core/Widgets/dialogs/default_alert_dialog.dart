@@ -1,4 +1,5 @@
-import 'package:dailyquotes/core/theme/app_colors.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
+
 import 'package:flutter/Material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

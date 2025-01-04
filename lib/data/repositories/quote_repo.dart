@@ -2,7 +2,7 @@ import 'package:dailyquotes/core/helpers/api_result_helper.dart';
 import 'package:dailyquotes/data/models/quote_model.dart';
 import 'package:dailyquotes/domain/entity/quote_entity.dart';
 
-import '../../core/services/Network/local/cach_helper.dart';
+import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
 import '../data_sources/quote_local_service.dart';
 import '../data_sources/quote_remote_service.dart';
 

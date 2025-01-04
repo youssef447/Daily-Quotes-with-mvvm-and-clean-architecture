@@ -1,5 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:dailyquotes/core/theme/app_colors.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 
 import '../Network/local/cach_helper.dart';
 

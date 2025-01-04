@@ -4,6 +4,7 @@ const String _animsPath = "assets/anims";
 abstract class ImageAssets {
   static const String card = "$_imagePath/card.svg";
   static const String rectangle = "$_imagePath/rectangle.svg";
+  static const String palette = "$_imagePath/palette.svg";
 }
 
 abstract class AnimsAssets {

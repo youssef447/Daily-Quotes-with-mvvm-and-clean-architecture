@@ -1,5 +1,5 @@
 import '../../core/helpers/api_result_helper.dart';
-import '../../core/services/Network/local/cach_helper.dart';
+import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
 import '../../data/models/quote_model.dart';
 import '../../data/repositories/quote_repo.dart';
 import '../entity/quote_entity.dart';

@@ -58,7 +58,7 @@ class HomeAppbar extends StatelessWidget {
                 color: noitificationsEnabled
                     ? AppColors.selectedItemColor
                     : Colors.white,
-                size: 30.sp,
+                size: 25.sp,
               ),
             ),
           ),
@@ -88,6 +88,21 @@ class HomeAppbar extends StatelessWidget {
                 width: squareColor == AppColors.selectedItemColor ? 24.w : 18.w,
                 height:
                     squareColor == AppColors.selectedItemColor ? 24.h : 18.h,
+              ),
+            ),
+          ),
+          horizontalSpace(16),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0.h),
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                context.navigate(AppRoutes.customColorTheme);
+              },
+              child: SvgPicture.asset(
+                ImageAssets.palette,
+                width: 28.w,
+                height: 28.h,
               ),
             ),
           ),
