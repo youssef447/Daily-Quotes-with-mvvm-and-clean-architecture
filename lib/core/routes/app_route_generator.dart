@@ -2,7 +2,8 @@ import 'package:dailyquotes/core/routes/page_transition.dart';
 import 'package:dailyquotes/presentation/home_page/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../presentation/custom_color_theme/pages/color_picker_page.dart';
+import '../../presentation/custom_color_theme/ui/pages/color_picker_page.dart';
+import '../theme/colors/app_colors.dart';
 import 'app_routes.dart';
 
 abstract class AppRouteGenerator {
@@ -29,6 +30,7 @@ abstract class AppRouteGenerator {
       default:
         return PageTransitionHelper.buildPageRoute(
           Scaffold(
+            backgroundColor: AppColors.background,
             body: SafeArea(
                 child: Center(child: Text('No route defined for $routeName'))),
           ),

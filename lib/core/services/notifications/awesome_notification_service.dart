@@ -16,7 +16,7 @@ class AwesomeNotificationService {
       soundSource: 'resource://raw/notification',
       importance: NotificationImportance.Max,
       defaultPrivacy: NotificationPrivacy.Public,
-      defaultColor: AppColors.selectedItemColor,
+      defaultColor: AppColors.primary,
       channelShowBadge: true,
     ),
   ];
@@ -38,7 +38,7 @@ class AwesomeNotificationService {
           NotificationActionButton(
             key: 'Check Now',
             label: 'Check Now',
-            color: AppColors.selectedItemColor,
+            color: AppColors.primary,
           ),
         ],
       );

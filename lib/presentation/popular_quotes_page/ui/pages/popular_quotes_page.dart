@@ -1,3 +1,4 @@
+import 'package:dailyquotes/core/helpers/spacing_helper.dart';
 import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 import 'package:dailyquotes/core/widgets/error_page.dart';
 
@@ -51,7 +52,7 @@ class PopularQuotesPage extends StatelessWidget {
 
           return RefreshIndicator(
             backgroundColor: AppColors.background,
-            color: AppColors.gradientColors[1],
+            color: AppColors.primary,
             triggerMode: RefreshIndicatorTriggerMode.anywhere,
             onRefresh: () async {
               return await cubit.getPopularQuotes();
@@ -92,9 +93,9 @@ class PopularQuotesPage extends StatelessWidget {
                                             radius: 20.r,
                                             backgroundColor:
                                                 AppColors.secondaryPrimary,
-                                            child: const Icon(
+                                            child: Icon(
                                               Icons.favorite,
-                                              color: Colors.white,
+                                              color: AppColors.icon,
                                             ),
                                           ),
                                         ),
@@ -114,9 +115,9 @@ class PopularQuotesPage extends StatelessWidget {
                                             radius: 20.r,
                                             backgroundColor:
                                                 AppColors.secondaryPrimary,
-                                            child: const FaIcon(
+                                            child: FaIcon(
                                               FontAwesomeIcons.share,
-                                              color: Colors.white,
+                                              color: AppColors.icon,
                                             ),
                                           ),
                                         ),

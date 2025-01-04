@@ -22,8 +22,8 @@ class DefaultCarouselSlider extends StatelessWidget {
       duration: const Duration(milliseconds: 350),
       curve: Curves.decelerate,
       tween: Tween<double>(
-        begin: isRectangle ? 0.4 : 0.9,
-        end: isRectangle ? 0.9 : 0.4,
+        begin: isRectangle ? 0.42 : 0.9,
+        end: isRectangle ? 0.9 : 0.42,
       ),
       builder: (context, heightFactor, child) {
         return SizedBox(

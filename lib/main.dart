@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 import 'core/di/injection.dart';
 import 'core/constants/api_constants.dart';
@@ -15,9 +16,11 @@ import 'core/services/Network/local/cach_helper.dart';
 import 'core/services/Network/remote/dio_helper.dart';
 import 'core/services/notifications/awesome_notification_service.dart';
 
+import 'core/theme/colors/app_colors.dart';
 import 'core/utils/blocObserver.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import 'presentation/custom_color_theme/controller/custom_color_theme_states.dart';
 import 'presentation/home_page/controller/home_cubit.dart';
 import 'presentation/today_quote_page/controller/today_quotes_cubit.dart';
 
@@ -54,8 +57,11 @@ class MyApp extends StatelessWidget {
                 create: (context) => TodayQuoteCubit()..getTodayQuote(),
               ),
             ],
-            child: BlocBuilder<CustomColorThemeController, dynamic>(
-                builder: (context, _) {
+            child:
+                BlocBuilder<CustomColorThemeController, CustomColorThemeStates>(
+                    buildWhen: (previous, current) {
+              return current is ConfigThemeStateSuccess;
+            }, builder: (context, _) {
               return MaterialApp(
                 title: 'Daily Quotes',
                 debugShowCheckedModeBanner: false,
@@ -97,8 +103,9 @@ Future<void> initUiConfigs(WidgetsBinding binding) async {
   FlutterNativeSplash.preserve(
     widgetsBinding: binding,
   );
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  await FlutterStatusbarcolor.setStatusBarColor(AppColors.background);
+
+  await FlutterStatusbarcolor.setNavigationBarColor(AppColors.background);
 
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

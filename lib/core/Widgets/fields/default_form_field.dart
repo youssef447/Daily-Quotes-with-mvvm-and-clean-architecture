@@ -16,6 +16,8 @@ class DefaultFormField extends StatelessWidget {
   final Widget? label;
   final double? radius;
   final Color? fillColor;
+  final Color? hintColor;
+  final Color? styleColor;
   final TextStyle? style;
   final TextStyle? hintStyle;
 
@@ -40,6 +42,8 @@ class DefaultFormField extends StatelessWidget {
       this.focusNode,
       this.enabled,
       this.type,
+      this.hintColor,
+      this.styleColor,
       this.maxLines = 1,
       this.minLines = 1,
       this.readOnly,
@@ -82,7 +86,7 @@ class DefaultFormField extends StatelessWidget {
             textStyle: Theme.of(context)
                 .textTheme
                 .titleLarge!
-                .copyWith(fontWeight: FontWeight.normal),
+                .copyWith(fontWeight: FontWeight.normal, color: styleColor),
           ),
       //onFieldSubmitted: ((value) => print(contoller.text)),
       focusNode: focusNode,
@@ -91,10 +95,10 @@ class DefaultFormField extends StatelessWidget {
         hintText: hintText,
         hintStyle: hintStyle ??
             GoogleFonts.gabriela(
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(fontWeight: FontWeight.normal),
+              textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.normal,
+                    color: hintColor,
+                  ),
             ),
         helperText: helperText,
         enabled: enabled ?? true,

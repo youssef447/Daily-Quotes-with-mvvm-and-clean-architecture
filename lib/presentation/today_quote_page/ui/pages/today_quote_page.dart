@@ -57,7 +57,7 @@ class TodayQuotePage extends StatelessWidget {
 
       return RefreshIndicator(
         backgroundColor: AppColors.background,
-        color: AppColors.gradientColors[1],
+        color: AppColors.primary,
         triggerMode: RefreshIndicatorTriggerMode.anywhere,
         onRefresh: () async {
           return await cubit.getTodayQuote();
@@ -93,7 +93,7 @@ class TodayQuotePage extends StatelessWidget {
                                     cubit.todayQuote.fav == false
                                         ? Icons.favorite_outline
                                         : Icons.favorite,
-                                    color: Colors.white,
+                                    color: AppColors.icon,
                                   ),
                                 ),
                               ),
@@ -109,9 +109,9 @@ class TodayQuotePage extends StatelessWidget {
                                 },
                                 child: CircleAvatar(
                                   backgroundColor: AppColors.secondaryPrimary,
-                                  child: const FaIcon(
+                                  child: FaIcon(
                                     FontAwesomeIcons.share,
-                                    color: Colors.white,
+                                    color: AppColors.icon,
                                   ),
                                 ),
                               ),

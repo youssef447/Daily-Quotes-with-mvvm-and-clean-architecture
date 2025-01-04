@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:dailyquotes/core/helpers/spacing_helper.dart';
 import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
 import 'package:dailyquotes/core/widgets/dialogs/default_alert_dialog.dart';
 import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
@@ -41,6 +42,7 @@ class MyQuotesPage extends StatelessWidget {
           var cubit = MyQuotesPageCubit.get(context);
 
           return Scaffold(
+            backgroundColor: AppColors.background,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: cubit.MyQuotesPage.isNotEmpty
@@ -50,16 +52,16 @@ class MyQuotesPage extends StatelessWidget {
                       DefaultBottomSheet.Default(
                           context: context, child: AddEditQuoteSheet());
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.format_quote_outlined,
-                      color: Colors.white,
+                      color: AppColors.icon,
                     ),
-                    backgroundColor: AppColors.selectedItemColor,
+                    backgroundColor: AppColors.primary,
                   )
                 : null,
             body: RefreshIndicator(
               backgroundColor: AppColors.background,
-              color: AppColors.gradientColors[1],
+              color: AppColors.primary,
               triggerMode: RefreshIndicatorTriggerMode.anywhere,
               onRefresh: () async {
                 return await cubit.getMyQuotesPage();
@@ -93,9 +95,9 @@ class MyQuotesPage extends StatelessWidget {
                                               child: CircleAvatar(
                                                 backgroundColor:
                                                     AppColors.secondaryPrimary,
-                                                child: const FaIcon(
+                                                child: FaIcon(
                                                   FontAwesomeIcons.share,
-                                                  color: Colors.white,
+                                                  color: AppColors.icon,
                                                 ),
                                               ),
                                             ),
@@ -115,9 +117,9 @@ class MyQuotesPage extends StatelessWidget {
                                               child: CircleAvatar(
                                                 backgroundColor:
                                                     AppColors.secondaryPrimary,
-                                                child: const Icon(
+                                                child: Icon(
                                                   Icons.edit,
-                                                  color: Colors.white,
+                                                  color: AppColors.icon,
                                                 ),
                                               ),
                                             ),

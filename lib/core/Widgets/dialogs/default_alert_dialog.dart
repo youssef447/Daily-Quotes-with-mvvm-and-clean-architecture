@@ -25,7 +25,7 @@ abstract class DefaultAlertDialog {
         DefaultButton(
           height: 35.h,
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.selectedItemColor,
+          backgroundColor: AppColors.primary,
           raduis: 20.r,
           width: 70.w,
           onClicked: onOkClicked,
@@ -72,7 +72,7 @@ abstract class DefaultAlertDialog {
         DefaultButton(
           height: 35.h,
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.selectedItemColor,
+          backgroundColor: AppColors.primary,
           raduis: 20.r,
           width: 100.w,
           onClicked: onYesClicked,
@@ -84,7 +84,7 @@ abstract class DefaultAlertDialog {
         DefaultButton(
           height: 35.h,
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.selectedItemColor,
+          backgroundColor: AppColors.primary,
           raduis: 20.r,
           width: 100.w,
           onClicked: onNoClicked,

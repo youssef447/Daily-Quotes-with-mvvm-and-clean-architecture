@@ -18,14 +18,14 @@ abstract class AwesomeDialogUtil {
       body: Text(
         body,
         style: AppTextStyles.font14MediumABeeZee.copyWith(
-          color: AppColors.selectedItemColor,
+          color: AppColors.primary,
         ),
       ),
       title: title,
       dialogType: DialogType.success,
       padding: const EdgeInsets.all(15),
       dialogBackgroundColor: AppColors.background,
-      btnOkColor: AppColors.selectedItemColor,
+      btnOkColor: AppColors.primary,
       buttonsTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
           ),

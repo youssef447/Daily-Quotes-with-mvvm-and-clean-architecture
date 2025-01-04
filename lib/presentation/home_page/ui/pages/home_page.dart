@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocConsumer<HomeCubit, HomeStates>(
@@ -78,14 +79,14 @@ class HomePage extends StatelessWidget {
                         cubit.changeShape(CardShape.rectangle);
                       },
                       longColor: cubit.cardShape == CardShape.rectangle
-                          ? AppColors.selectedItemColor
-                          : Colors.white,
+                          ? AppColors.primary
+                          : AppColors.textBG,
                       squareOnTap: () {
                         cubit.changeShape(CardShape.square);
                       },
                       squareColor: cubit.cardShape == CardShape.square
-                          ? AppColors.selectedItemColor
-                          : Colors.white),
+                          ? AppColors.primary
+                          : AppColors.textBG),
                   const HomeTabs(),
                   verticalSpace(12),
                   Expanded(

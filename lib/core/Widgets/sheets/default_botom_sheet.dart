@@ -11,7 +11,7 @@ abstract class DefaultBottomSheet {
       required Widget child}) {
     return showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.unselectedItemColor,
+      backgroundColor: AppColors.background,
       clipBehavior: Clip.hardEdge,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
@@ -20,6 +20,9 @@ abstract class DefaultBottomSheet {
           topLeft: Radius.circular(35.r),
         ),
       ),
+      sheetAnimationStyle: AnimationStyle(
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.fastOutSlowIn),
       transitionAnimationController: transitionAnimationController,
       builder: (context) => Padding(
         padding: EdgeInsets.only(

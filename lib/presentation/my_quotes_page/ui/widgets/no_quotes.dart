@@ -30,9 +30,11 @@ class NoQuotes extends StatelessWidget {
                   frameRate: const FrameRate(120),
                 ),
               ),
+              verticalSpace(15),
               Text(
                 'Tap To Add Your First Quote',
-                style: AppTextStyles.font14MediumABeeZeePrimary,
+                style: AppTextStyles.font20MediumABeeZeePrimary
+                    .copyWith(color: AppColors.textBG),
                 textAlign: TextAlign.center,
               ),
             ],

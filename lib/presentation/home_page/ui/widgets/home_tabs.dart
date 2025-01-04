@@ -29,9 +29,7 @@ class HomeTabs extends StatelessWidget {
               child: AnimatedDefaultTextStyle(
                 curve: Curves.decelerate,
                 style: AppTextStyles.font14MediumABeeZee.copyWith(
-                  color: selected
-                      ? AppColors.selectedItemColor
-                      : AppColors.unselectedItemColor,
+                  color: selected ? AppColors.primary : AppColors.textBG,
                   fontWeight: selected
                       ? AppFontWeights.extraBold
                       : AppFontWeights.medium,

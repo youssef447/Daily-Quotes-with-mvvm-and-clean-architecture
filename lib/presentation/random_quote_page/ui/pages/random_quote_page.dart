@@ -1,3 +1,4 @@
+import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
 import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
 import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 
@@ -16,6 +17,7 @@ import '../../../../core/widgets/animations/bouncing_slide_animation.dart';
 import '../../../../core/widgets/buttons/default_button.dart';
 import '../../controller/random_cubit.dart';
 import '../../controller/random_states.dart';
+part '../widgets/random_genrator_button.dart';
 
 class RandomQuotePage extends StatelessWidget {
   const RandomQuotePage({super.key});
@@ -88,7 +90,7 @@ class RandomQuotePage extends StatelessWidget {
                                       cubit.quote!.fav
                                           ? Icons.favorite
                                           : Icons.favorite_outline,
-                                      color: Colors.white,
+                                      color: AppColors.icon,
                                     ),
                                   ),
                                 ),
@@ -104,9 +106,9 @@ class RandomQuotePage extends StatelessWidget {
                                   },
                                   child: CircleAvatar(
                                     backgroundColor: AppColors.secondaryPrimary,
-                                    child: const FaIcon(
+                                    child: FaIcon(
                                       FontAwesomeIcons.share,
-                                      color: Colors.white,
+                                      color: AppColors.icon,
                                     ),
                                   ),
                                 ),
@@ -114,32 +116,9 @@ class RandomQuotePage extends StatelessWidget {
                             ]),
                           ),
                         ),
-              BouncingSlideAnimation(
-                child: DefaultButton(
-                  onClicked: () {
-                    cubit.getRandomQuote();
-                  },
-                  backgroundColor: AppColors.secondaryPrimary,
-                  raduis: 25,
-                  width: 200.w,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Get Random Quote',
-                        style: Theme.of(context).textTheme.titleMedium!,
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      const Icon(
-                        Icons.format_quote_sharp,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              RandomQuoteGeneratorButton(
+                cubit: cubit,
+              )
             ],
           );
         },

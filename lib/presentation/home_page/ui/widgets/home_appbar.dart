@@ -21,7 +21,8 @@ class HomeAppbar extends StatelessWidget {
         children: [
           Text(
             'Quotez',
-            style: AppTextStyles.font18MediumAmita,
+            style: AppTextStyles.font18MediumAmita
+                .copyWith(color: AppColors.textBG),
           ),
           const Spacer(),
           InkWell(
@@ -33,7 +34,7 @@ class HomeAppbar extends StatelessWidget {
                   context: context,
                   builder: (context) => DefaultAlertDialog.Confirm(
                         icon: Icons.notification_important_outlined,
-                        iconColor: AppColors.selectedItemColor,
+                        iconColor: AppColors.primary,
                         onYesClicked: () {
                           cubit.changeNotification();
                         },
@@ -56,8 +57,8 @@ class HomeAppbar extends StatelessWidget {
                     ? Icons.notifications_active
                     : Icons.notifications_off,
                 color: noitificationsEnabled
-                    ? AppColors.selectedItemColor
-                    : Colors.white,
+                    ? AppColors.primary
+                    : AppColors.textBG,
                 size: 25.sp,
               ),
             ),
@@ -71,8 +72,8 @@ class HomeAppbar extends StatelessWidget {
               child: SvgPicture.asset(
                 ImageAssets.rectangle,
                 color: longColor,
-                width: longColor == AppColors.selectedItemColor ? 24.w : 18.w,
-                height: longColor == AppColors.selectedItemColor ? 24.h : 18.h,
+                width: longColor == AppColors.primary ? 24.w : 18.w,
+                height: longColor == AppColors.primary ? 24.h : 18.h,
               ),
             ),
           ),
@@ -85,9 +86,8 @@ class HomeAppbar extends StatelessWidget {
               child: SvgPicture.asset(
                 ImageAssets.card,
                 color: squareColor,
-                width: squareColor == AppColors.selectedItemColor ? 24.w : 18.w,
-                height:
-                    squareColor == AppColors.selectedItemColor ? 24.h : 18.h,
+                width: squareColor == AppColors.primary ? 24.w : 18.w,
+                height: squareColor == AppColors.primary ? 24.h : 18.h,
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:dailyquotes/core/widgets/dialogs/default_alert_dialog.dart';
+import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
 
 import 'package:dailyquotes/presentation/add_edit_quote/controller/add_edit_quote_states.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
 import '../../../../domain/entity/quote_entity.dart';
 import '../../controller/add_edit_quote_cubit.dart';
 import '../../../../core/widgets/cards/quote_card.dart';
+part '../widgets/dialogs/fill_quote_dialog.dart';
 
 class AddEditQuoteSheet extends StatelessWidget {
   final QuoteEntity? quote;
@@ -61,6 +63,7 @@ class AddEditQuoteSheet extends StatelessWidget {
         var cubit = AddEditQuoteCubit.get(context);
         return SafeArea(
           child: Scaffold(
+            backgroundColor: AppColors.background,
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Stack(
@@ -82,20 +85,7 @@ class AddEditQuoteSheet extends StatelessWidget {
                                   cubit.authorController.text.isEmpty) {
                                 showDialog(
                                   context: context,
-                                  builder: (context) => FadeInDownAnimation(
-                                    child: DefaultAlertDialog.Info(
-                                        content:
-                                            'You Need To fill Card Content',
-                                        icon: Icons.warning_rounded,
-                                        iconColor: AppColors.selectedItemColor,
-                                        defaultTextStyle: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold),
-                                        onOkClicked: () =>
-                                            Navigator.of(context).pop()),
-                                  ),
+                                  builder: (context) => FillQuoteDialog(),
                                 );
                               } else {
                                 if (quote != null) {
@@ -110,7 +100,7 @@ class AddEditQuoteSheet extends StatelessWidget {
                               radius: 22.sp,
                               child: Icon(
                                 quote != null ? Icons.done : Icons.add,
-                                color: AppColors.selectedItemColor,
+                                color: AppColors.primary,
                                 size: 25.sp,
                               ),
                             ),
@@ -126,9 +116,7 @@ class AddEditQuoteSheet extends StatelessWidget {
                         sigmaX: 3.0,
                         sigmaY: 3.0,
                       ),
-                      child: const Center(
-                        child: CircularProgressIndicator(color: Colors.white),
-                      ),
+                      child: DefaultLoadingIndicator(),
                     )
                 ],
               ),

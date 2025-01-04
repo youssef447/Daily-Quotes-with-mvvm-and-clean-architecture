@@ -49,7 +49,7 @@ class QuoteCard extends StatelessWidget {
               height: height,
               padding: EdgeInsets.all(8.h),
               decoration: BoxDecoration(
-                color: AppColors.selectedItemColor.withOpacity(0.6),
+                color: AppColors.primary.withOpacity(0.6),
                 borderRadius: BorderRadius.all(
                   Radius.circular(
                     17.r,
@@ -89,7 +89,7 @@ class QuoteCard extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.format_quote_sharp,
-                          color: Colors.white,
+                          color: AppColors.icon,
                           size: 20.sp,
                         ),
                         Expanded(
@@ -102,7 +102,9 @@ class QuoteCard extends StatelessWidget {
                                       textStyle: AppTextStyles
                                           .font22MediumABeeZee
                                           .copyWith(
-                                              fontWeight: FontWeight.normal),
+                                        fontWeight: FontWeight.normal,
+                                        color: AppColors.icon,
+                                      ),
                                     ),
                                   ),
                                 )
@@ -111,6 +113,8 @@ class QuoteCard extends StatelessWidget {
                                   borderNone: true,
                                   enabled: true,
                                   hintText: 'Add Your Quote',
+                                  hintColor: AppColors.icon,
+                                  styleColor: AppColors.icon,
                                   context: context,
                                   expand: true,
                                 ),
@@ -125,7 +129,7 @@ class QuoteCard extends StatelessWidget {
                         style: GoogleFonts.xanhMono(
                           textStyle:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: AppColors.background,
+                                    color: AppColors.icon,
                                   ),
                         ),
                       )
@@ -137,7 +141,7 @@ class QuoteCard extends StatelessWidget {
                               textStyle: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(color: AppColors.background),
+                                  .copyWith(color: AppColors.icon),
                             ),
                           ),
                           Expanded(
@@ -149,13 +153,13 @@ class QuoteCard extends StatelessWidget {
                                 textStyle: Theme.of(context)
                                     .textTheme
                                     .titleMedium!
-                                    .copyWith(color: AppColors.background),
+                                    .copyWith(color: AppColors.icon),
                               ),
                               hintStyle: GoogleFonts.xanhMono(
                                 textStyle: Theme.of(context)
                                     .textTheme
                                     .titleMedium!
-                                    .copyWith(color: AppColors.background),
+                                    .copyWith(color: AppColors.icon),
                               ),
                               context: context,
                             ),

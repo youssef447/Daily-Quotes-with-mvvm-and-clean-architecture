@@ -17,8 +17,12 @@ class NoPopularQuotesWidget extends StatelessWidget {
                   frameRate: const FrameRate(120),
                   repeat: false,
                 ),
-                Text('No Quotes Added Yet',
-                    style: AppTextStyles.font20MediumABeeZeePrimary),
+                verticalSpace(15),
+                Text(
+                  'No Quotes Added Yet',
+                  style: AppTextStyles.font20MediumABeeZeePrimary
+                      .copyWith(color: AppColors.textBG),
+                ),
               ],
             ),
           ),
