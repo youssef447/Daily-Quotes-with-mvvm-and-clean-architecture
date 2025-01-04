@@ -54,6 +54,7 @@ dependencies:
   flutter_colorpicker: ^1.1.0
   flutter_svg: ^2.0.16
   flutter_statusbarcolor_ns: ^0.6.0
+  workmanager: ^0.5.2
 flutter_native_splash:
   android: true
   ios: true

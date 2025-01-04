@@ -18,6 +18,7 @@ configurationDependencies() {
   );
 
 //Repo
+
   locators.registerLazySingleton<QuoteRepo>(
     () => QuoteRepo(
       remoteService: QuoteRemoteService(),

@@ -1,6 +1,8 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dailyquotes/core/theme/colors/app_colors.dart';
+import 'package:share_plus/share_plus.dart';
 
+import '../../utils/globales.dart';
 import '../Network/local/cach_helper.dart';
 
 class AwesomeNotificationService {
@@ -10,7 +12,7 @@ class AwesomeNotificationService {
   List<NotificationChannel> channels = [
     NotificationChannel(
       channelKey: 'Custom sound notifications',
-      channelName: 'notifications',
+      channelName: 'today quote channel',
       channelDescription: 'Notification channel for basic tests',
       playSound: true,
       soundSource: 'resource://raw/notification',
@@ -30,20 +32,6 @@ class AwesomeNotificationService {
       );
 
       await setListeners();
-      await showNotification(
-        scheduled: true,
-        title: 'Daily Quote',
-        body: 'Haven\'t Check Today\'s Quote?',
-        actionButtons: [
-          NotificationActionButton(
-            key: 'Check Now',
-            label: 'Check Now',
-            color: AppColors.primary,
-          ),
-        ],
-      );
-    } else {
-      return;
     }
   }
 
@@ -59,6 +47,7 @@ class AwesomeNotificationService {
     return isAllowed;
   }
 
+  @pragma('vm-entry-point')
   setListeners() async {
     await _service.setListeners(
 
@@ -73,6 +62,12 @@ class AwesomeNotificationService {
         /// Use this method to detect when the user taps on a notification or action button
 
         onActionReceivedMethod: (receivedAction) async {
+          if (receivedAction.payload != null &&
+              receivedAction.payload!['type'] == 'share') {
+            await Share.share(
+              '“${receivedAction.payload!['quote']}”\n\n- ${receivedAction.payload!['author']}\n\n\n $sharingMyGit',
+            );
+          }
           /*  if (navigatorKey.currentState != null) {
             navigatorKey.currentState!
                 .push(MaterialPageRoute(builder: (_) => TestScreen()));

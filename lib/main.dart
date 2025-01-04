@@ -14,6 +14,7 @@ import 'core/routes/app_route_generator.dart';
 import 'core/routes/app_routes.dart';
 import 'core/services/Network/local/cach_helper.dart';
 import 'core/services/Network/remote/dio_helper.dart';
+import 'core/services/background/work_manager.dart';
 import 'core/services/notifications/awesome_notification_service.dart';
 
 import 'core/theme/colors/app_colors.dart';
@@ -28,9 +29,9 @@ void main() async {
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
 
   await initUiConfigs(binding);
+  configurationDependencies();
 
   await initNetworkServices();
-  configurationDependencies();
   await initNotifications();
 
   runApp(const MyApp());
@@ -90,6 +91,7 @@ Future<void> initNotifications() async {
   //if null this means that's the first time requestion permission cuz when refused we store false value
   if (noitificationsEnabled) {
     await locators.get<AwesomeNotificationService>().init();
+    await WorkManagerService.init();
   }
 }
 
