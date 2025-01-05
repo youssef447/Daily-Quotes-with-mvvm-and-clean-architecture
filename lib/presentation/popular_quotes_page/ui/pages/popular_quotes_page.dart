@@ -1,5 +1,5 @@
 import 'package:dailyquotes/core/helpers/spacing_helper.dart';
-import 'package:dailyquotes/core/theme/colors/app_colors.dart';
+
 import 'package:dailyquotes/core/widgets/error_page.dart';
 
 import 'package:flutter/material.dart';
@@ -15,6 +15,7 @@ import '../../../../core/widgets/animations/fade_In_down_animation.dart';
 import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
 
 import 'package:dailyquotes/core/constants/assets.dart';
+import '../../../../main.dart';
 import '../../controller/popular_cubit.dart';
 import '../../controller/popular_states.dart';
 import '../../../../core/widgets/cards/quote_card.dart';
@@ -49,8 +50,8 @@ class PopularQuotesPage extends StatelessWidget {
           var cubit = PopularCubit.get(context);
 
           return RefreshIndicator(
-            backgroundColor: AppColors.background,
-            color: AppColors.primary,
+            backgroundColor: AppColorsProvider.of(context).appColors.background,
+            color: AppColorsProvider.of(context).appColors.primary,
             triggerMode: RefreshIndicatorTriggerMode.anywhere,
             onRefresh: () async {
               return await cubit.getPopularQuotes();
@@ -91,10 +92,15 @@ class PopularQuotesPage extends StatelessWidget {
                                           child: CircleAvatar(
                                             radius: 20.r,
                                             backgroundColor:
-                                                AppColors.secondaryPrimary,
+                                                AppColorsProvider.of(context)
+                                                    .appColors
+                                                    .secondaryPrimary,
                                             child: Icon(
                                               Icons.favorite,
-                                              color: AppColors.icon,
+                                              color:
+                                                  AppColorsProvider.of(context)
+                                                      .appColors
+                                                      .icon,
                                             ),
                                           ),
                                         ),
@@ -113,10 +119,15 @@ class PopularQuotesPage extends StatelessWidget {
                                           child: CircleAvatar(
                                             radius: 20.r,
                                             backgroundColor:
-                                                AppColors.secondaryPrimary,
+                                                AppColorsProvider.of(context)
+                                                    .appColors
+                                                    .secondaryPrimary,
                                             child: FaIcon(
                                               FontAwesomeIcons.share,
-                                              color: AppColors.icon,
+                                              color:
+                                                  AppColorsProvider.of(context)
+                                                      .appColors
+                                                      .icon,
                                             ),
                                           ),
                                         ),

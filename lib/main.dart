@@ -16,6 +16,7 @@ import 'core/services/Network/remote/dio_helper.dart';
 import 'core/services/background/work_manager.dart';
 import 'core/services/notifications/awesome_notification_service.dart';
 
+import 'core/theme/colors/app_colors.dart';
 import 'core/utils/blocObserver.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -36,6 +37,21 @@ void main() async {
   FlutterNativeSplash.remove();
 }
 
+class AppColorsProvider extends InheritedWidget {
+  final AppColors appColors;
+  const AppColorsProvider(
+      {super.key, required this.appColors, required super.child});
+
+  static AppColorsProvider of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<AppColorsProvider>()!;
+  @override
+  bool updateShouldNotify(covariant AppColorsProvider oldWidget) {
+    print(
+        'should update ${oldWidget.appColors.primary != appColors.primary || oldWidget.appColors.secondaryPrimary != appColors.secondaryPrimary || oldWidget.appColors.background != appColors.background}');
+    return true;
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -43,17 +59,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
         designSize: const Size(375, 812),
-        builder: (context, child) {
+        builder: (_, child) {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => CustomColorThemeController()..getTheme(),
+                create: (_) => CustomColorThemeController()..getTheme(),
               ),
               BlocProvider(
-                create: (context) => HomeCubit()..getNotificationShapeCaches(),
+                create: (_) => HomeCubit()..getNotificationShapeCaches(),
               ),
               BlocProvider(
-                create: (context) => TodayQuoteCubit()..getTodayQuote(),
+                create: (_) => TodayQuoteCubit()..getTodayQuote(),
               ),
             ],
             child:
@@ -61,10 +77,16 @@ class MyApp extends StatelessWidget {
                     buildWhen: (previous, current) {
               return current is ConfigThemeStateSuccess;
             }, builder: (context, _) {
-              return const MaterialApp(
+              return MaterialApp(
                 title: 'Daily Quotes',
                 debugShowCheckedModeBanner: false,
                 initialRoute: AppRoutes.home,
+                builder: (context, child) {
+                  return AppColorsProvider(
+                    appColors: AppColors.instance,
+                    child: child!,
+                  );
+                },
                 onGenerateRoute: AppRouteGenerator.generateRoute,
               );
             }),

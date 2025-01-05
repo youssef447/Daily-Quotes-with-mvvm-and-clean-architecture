@@ -21,20 +21,22 @@ class HomeAppbar extends StatelessWidget {
         children: [
           Text(
             'Quotez',
-            style: AppTextStyles.font18MediumAmita
-                .copyWith(color: AppColors.textBG),
+            style: AppTextStyles.font18MediumAmita.copyWith(
+                color: AppColorsProvider.of(context).appColors.textBG),
           ),
           const Spacer(),
           InkWell(
-            overlayColor: WidgetStatePropertyAll<Color>(
+            overlayColor: const WidgetStatePropertyAll<Color>(
               Colors.transparent,
             ),
             onTap: () {
               showDialog(
                   context: context,
                   builder: (context) => DefaultAlertDialog.Confirm(
+                        context: context,
                         icon: Icons.notification_important_outlined,
-                        iconColor: AppColors.primary,
+                        iconColor:
+                            AppColorsProvider.of(context).appColors.primary,
                         onYesClicked: () {
                           cubit.changeNotification();
                         },
@@ -57,8 +59,8 @@ class HomeAppbar extends StatelessWidget {
                     ? Icons.notifications_active
                     : Icons.notifications_off,
                 color: noitificationsEnabled
-                    ? AppColors.primary
-                    : AppColors.textBG,
+                    ? AppColorsProvider.of(context).appColors.primary
+                    : AppColorsProvider.of(context).appColors.textBG,
                 size: 25.sp,
               ),
             ),
@@ -72,8 +74,14 @@ class HomeAppbar extends StatelessWidget {
               child: SvgPicture.asset(
                 ImageAssets.rectangle,
                 color: longColor,
-                width: longColor == AppColors.primary ? 24.w : 18.w,
-                height: longColor == AppColors.primary ? 24.h : 18.h,
+                width:
+                    longColor == AppColorsProvider.of(context).appColors.primary
+                        ? 24.w
+                        : 18.w,
+                height:
+                    longColor == AppColorsProvider.of(context).appColors.primary
+                        ? 24.h
+                        : 18.h,
               ),
             ),
           ),
@@ -86,8 +94,14 @@ class HomeAppbar extends StatelessWidget {
               child: SvgPicture.asset(
                 ImageAssets.card,
                 color: squareColor,
-                width: squareColor == AppColors.primary ? 24.w : 18.w,
-                height: squareColor == AppColors.primary ? 24.h : 18.h,
+                width: squareColor ==
+                        AppColorsProvider.of(context).appColors.primary
+                    ? 24.w
+                    : 18.w,
+                height: squareColor ==
+                        AppColorsProvider.of(context).appColors.primary
+                    ? 24.h
+                    : 18.h,
               ),
             ),
           ),

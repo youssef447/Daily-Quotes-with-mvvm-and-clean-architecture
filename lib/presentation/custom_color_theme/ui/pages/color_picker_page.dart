@@ -1,13 +1,14 @@
 import 'package:dailyquotes/core/constants/assets.dart';
 import 'package:dailyquotes/core/helpers/spacing_helper.dart';
 import 'package:dailyquotes/core/widgets/animations/scale_animation.dart';
+import 'package:dailyquotes/main.dart';
 import 'package:dailyquotes/presentation/custom_color_theme/controller/custom_color_theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../../core/theme/colors/app_colors.dart';
+
 import '../../../../core/theme/text/app_text_styles.dart';
 import '../../../../core/widgets/animations/horizontal_animation.dart';
 import '../../../../core/widgets/buttons/default_button.dart';
@@ -23,7 +24,7 @@ class ColorPickerPage extends StatelessWidget {
         builder: (context, _) {
       final cubit = context.read<CustomColorThemeController>();
       return Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColorsProvider.of(context).appColors.background,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -35,8 +36,8 @@ class ColorPickerPage extends StatelessWidget {
                   verticalSpace(18),
                   Text(
                     'Primary Color',
-                    style: AppTextStyles.font14RegularABeeZee
-                        .copyWith(color: AppColors.textBG),
+                    style: AppTextStyles.font14RegularABeeZee.copyWith(
+                        color: AppColorsProvider.of(context).appColors.textBG),
                     textAlign: TextAlign.center,
                   ),
                   verticalSpace(18),
@@ -45,7 +46,8 @@ class ColorPickerPage extends StatelessWidget {
                     child: ColorPicker(
                       colorPickerWidth: 250.w,
                       displayThumbColor: true,
-                      pickerColor: AppColors.primary,
+                      pickerColor:
+                          AppColorsProvider.of(context).appColors.primary,
                       pickerAreaBorderRadius: BorderRadius.circular(8.r),
                       paletteType: PaletteType.hueWheel,
                       labelTypes: [],
@@ -56,8 +58,8 @@ class ColorPickerPage extends StatelessWidget {
                   ),
                   Text(
                     'Secondary Color',
-                    style: AppTextStyles.font14RegularABeeZee
-                        .copyWith(color: AppColors.textBG),
+                    style: AppTextStyles.font14RegularABeeZee.copyWith(
+                        color: AppColorsProvider.of(context).appColors.textBG),
                     textAlign: TextAlign.center,
                   ),
                   verticalSpace(18),
@@ -66,7 +68,9 @@ class ColorPickerPage extends StatelessWidget {
                     child: ColorPicker(
                       displayThumbColor: true,
                       colorPickerWidth: 250.w,
-                      pickerColor: AppColors.secondaryPrimary,
+                      pickerColor: AppColorsProvider.of(context)
+                          .appColors
+                          .secondaryPrimary,
                       pickerAreaBorderRadius: BorderRadius.circular(8.r),
                       paletteType: PaletteType.hueWheel,
                       labelTypes: [],
@@ -77,8 +81,8 @@ class ColorPickerPage extends StatelessWidget {
                   ),
                   Text(
                     'Background Color',
-                    style: AppTextStyles.font14RegularABeeZee
-                        .copyWith(color: AppColors.textBG),
+                    style: AppTextStyles.font14RegularABeeZee.copyWith(
+                        color: AppColorsProvider.of(context).appColors.textBG),
                     textAlign: TextAlign.center,
                   ),
                   verticalSpace(18),
@@ -87,7 +91,8 @@ class ColorPickerPage extends StatelessWidget {
                     child: ColorPicker(
                       displayThumbColor: true,
                       colorPickerWidth: 250.w,
-                      pickerColor: AppColors.background,
+                      pickerColor:
+                          AppColorsProvider.of(context).appColors.background,
                       pickerAreaBorderRadius: BorderRadius.circular(8.r),
                       paletteType: PaletteType.hueWheel,
                       labelTypes: [],

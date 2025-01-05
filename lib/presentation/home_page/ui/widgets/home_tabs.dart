@@ -20,7 +20,7 @@ class HomeTabs extends StatelessWidget {
             padding: EdgeInsetsDirectional.only(
                 end: index == QuoteTab.values.length - 1 ? 0 : 30.w),
             child: InkWell(
-              overlayColor: WidgetStatePropertyAll<Color>(
+              overlayColor: const WidgetStatePropertyAll<Color>(
                 Colors.transparent,
               ),
               onTap: () {
@@ -29,7 +29,9 @@ class HomeTabs extends StatelessWidget {
               child: AnimatedDefaultTextStyle(
                 curve: Curves.decelerate,
                 style: AppTextStyles.font14MediumABeeZee.copyWith(
-                  color: selected ? AppColors.primary : AppColors.textBG,
+                  color: selected
+                      ? AppColorsProvider.of(context).appColors.primary
+                      : AppColorsProvider.of(context).appColors.textBG,
                   fontWeight: selected
                       ? AppFontWeights.extraBold
                       : AppFontWeights.medium,

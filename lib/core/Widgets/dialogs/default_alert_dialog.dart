@@ -1,4 +1,4 @@
-import 'package:dailyquotes/core/theme/colors/app_colors.dart';
+import 'package:dailyquotes/main.dart';
 
 import 'package:flutter/Material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +13,7 @@ abstract class DefaultAlertDialog {
     required Function() onOkClicked,
     required TextStyle defaultTextStyle,
     required String content,
+    required BuildContext context,
   }) {
     return AlertDialog(
       icon: Icon(
@@ -25,7 +26,7 @@ abstract class DefaultAlertDialog {
         DefaultButton(
           height: 35.h,
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColorsProvider.of(context).appColors.primary,
           raduis: 20.r,
           width: 70.w,
           onClicked: onOkClicked,
@@ -35,7 +36,7 @@ abstract class DefaultAlertDialog {
           ),
         ),
       ],
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColorsProvider.of(context).appColors.background,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -60,6 +61,7 @@ abstract class DefaultAlertDialog {
     required Function() onYesClicked,
     required TextStyle defaultTextStyle,
     required String content,
+    required BuildContext context,
   }) {
     return AlertDialog(
       icon: Icon(
@@ -72,7 +74,7 @@ abstract class DefaultAlertDialog {
         DefaultButton(
           height: 35.h,
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColorsProvider.of(context).appColors.primary,
           raduis: 20.r,
           width: 100.w,
           onClicked: onYesClicked,
@@ -84,7 +86,7 @@ abstract class DefaultAlertDialog {
         DefaultButton(
           height: 35.h,
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColorsProvider.of(context).appColors.primary,
           raduis: 20.r,
           width: 100.w,
           onClicked: onNoClicked,
@@ -94,7 +96,7 @@ abstract class DefaultAlertDialog {
           ),
         ),
       ],
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColorsProvider.of(context).appColors.background,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

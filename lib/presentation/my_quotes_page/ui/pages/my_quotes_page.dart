@@ -5,6 +5,7 @@ import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
 import 'package:dailyquotes/core/widgets/dialogs/default_alert_dialog.dart';
 import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
 import 'package:dailyquotes/core/widgets/sheets/default_botom_sheet.dart';
+import 'package:dailyquotes/main.dart';
 import 'package:dailyquotes/presentation/my_quotes_page/controller/my_quotes_cubit.dart';
 import 'package:dailyquotes/presentation/my_quotes_page/controller/my_quotes_states.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,6 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/widgets/sliders/default_carousel_slider.dart';
 import '../../../../core/widgets/animations/fade_In_down_animation.dart';
-
-import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 
 import 'package:dailyquotes/core/constants/assets.dart';
 import '../../../add_edit_quote/ui/pages/add_edit_quote_page.dart';
@@ -41,7 +40,7 @@ class MyQuotesPage extends StatelessWidget {
           var cubit = context.read<MyQuotesPageCubit>();
 
           return Scaffold(
-            backgroundColor: AppColors.background,
+            backgroundColor: AppColorsProvider.of(context).appColors.background,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: cubit.MyQuotesPage.isNotEmpty
@@ -51,16 +50,19 @@ class MyQuotesPage extends StatelessWidget {
                       DefaultBottomSheet.Default(
                           context: context, child: const AddEditQuoteSheet());
                     },
-                    backgroundColor: AppColors.primary,
+                    backgroundColor:
+                        AppColorsProvider.of(context).appColors.primary,
                     child: Icon(
                       Icons.format_quote_outlined,
-                      color: AppColors.floatingIcon,
+                      color:
+                          AppColorsProvider.of(context).appColors.floatingIcon,
                     ),
                   )
                 : null,
             body: RefreshIndicator(
-              backgroundColor: AppColors.background,
-              color: AppColors.primary,
+              backgroundColor:
+                  AppColorsProvider.of(context).appColors.background,
+              color: AppColorsProvider.of(context).appColors.primary,
               triggerMode: RefreshIndicatorTriggerMode.anywhere,
               onRefresh: () async {
                 return await cubit.getMyQuotesPage();
@@ -93,10 +95,16 @@ class MyQuotesPage extends StatelessWidget {
                                               },
                                               child: CircleAvatar(
                                                 backgroundColor:
-                                                    AppColors.secondaryPrimary,
+                                                    AppColorsProvider.of(
+                                                            context)
+                                                        .appColors
+                                                        .secondaryPrimary,
                                                 child: FaIcon(
                                                   FontAwesomeIcons.share,
-                                                  color: AppColors.icon,
+                                                  color: AppColorsProvider.of(
+                                                          context)
+                                                      .appColors
+                                                      .icon,
                                                 ),
                                               ),
                                             ),
@@ -115,10 +123,16 @@ class MyQuotesPage extends StatelessWidget {
                                               },
                                               child: CircleAvatar(
                                                 backgroundColor:
-                                                    AppColors.secondaryPrimary,
+                                                    AppColorsProvider.of(
+                                                            context)
+                                                        .appColors
+                                                        .secondaryPrimary,
                                                 child: Icon(
                                                   Icons.edit,
-                                                  color: AppColors.icon,
+                                                  color: AppColorsProvider.of(
+                                                          context)
+                                                      .appColors
+                                                      .icon,
                                                 ),
                                               ),
                                             ),

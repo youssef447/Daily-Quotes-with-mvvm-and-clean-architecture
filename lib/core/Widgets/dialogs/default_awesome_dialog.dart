@@ -1,9 +1,8 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
+import 'package:dailyquotes/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../theme/colors/app_colors.dart';
 
 abstract class AwesomeDialogUtil {
   static sucess({
@@ -18,14 +17,14 @@ abstract class AwesomeDialogUtil {
       body: Text(
         body,
         style: AppTextStyles.font14MediumABeeZee.copyWith(
-          color: AppColors.primary,
+          color: AppColorsProvider.of(context).appColors.primary,
         ),
       ),
       title: title,
       dialogType: DialogType.success,
       padding: const EdgeInsets.all(15),
-      dialogBackgroundColor: AppColors.background,
-      btnOkColor: AppColors.primary,
+      dialogBackgroundColor: AppColorsProvider.of(context).appColors.background,
+      btnOkColor: AppColorsProvider.of(context).appColors.primary,
       buttonsTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -41,7 +40,7 @@ abstract class AwesomeDialogUtil {
     Function()? btnOkOnPress,
   }) {
     AwesomeDialog(
-      dialogBackgroundColor: AppColors.background,
+      dialogBackgroundColor: AppColorsProvider.of(context).appColors.background,
       dialogBorderRadius: BorderRadius.circular(30.r),
       context: context,
       body: msg == null
@@ -61,7 +60,7 @@ abstract class AwesomeDialogUtil {
             ),
       title: title,
       dialogType: DialogType.error,
-      btnOkColor: AppColors.defaultAddbtnColor,
+      btnOkColor: AppColorsProvider.of(context).appColors.defaultAddbtnColor,
       buttonsTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
           ),

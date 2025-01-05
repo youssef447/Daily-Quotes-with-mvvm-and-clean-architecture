@@ -3,7 +3,6 @@ import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
 import 'package:dailyquotes/data/repositories/quote_repo.dart';
 import '../../../data/data_sources/quote_local_service.dart';
 import '../../../data/data_sources/quote_remote_service.dart';
-import '../../theme/colors/app_colors.dart';
 import '../notifications/awesome_notification_service.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -71,7 +70,6 @@ void actionTask() async {
             NotificationActionButton(
               key: 'Share',
               label: 'Share Now',
-              color: AppColors.primary,
             ),
           ],
         );

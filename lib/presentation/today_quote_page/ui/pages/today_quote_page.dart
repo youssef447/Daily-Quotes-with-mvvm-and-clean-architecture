@@ -5,6 +5,7 @@ import 'package:dailyquotes/core/widgets/dialogs/default_awesome_dialog.dart';
 import 'package:dailyquotes/core/widgets/error_page.dart';
 import 'package:dailyquotes/core/widgets/cards/quote_card.dart';
 import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
+import 'package:dailyquotes/main.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +13,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/widgets/animations/fade_In_down_animation.dart';
-
-import '../../../../core/theme/colors/app_colors.dart';
 
 import '../../controller/today_quotes_cubit.dart';
 import '../../controller/today_quotes_states.dart';
@@ -56,8 +55,8 @@ class TodayQuotePage extends StatelessWidget {
       }
 
       return RefreshIndicator(
-        backgroundColor: AppColors.background,
-        color: AppColors.primary,
+        backgroundColor: AppColorsProvider.of(context).appColors.background,
+        color: AppColorsProvider.of(context).appColors.primary,
         triggerMode: RefreshIndicatorTriggerMode.anywhere,
         onRefresh: () async {
           return await cubit.getTodayQuote();
@@ -89,12 +88,16 @@ class TodayQuotePage extends StatelessWidget {
                                       : cubit.removeFromPopular();
                                 },
                                 child: CircleAvatar(
-                                  backgroundColor: AppColors.secondaryPrimary,
+                                  backgroundColor: AppColorsProvider.of(context)
+                                      .appColors
+                                      .secondaryPrimary,
                                   child: Icon(
                                     cubit.todayQuote.fav == false
                                         ? Icons.favorite_outline
                                         : Icons.favorite,
-                                    color: AppColors.icon,
+                                    color: AppColorsProvider.of(context)
+                                        .appColors
+                                        .icon,
                                   ),
                                 ),
                               ),
@@ -110,10 +113,14 @@ class TodayQuotePage extends StatelessWidget {
                                   await cubit.shareQuote();
                                 },
                                 child: CircleAvatar(
-                                  backgroundColor: AppColors.secondaryPrimary,
+                                  backgroundColor: AppColorsProvider.of(context)
+                                      .appColors
+                                      .secondaryPrimary,
                                   child: FaIcon(
                                     FontAwesomeIcons.share,
-                                    color: AppColors.icon,
+                                    color: AppColorsProvider.of(context)
+                                        .appColors
+                                        .icon,
                                   ),
                                 ),
                               ),

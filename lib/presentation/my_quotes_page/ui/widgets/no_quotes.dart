@@ -14,13 +14,13 @@ class NoQuotes extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                overlayColor: WidgetStatePropertyAll<Color>(
+                overlayColor: const WidgetStatePropertyAll<Color>(
                   Colors.transparent,
                 ),
                 onTap: () {
                   DefaultBottomSheet.Default(
                     context: context,
-                    child: AddEditQuoteSheet(),
+                    child: const AddEditQuoteSheet(),
                   );
                 },
                 child: Lottie.asset(
@@ -33,8 +33,8 @@ class NoQuotes extends StatelessWidget {
               verticalSpace(15),
               Text(
                 'Tap To Add Your First Quote',
-                style: AppTextStyles.font20MediumABeeZeePrimary
-                    .copyWith(color: AppColors.textBG),
+                style: AppTextStyles.font20MediumABeeZeePrimary.copyWith(
+                    color: AppColorsProvider.of(context).appColors.textBG),
                 textAlign: TextAlign.center,
               ),
             ],

@@ -14,13 +14,15 @@ class ColorPickerAppbar extends StatelessWidget {
             behavior: HitTestBehavior.opaque,
             onTap: () => Navigator.of(context).pop(),
             child: SvgPicture.asset(ImageAssets.arrowBack,
-                width: 24.w, height: 24.h, color: AppColors.textBG),
+                width: 24.w,
+                height: 24.h,
+                color: AppColorsProvider.of(context).appColors.textBG),
           ),
           Expanded(
             child: Text(
               'Customize App Theme',
-              style: AppTextStyles.font16MediumAmitaPrimary
-                  .copyWith(color: AppColors.textBG),
+              style: AppTextStyles.font16MediumAmitaPrimary.copyWith(
+                  color: AppColorsProvider.of(context).appColors.textBG),
               textAlign: TextAlign.center,
             ),
           ),

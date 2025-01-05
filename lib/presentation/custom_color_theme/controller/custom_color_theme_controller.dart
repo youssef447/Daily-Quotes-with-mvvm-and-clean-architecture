@@ -1,5 +1,7 @@
 import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
+import 'package:dailyquotes/core/theme/colors/contrast_color_helper.dart';
 import 'package:dailyquotes/core/widgets/dialogs/default_awesome_dialog.dart';
+import 'package:dailyquotes/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -9,6 +11,7 @@ import '../../../core/theme/colors/app_colors.dart';
 import 'custom_color_theme_states.dart';
 
 class CustomColorThemeController extends Cubit<CustomColorThemeStates> {
+  late final AppColors appColors = AppColors.instance;
   CustomColorThemeController() : super(CustomColorThemeStatesInitial());
 
   void getTheme() async {
@@ -18,9 +21,8 @@ class CustomColorThemeController extends Cubit<CustomColorThemeStates> {
         await CacheHelper.getData(key: 'secondaryColor');
     String backgroundHexColor =
         await CacheHelper.getData(key: 'backgroundColor') ??
-            AppColors.background.toHexString();
+            appColors.background.toHexString();
     setPrimaryColor(primaryHexColor);
-    //AppColors.gradientColors = [Color(int.parse(primaryHexColor, radix: 16))];
 
     setSecondaryPrimaryColor(secondaryHexColor);
     setGradientColors();
@@ -31,27 +33,35 @@ class CustomColorThemeController extends Cubit<CustomColorThemeStates> {
 
   setPrimaryColor(String? hexColor) {
     if (hexColor != null) {
-      AppColors.primary = Color(int.parse(hexColor, radix: 16));
+      appColors.primary = Color(int.parse(hexColor, radix: 16));
     }
   }
 
   setGradientColors() {
-    AppColors.gradientColors = [AppColors.primary, AppColors.secondaryPrimary];
+    appColors.gradientColors = [appColors.primary, appColors.secondaryPrimary];
   }
 
   setSecondaryPrimaryColor(String? hexColor) {
     if (hexColor != null) {
-      AppColors.secondaryPrimary = Color(int.parse(hexColor, radix: 16));
+      appColors.secondaryPrimary = Color(int.parse(hexColor, radix: 16));
     }
   }
 
   Future<void> setBackgroundColor(String? hexColor) async {
     if (hexColor != null) {
-      AppColors.background = Color(int.parse(hexColor, radix: 16));
+      appColors.background = Color(int.parse(hexColor, radix: 16));
     }
-    await FlutterStatusbarcolor.setStatusBarColor(AppColors.background);
+    await FlutterStatusbarcolor.setStatusBarColor(appColors.background);
 
-    await FlutterStatusbarcolor.setNavigationBarColor(AppColors.background);
+    await FlutterStatusbarcolor.setNavigationBarColor(appColors.background);
+    if (ContrastColorHelper.contrastBGColor(appColors.background) ==
+        Colors.white) {
+      FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
+      FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+    } else {
+      FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+      FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+    }
   }
 
   //Managed In Cutom Theme Page
@@ -59,44 +69,94 @@ class CustomColorThemeController extends Cubit<CustomColorThemeStates> {
   Color? secondaryColor;
   Color? background;
   void changeTheme(BuildContext context) async {
-    AppColors.primary = primaryColor ?? AppColors.primary;
-    AppColors.secondaryPrimary = secondaryColor ?? AppColors.secondaryPrimary;
-    AppColors.background = background ?? AppColors.background;
-    AppColors.gradientColors = [AppColors.primary, AppColors.secondaryPrimary];
+    AppColorsProvider.of(context).appColors.primary =
+        primaryColor ?? AppColorsProvider.of(context).appColors.primary;
+    AppColorsProvider.of(context).appColors.secondaryPrimary = secondaryColor ??
+        AppColorsProvider.of(context).appColors.secondaryPrimary;
+    AppColorsProvider.of(context).appColors.background =
+        background ?? AppColorsProvider.of(context).appColors.background;
+    AppColorsProvider.of(context).appColors.gradientColors = [
+      AppColorsProvider.of(context).appColors.primary,
+      AppColorsProvider.of(context).appColors.secondaryPrimary
+    ];
     await CacheHelper.saveData(
-        key: 'primaryColor', value: AppColors.primary.toHexString());
-    await CacheHelper.saveData(
-        key: 'secondaryColor', value: AppColors.secondaryPrimary.toHexString());
-    await CacheHelper.saveData(
-        key: 'backgroundColor', value: AppColors.background.toHexString());
+        key: 'primaryColor',
+        value: AppColorsProvider.of(context).appColors.primary.toHexString());
 
-    await FlutterStatusbarcolor.setStatusBarColor(AppColors.background);
+    if (context.mounted) {
+      await CacheHelper.saveData(
+          key: 'secondaryColor',
+          value: AppColorsProvider.of(context)
+              .appColors
+              .secondaryPrimary
+              .toHexString());
+    }
 
-    await FlutterStatusbarcolor.setNavigationBarColor(AppColors.background);
+    if (context.mounted) {
+      await CacheHelper.saveData(
+          key: 'backgroundColor',
+          value:
+              AppColorsProvider.of(context).appColors.background.toHexString());
+    }
+
+    if (context.mounted) {
+      setSystemBarAndNavColors(context);
+    }
 
     emit(ConfigThemeStateSuccess());
-    AwesomeDialogUtil.sucess(
-        context: context, body: 'Theme Changed Successfully', title: 'Success');
-    Navigator.of(context).pop();
+    if (context.mounted) {
+      AwesomeDialogUtil.sucess(
+          context: context,
+          body: 'Theme Changed Successfully',
+          title: 'Success');
+      Navigator.of(context).pop();
+    }
   }
 
   void resetTheme(BuildContext context) async {
-    AppColors.background = Color(0xff303b4d);
-    AppColors.primary = Color(0xfff48bc4);
-    AppColors.secondaryPrimary = Color(0xffa23bae);
-    AppColors.gradientColors = AppColors.gradientColors = [
-      AppColors.primary,
-      AppColors.secondaryPrimary
+    AppColorsProvider.of(context).appColors.background =
+        const Color(0xff303b4d);
+    AppColorsProvider.of(context).appColors.primary = const Color(0xfff48bc4);
+    AppColorsProvider.of(context).appColors.secondaryPrimary =
+        const Color(0xffa23bae);
+    AppColorsProvider.of(context).appColors.gradientColors =
+        AppColorsProvider.of(context).appColors.gradientColors = [
+      AppColorsProvider.of(context).appColors.primary,
+      AppColorsProvider.of(context).appColors.secondaryPrimary
     ];
     await CacheHelper.removeData(key: 'primaryColor');
     await CacheHelper.removeData(key: 'secondaryColor');
     await CacheHelper.removeData(key: 'backgroundColor');
 
-    await FlutterStatusbarcolor.setStatusBarColor(AppColors.background);
+    if (context.mounted) {
+      setSystemBarAndNavColors(context);
+    }
 
-    await FlutterStatusbarcolor.setNavigationBarColor(AppColors.background);
     emit(ConfigThemeStateSuccess());
-    AwesomeDialogUtil.sucess(
-        context: context, body: 'Theme Reset Successfully', title: 'Success');
+    if (context.mounted) {
+      AwesomeDialogUtil.sucess(
+          context: context, body: 'Theme Reset Successfully', title: 'Success');
+    }
+  }
+
+  setSystemBarAndNavColors(BuildContext context) async {
+    await FlutterStatusbarcolor.setStatusBarColor(
+        AppColorsProvider.of(context).appColors.background);
+
+    if (context.mounted) {
+      await FlutterStatusbarcolor.setNavigationBarColor(
+          AppColorsProvider.of(context).appColors.background);
+    }
+    if (context.mounted) {
+      if (ContrastColorHelper.contrastBGColor(
+              AppColorsProvider.of(context).appColors.background) ==
+          Colors.white) {
+        FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
+        FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+      } else {
+        FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+        FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+      }
+    }
   }
 }

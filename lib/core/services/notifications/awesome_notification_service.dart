@@ -1,5 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:dailyquotes/core/theme/colors/app_colors.dart';
+
 import 'package:share_plus/share_plus.dart';
 
 import '../../utils/globales.dart';
@@ -18,7 +18,6 @@ class AwesomeNotificationService {
       soundSource: 'resource://raw/notification',
       importance: NotificationImportance.Max,
       defaultPrivacy: NotificationPrivacy.Public,
-      defaultColor: AppColors.primary,
       channelShowBadge: true,
     ),
   ];

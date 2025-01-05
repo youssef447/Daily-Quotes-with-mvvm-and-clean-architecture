@@ -11,7 +11,8 @@ class RandomQuoteGeneratorButton extends StatelessWidget {
         onClicked: () {
           cubit.getRandomQuote();
         },
-        backgroundColor: AppColors.secondaryPrimary,
+        backgroundColor:
+            AppColorsProvider.of(context).appColors.secondaryPrimary,
         raduis: 25,
         width: 200.w,
         child: Row(
@@ -20,15 +21,15 @@ class RandomQuoteGeneratorButton extends StatelessWidget {
           children: [
             Text(
               'Get Random Quote',
-              style: AppTextStyles.font14RegularABeeZee
-                  .copyWith(color: AppColors.icon),
+              style: AppTextStyles.font14RegularABeeZee.copyWith(
+                  color: AppColorsProvider.of(context).appColors.icon),
             ),
             SizedBox(
               width: 10.w,
             ),
             Icon(
               Icons.format_quote_sharp,
-              color: AppColors.icon,
+              color: AppColorsProvider.of(context).appColors.icon,
               size: 20.sp,
             ),
           ],

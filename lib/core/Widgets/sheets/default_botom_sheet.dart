@@ -1,8 +1,7 @@
 import 'package:dailyquotes/core/extensions/context_extension.dart';
+import 'package:dailyquotes/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../theme/colors/app_colors.dart';
 
 abstract class DefaultBottomSheet {
   static Default(
@@ -11,7 +10,7 @@ abstract class DefaultBottomSheet {
       required Widget child}) {
     return showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColorsProvider.of(context).appColors.background,
       clipBehavior: Clip.hardEdge,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(

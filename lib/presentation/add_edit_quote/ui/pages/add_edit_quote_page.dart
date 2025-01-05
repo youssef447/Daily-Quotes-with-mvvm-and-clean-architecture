@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:dailyquotes/core/widgets/dialogs/default_alert_dialog.dart';
 import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
+import 'package:dailyquotes/main.dart';
 
 import 'package:dailyquotes/presentation/add_edit_quote/controller/add_edit_quote_states.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/widgets/animations/fade_In_down_animation.dart';
-import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
 import '../../../../domain/entity/quote_entity.dart';
 import '../../controller/add_edit_quote_cubit.dart';
@@ -63,7 +63,7 @@ class AddEditQuoteSheet extends StatelessWidget {
         var cubit = AddEditQuoteCubit.get(context);
         return SafeArea(
           child: Scaffold(
-            backgroundColor: AppColors.background,
+            backgroundColor: AppColorsProvider.of(context).appColors.background,
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Stack(
@@ -101,7 +101,9 @@ class AddEditQuoteSheet extends StatelessWidget {
                               radius: 22.sp,
                               child: Icon(
                                 quote != null ? Icons.done : Icons.add,
-                                color: AppColors.primary,
+                                color: AppColorsProvider.of(context)
+                                    .appColors
+                                    .primary,
                                 size: 25.sp,
                               ),
                             ),

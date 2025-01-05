@@ -1,11 +1,12 @@
 import 'package:dailyquotes/core/extensions/context_extension.dart';
-import 'package:dailyquotes/core/theme/colors/app_colors.dart';
+
 import 'package:dailyquotes/core/widgets/dialogs/default_alert_dialog.dart';
 import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
 import 'package:dailyquotes/core/theme/text/app_font_weights.dart';
 import 'package:dailyquotes/core/utils/globales.dart';
 
 import 'package:dailyquotes/core/widgets/error_page.dart';
+import 'package:dailyquotes/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +33,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColorsProvider.of(context).appColors.background,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocConsumer<HomeCubit, HomeStates>(
@@ -79,14 +80,14 @@ class HomePage extends StatelessWidget {
                         cubit.changeShape(CardShape.rectangle);
                       },
                       longColor: cubit.cardShape == CardShape.rectangle
-                          ? AppColors.primary
-                          : AppColors.textBG,
+                          ? AppColorsProvider.of(context).appColors.primary
+                          : AppColorsProvider.of(context).appColors.textBG,
                       squareOnTap: () {
                         cubit.changeShape(CardShape.square);
                       },
                       squareColor: cubit.cardShape == CardShape.square
-                          ? AppColors.primary
-                          : AppColors.textBG),
+                          ? AppColorsProvider.of(context).appColors.primary
+                          : AppColorsProvider.of(context).appColors.textBG),
                   const HomeTabs(),
                   verticalSpace(12),
                   Expanded(

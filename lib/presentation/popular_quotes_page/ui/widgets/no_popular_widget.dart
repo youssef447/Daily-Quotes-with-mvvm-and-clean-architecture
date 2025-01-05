@@ -20,8 +20,8 @@ class NoPopularQuotesWidget extends StatelessWidget {
                 verticalSpace(15),
                 Text(
                   'No Quotes Added Yet',
-                  style: AppTextStyles.font20MediumABeeZeePrimary
-                      .copyWith(color: AppColors.textBG),
+                  style: AppTextStyles.font20MediumABeeZeePrimary.copyWith(
+                      color: AppColorsProvider.of(context).appColors.textBG),
                 ),
               ],
             ),

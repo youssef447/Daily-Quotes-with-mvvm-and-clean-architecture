@@ -21,14 +21,18 @@ class DeleteQuoteButton extends StatelessWidget {
             context: context,
             builder: (context) => FadeInDownAnimation(
               child: DefaultAlertDialog.Confirm(
+                  context: context,
                   content: 'Are You sure you want to delete this quote?',
                   icon: Icons.question_mark_sharp,
-                  iconColor: AppColors.background,
-                  defaultTextStyle:
-                      Theme.of(context).textTheme.titleMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.background,
-                          ),
+                  iconColor: AppColorsProvider.of(context).appColors.background,
+                  defaultTextStyle: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(
+                        fontWeight: FontWeight.bold,
+                        color:
+                            AppColorsProvider.of(context).appColors.background,
+                      ),
                   onNoClicked: () => Navigator.of(context).pop(),
                   onYesClicked: () {
                     cubit.removeMyQuote(cubit.MyQuotesPage[itemIndex].id!);
