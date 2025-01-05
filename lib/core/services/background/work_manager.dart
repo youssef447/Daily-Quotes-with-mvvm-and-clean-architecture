@@ -1,4 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
 import 'package:dailyquotes/data/repositories/quote_repo.dart';
 import '../../../data/data_sources/quote_local_service.dart';
 import '../../../data/data_sources/quote_remote_service.dart';
@@ -14,16 +15,16 @@ abstract class WorkManagerService {
       'show simple notification',
       frequency: const Duration(minutes: 15),
     ); */
-    if (DateTime.now().hour == 20 /* && DateTime.now().minute == 58 */) {
-      print('sakaaa');
-      await Workmanager().registerOneOffTask(
-        'id1',
-        'show simple notification',
-        constraints: Constraints(
-          networkType: NetworkType.connected,
-        ),
-      );
-    }
+
+    // if (DateTime.now().hour == 8 && DateTime.now().minute == 0) {
+    await Workmanager().registerOneOffTask(
+      'id1',
+      'show simple notification',
+      constraints: Constraints(
+        networkType: NetworkType.connected,
+      ),
+    );
+    //  }
   }
 
   //init work manager service
@@ -55,26 +56,32 @@ void actionTask() async {
   }
   quote = res.data!.quote;
 
-  Workmanager().executeTask(
-    (taskName, inputData) {
-      AwesomeNotificationService().showNotification(
-        payload: {
-          'type': 'share',
-          'quote': quote!,
-          'author': res.data!.author,
-        },
-        title: 'Today\'s Quote',
-        body: quote,
-        actionButtons: [
-          NotificationActionButton(
-            key: 'Share',
-            label: 'Share Now',
-            color: AppColors.primary,
-          ),
-        ],
-      );
-
-      return Future.value(true);
-    },
-  );
+  try {
+    Workmanager().executeTask(
+      (taskName, inputData) async {
+        AwesomeNotificationService().showNotification(
+          payload: {
+            'type': 'share',
+            'quote': quote!,
+            'author': res.data!.author,
+          },
+          title: 'Today\'s Quote',
+          body: quote,
+          actionButtons: [
+            NotificationActionButton(
+              key: 'Share',
+              label: 'Share Now',
+              color: AppColors.primary,
+            ),
+          ],
+        );
+        await CacheHelper.saveData(key: 'success', value: true);
+        return Future.value(true);
+      },
+    );
+  } catch (e) {
+    //indicating that the task has failed to request new quote from repo when user opens the app
+    await CacheHelper.saveData(key: 'success', value: false);
+    return Future.value(true);
+  }
 }

@@ -1,17 +1,24 @@
 import 'package:dailyquotes/core/di/injection.dart';
+
 import 'package:dailyquotes/data/repositories/quote_repo.dart';
 import 'package:dailyquotes/domain/entity/quote_entity.dart';
+import 'package:dailyquotes/domain/usecases/update_today_usecase.dart';
 
-import 'package:dailyquotes/presentation/today_quote_page/controller/today_quotes_cubit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/utils/globales.dart';
+import '../../../domain/usecases/get_today_quote_usecase.dart';
+import '../../../domain/usecases/remove_quote_from_popular_usecase.dart';
 import 'popular_states.dart';
 
 class PopularCubit extends Cubit<PopularStates> {
-  late QuoteEntity todayQuote;
+  GetTodayQuoteUsecase getTodayQuoteUsecase =
+      locators.get<GetTodayQuoteUsecase>();
+  UpdateTodayQuoteUseCase updateTodayQuoteUsecase =
+      locators.get<UpdateTodayQuoteUseCase>();
+  RemoveQuoteFromPopularUsecase removeQuoteFromPopularUsecase =
+      locators.get<RemoveQuoteFromPopularUsecase>();
   PopularCubit() : super(PopularInitialState());
   static PopularCubit get(context) => BlocProvider.of(context);
 
@@ -21,13 +28,12 @@ class PopularCubit extends Cubit<PopularStates> {
     emit(GetPopularLoadingState());
 
     final res = await locators.get<QuoteRepo>().getFavQuotes();
-    if (res.isSuccess) {
-      popularQuotes = res.data!;
-
-      emit(GetPopularSucessState());
-    } else {
-      emit(GetPopularErrorState(onError.toString()));
+    if (res.isError) {
+      emit(GetPopularErrorState(res.errorMessage!));
     }
+    popularQuotes = res.data!;
+
+    emit(GetPopularSucessState());
   }
 
   removeFromPopular(QuoteEntity quote) async {
@@ -35,37 +41,45 @@ class PopularCubit extends Cubit<PopularStates> {
       RemoveFromPopularLoadingState(),
     );
 
-    final res = await locators.get<QuoteRepo>().removeFromFav(quote.quote);
-    if (res.isSuccess) {
-      if (quote.quote == todayQuote.quote) {
-        removeTodayFromPopular();
-      } else {
+    final res =
+        await removeQuoteFromPopularUsecase.removeQuoteFromPopular(quote);
+    if (res.isError) {
+      emit(RemoveFromPopularErrorState(res.errorMessage!));
+      return;
+    }
+
+    final todayQuote = await getTodayQuote();
+    if (quote.quote == todayQuote?.quote) {
+      final res = await removeTodayQuote(todayQuote!);
+      if (res) {
         getPopularQuotes();
-        emit(
-          RemoveFromPopularSuccessState(),
-        );
       }
     } else {
-      emit(RemoveFromPopularErrorState(res.errorMessage!));
-    }
-  }
-
-  getTodayQuote(BuildContext context) async {
-    todayQuote = context.read<TodayQuoteCubit>().todayQuote;
-  }
-
-  removeTodayFromPopular() async {
-    todayQuote.fav = false;
-
-    final res = await locators.get<QuoteRepo>().updateTodayQuote(todayQuote);
-    if (res.isSuccess) {
-      todayQuote = res.data!;
-      emit(RemoveFromPopularSuccessState());
-
+      //update popular quotes
       getPopularQuotes();
-    } else {
-      emit(RemoveFromPopularErrorState(res.errorMessage!));
+      emit(RemoveFromPopularSuccessState());
     }
+  }
+
+  Future<QuoteEntity?> getTodayQuote() async {
+    final res = await getTodayQuoteUsecase.getTodayQuote();
+    if (res.isError) {
+      emit(RemoveFromPopularErrorState(res.errorMessage!));
+      return null;
+    }
+
+    return res.data!;
+  }
+
+  Future<bool> removeTodayQuote(QuoteEntity quote) async {
+    quote.toggleFav(false);
+    final res = await updateTodayQuoteUsecase.updateTodayQuote(quote);
+    if (res.isError) {
+      emit(RemoveFromPopularErrorState(res.errorMessage!));
+      return false;
+    }
+
+    return true;
   }
 
   shareQuote(QuoteEntity quote) async {

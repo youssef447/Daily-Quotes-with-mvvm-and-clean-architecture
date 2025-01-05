@@ -59,7 +59,7 @@ class QuoteRepo {
     }
   }
 
-  ///only updates where id =1 as todays quote is always first row and others are favourites, this method only called when we update fav state and when we get todays quote after a day been passed
+  ///only updates where id =1 as todays quote is always first row and others are favourites, this method only called when we update fav state and when we get todays quote after a day has been passed
 
   Future<ApiResult<QuoteEntity>> updateTodayQuote(QuoteEntity model) async {
     try {

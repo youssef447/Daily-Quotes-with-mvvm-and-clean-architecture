@@ -11,7 +11,6 @@ import '../../../domain/entity/quote_entity.dart';
 class MyQuotesPageCubit extends Cubit<MyQuotesPageStates> {
   MyQuotesPageCubit() : super(MyQuotesPageInitialState());
 
-  static MyQuotesPageCubit get(context) => BlocProvider.of(context);
   List<QuoteEntity> MyQuotesPage = [];
 
   getMyQuotesPage() async {

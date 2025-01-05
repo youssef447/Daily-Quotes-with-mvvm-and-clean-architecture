@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 import 'core/di/injection.dart';
 import 'core/constants/api_constants.dart';
@@ -17,7 +16,6 @@ import 'core/services/Network/remote/dio_helper.dart';
 import 'core/services/background/work_manager.dart';
 import 'core/services/notifications/awesome_notification_service.dart';
 
-import 'core/theme/colors/app_colors.dart';
 import 'core/utils/blocObserver.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -105,9 +103,6 @@ Future<void> initUiConfigs(WidgetsBinding binding) async {
   FlutterNativeSplash.preserve(
     widgetsBinding: binding,
   );
-  await FlutterStatusbarcolor.setStatusBarColor(AppColors.background);
-
-  await FlutterStatusbarcolor.setNavigationBarColor(AppColors.background);
 
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

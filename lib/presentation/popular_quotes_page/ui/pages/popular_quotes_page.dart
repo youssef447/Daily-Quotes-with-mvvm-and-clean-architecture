@@ -27,9 +27,7 @@ class PopularQuotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PopularCubit()
-        ..getPopularQuotes()
-        ..getTodayQuote(context),
+      create: (context) => PopularCubit()..getPopularQuotes(),
       child: BlocConsumer<PopularCubit, PopularStates>(
         listener: (BuildContext context, PopularStates state) {
           if (state is RemoveFromPopularErrorState) {

@@ -1,3 +1,4 @@
+import 'package:dailyquotes/domain/usecases/update_today_usecase.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../data/data_sources/quote_local_service.dart';
@@ -29,10 +30,13 @@ configurationDependencies() {
   locators.registerLazySingleton<GetTodayQuoteUsecase>(
     () => GetTodayQuoteUsecase(locators()),
   );
+  locators.registerLazySingleton<UpdateTodayQuoteUseCase>(
+    () => UpdateTodayQuoteUseCase(locators()),
+  );
   locators.registerLazySingleton<AddQuoteToPopularUsecase>(
-    () => AddQuoteToPopularUsecase(locators()),
+    () => AddQuoteToPopularUsecase(locators(), locators()),
   );
   locators.registerLazySingleton<RemoveQuoteFromPopularUsecase>(
-    () => RemoveQuoteFromPopularUsecase(locators()),
+    () => RemoveQuoteFromPopularUsecase(locators(), locators()),
   );
 }

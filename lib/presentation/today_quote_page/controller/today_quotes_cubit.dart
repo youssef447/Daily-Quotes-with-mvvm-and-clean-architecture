@@ -21,49 +21,41 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
 
   TodayQuoteCubit() : super(TodayInitialState());
   late QuoteEntity _todayQuote;
+
   QuoteEntity get todayQuote => _todayQuote;
   getTodayQuote() async {
     emit(GetTodayQuoteLoadingState());
 
     final res = await getTodayQuoteUsecase.getTodayQuote();
-    if (res.isSuccess) {
-      _todayQuote = res.data!;
-      emit(GetTodayQuoteSuccessState());
-    } else {
+    if (res.isError) {
       emit(GetTodayQuoteErrorState(res.errorMessage!));
     }
+    _todayQuote = res.data!;
+    emit(GetTodayQuoteSuccessState());
   }
 
   addToPopular() async {
-    emit(
-      AddToPopularLoadingState(),
-    );
+    emit(AddToPopularLoadingState());
 
     final res =
         await addQuoteToPopularUsecase.addQuoteToPopular(_todayQuote, true);
-    if (res.isSuccess) {
-      _todayQuote = res.data!;
-      emit(AddToPopularSuccessState());
-    } else {
+    if (res.isError) {
       emit(AddToPopularErrorState(res.errorMessage!));
     }
+    _todayQuote = res.data!;
+    emit(AddToPopularSuccessState());
   }
 
   removeFromPopular() async {
-    emit(
-      RemoveFromPopularLoadingState(),
-    );
+    emit(RemoveFromPopularLoadingState());
 
     final res = await removeQuoteFromPopularUsecase.removeQuoteFromPopular(
-      _todayQuote,
-      true,
-    );
-    if (res.isSuccess) {
-      _todayQuote = res.data!;
-      emit(RemoveFromPopularSuccessState());
-    } else {
+        _todayQuote, true);
+    if (res.isError) {
       emit(RemoveFromPopularErrorState(res.errorMessage!));
     }
+    _todayQuote = res.data!;
+    emit(RemoveFromPopularSuccessState());
   }
 
   shareQuote() async {

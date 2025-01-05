@@ -39,7 +39,7 @@ class MyQuotesPage extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          var cubit = MyQuotesPageCubit.get(context);
+          var cubit = context.read<MyQuotesPageCubit>();
 
           return Scaffold(
             backgroundColor: AppColors.background,

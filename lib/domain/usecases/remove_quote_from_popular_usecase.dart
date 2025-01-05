@@ -2,28 +2,27 @@ import 'package:dailyquotes/core/helpers/api_result_helper.dart';
 
 import '../../data/repositories/quote_repo.dart';
 import '../entity/quote_entity.dart';
+import 'update_today_usecase.dart';
 
 class RemoveQuoteFromPopularUsecase {
   final QuoteRepo _quoteRepo;
+  final UpdateTodayQuoteUseCase _updateTodayQuoteUsecase;
 
-  RemoveQuoteFromPopularUsecase(this._quoteRepo);
+  RemoveQuoteFromPopularUsecase(this._quoteRepo, this._updateTodayQuoteUsecase);
 
   Future<ApiResult> removeQuoteFromPopular(QuoteEntity entity,
       [bool? isToday]) async {
-    entity.fav = false;
     final res = await _quoteRepo.removeFromFav(entity.quote);
-    if (res.isSuccess) {
-      if (isToday ?? false) {
-        final updateRes = await _quoteRepo.updateTodayQuote(entity);
-        if (updateRes.isSuccess) {
-          return ApiResult.success(data: updateRes.data);
-        } else {
-          return ApiResult.error(updateRes.errorMessage!);
-        }
-      }
-      return ApiResult.success();
-    } else {
+    if (res.isError) {
       return ApiResult.error(res.errorMessage!);
     }
+    if (isToday ?? false) {
+      final updateRes = await _updateTodayQuoteUsecase.updateTodayQuote(entity);
+      if (updateRes.isError) {
+        return ApiResult.error(updateRes.errorMessage!);
+      }
+      return ApiResult.success(data: updateRes.data);
+    }
+    return ApiResult.success();
   }
 }

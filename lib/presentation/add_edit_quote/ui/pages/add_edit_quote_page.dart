@@ -72,6 +72,7 @@ class AddEditQuoteSheet extends StatelessWidget {
                     child: QuoteCard(
                       authorController: cubit.authorController,
                       quoteController: cubit.quoteController,
+                      isForm: true,
                       stackButtons: [
                         Positioned(
                           //right: 50,

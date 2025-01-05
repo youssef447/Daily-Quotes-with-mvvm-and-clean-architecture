@@ -24,7 +24,8 @@ class CustomColorThemeController extends Cubit<CustomColorThemeStates> {
 
     setSecondaryPrimaryColor(secondaryHexColor);
     setGradientColors();
-    setBackgroundColor(backgroundHexColor);
+    await setBackgroundColor(backgroundHexColor);
+
     emit(ConfigThemeStateSuccess());
   }
 
@@ -44,10 +45,13 @@ class CustomColorThemeController extends Cubit<CustomColorThemeStates> {
     }
   }
 
-  setBackgroundColor(String? hexColor) {
+  Future<void> setBackgroundColor(String? hexColor) async {
     if (hexColor != null) {
       AppColors.background = Color(int.parse(hexColor, radix: 16));
     }
+    await FlutterStatusbarcolor.setStatusBarColor(AppColors.background);
+
+    await FlutterStatusbarcolor.setNavigationBarColor(AppColors.background);
   }
 
   //Managed In Cutom Theme Page
