@@ -79,7 +79,8 @@ class PopularQuotesPage extends StatelessWidget {
                                         bottom: -15.h,
                                         child: InkWell(
                                           overlayColor:
-                                              WidgetStatePropertyAll<Color>(
+                                              const WidgetStatePropertyAll<
+                                                  Color>(
                                             Colors.transparent,
                                           ),
                                           onTap: () async {

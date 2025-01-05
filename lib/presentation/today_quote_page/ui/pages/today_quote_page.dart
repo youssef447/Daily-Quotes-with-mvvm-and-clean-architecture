@@ -79,7 +79,8 @@ class TodayQuotePage extends StatelessWidget {
                               right: 50.w,
                               bottom: -15.h,
                               child: InkWell(
-                                overlayColor: WidgetStatePropertyAll<Color>(
+                                overlayColor:
+                                    const WidgetStatePropertyAll<Color>(
                                   Colors.transparent,
                                 ),
                                 onTap: () {
@@ -101,7 +102,8 @@ class TodayQuotePage extends StatelessWidget {
                             Positioned(
                               bottom: -15.h,
                               child: InkWell(
-                                overlayColor: WidgetStatePropertyAll<Color>(
+                                overlayColor:
+                                    const WidgetStatePropertyAll<Color>(
                                   Colors.transparent,
                                 ),
                                 onTap: () async {

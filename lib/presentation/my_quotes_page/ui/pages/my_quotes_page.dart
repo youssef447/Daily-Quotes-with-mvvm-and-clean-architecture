@@ -54,7 +54,7 @@ class MyQuotesPage extends StatelessWidget {
                     backgroundColor: AppColors.primary,
                     child: Icon(
                       Icons.format_quote_outlined,
-                      color: AppColors.FloatingIcon,
+                      color: AppColors.floatingIcon,
                     ),
                   )
                 : null,

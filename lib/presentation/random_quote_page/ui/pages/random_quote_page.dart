@@ -74,7 +74,8 @@ class RandomQuotePage extends StatelessWidget {
                                 right: 50,
                                 bottom: -15,
                                 child: InkWell(
-                                  overlayColor: WidgetStatePropertyAll<Color>(
+                                  overlayColor:
+                                      const WidgetStatePropertyAll<Color>(
                                     Colors.transparent,
                                   ),
                                   onTap: () async {
@@ -98,7 +99,8 @@ class RandomQuotePage extends StatelessWidget {
                               Positioned(
                                 bottom: -15,
                                 child: InkWell(
-                                  overlayColor: WidgetStatePropertyAll<Color>(
+                                  overlayColor:
+                                      const WidgetStatePropertyAll<Color>(
                                     Colors.transparent,
                                   ),
                                   onTap: () async {

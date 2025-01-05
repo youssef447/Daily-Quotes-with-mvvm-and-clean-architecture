@@ -27,7 +27,7 @@ abstract class PageTransitionHelper {
               ),
               child: child,
             );
-          case PageTransitionType.DiagonalWithScale:
+          case PageTransitionType.diagonalWithScale:
             return FadeTransition(
               opacity: animation,
               child: SlideTransition(
@@ -53,5 +53,5 @@ enum PageTransitionType {
   slideFromRight,
   slideFromLeft,
   scale,
-  DiagonalWithScale
+  diagonalWithScale
 }

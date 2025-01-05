@@ -1,5 +1,5 @@
 import 'package:dailyquotes/core/utils/globales.dart';
-import 'package:dailyquotes/core/theme/themes.dart';
+
 import 'package:dailyquotes/presentation/custom_color_theme/controller/custom_color_theme_controller.dart';
 
 import 'package:flutter/material.dart';
@@ -61,10 +61,9 @@ class MyApp extends StatelessWidget {
                     buildWhen: (previous, current) {
               return current is ConfigThemeStateSuccess;
             }, builder: (context, _) {
-              return MaterialApp(
+              return const MaterialApp(
                 title: 'Daily Quotes',
                 debugShowCheckedModeBanner: false,
-                theme: darkTheme,
                 initialRoute: AppRoutes.home,
                 onGenerateRoute: AppRouteGenerator.generateRoute,
               );

@@ -8,6 +8,7 @@ class UpdateTodayQuoteUseCase {
   UpdateTodayQuoteUseCase(this._quoteRepo);
 
   Future<ApiResult> updateTodayQuote(QuoteEntity entity) async {
+    entity.toggleFav();
     return await _quoteRepo.updateTodayQuote(entity);
   }
 }

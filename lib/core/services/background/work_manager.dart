@@ -82,6 +82,6 @@ void actionTask() async {
   } catch (e) {
     //indicating that the task has failed to request new quote from repo when user opens the app
     await CacheHelper.saveData(key: 'success', value: false);
-    return Future.value(true);
+    // return Future.value(true);
   }
 }

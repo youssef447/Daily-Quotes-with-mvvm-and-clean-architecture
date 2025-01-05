@@ -23,7 +23,7 @@ abstract class AppRouteGenerator {
       case AppRoutes.customColorTheme:
         return PageTransitionHelper.buildPageRoute(
           const ColorPickerPage(),
-          PageTransitionType.DiagonalWithScale,
+          PageTransitionType.diagonalWithScale,
           duration: const Duration(milliseconds: 700),
         );
 
