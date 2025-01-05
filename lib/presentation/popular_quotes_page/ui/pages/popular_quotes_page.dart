@@ -55,10 +55,10 @@ class PopularQuotesPage extends StatelessWidget {
             onRefresh: () async {
               return await cubit.getPopularQuotes();
             },
-            child: cubit.popularQuotes.isEmpty
-                ? const NoPopularQuotesWidget()
-                : state is GetPopularLoadingState
-                    ? const DefaultLoadingIndicator()
+            child: state is GetPopularLoadingState
+                ? const DefaultLoadingIndicator()
+                : cubit.popularQuotes.isEmpty
+                    ? const NoPopularQuotesWidget()
                     : state is GetPopularErrorState
                         ? ErrorPopularWidget(
                             errorMsg: state.err,

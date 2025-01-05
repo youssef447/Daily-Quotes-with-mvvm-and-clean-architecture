@@ -12,7 +12,7 @@ class ThemeConfirmButtons extends StatelessWidget {
         DefaultButton(
           height: 35.h,
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.secondaryPrimary,
           raduis: 20.r,
           width: 120.w,
           onClicked: () {
@@ -21,12 +21,14 @@ class ThemeConfirmButtons extends StatelessWidget {
           child: Text(
             'Reset',
             textAlign: TextAlign.center,
+            style: AppTextStyles.font14RegularABeeZee
+                .copyWith(color: AppColors.icon),
           ),
         ),
         DefaultButton(
           height: 35.h,
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.secondaryPrimary,
           raduis: 20.r,
           width: 120.w,
           onClicked: () {
@@ -35,6 +37,8 @@ class ThemeConfirmButtons extends StatelessWidget {
           child: Text(
             'Confirm',
             textAlign: TextAlign.center,
+            style: AppTextStyles.font14RegularABeeZee
+                .copyWith(color: AppColors.icon),
           ),
         ),
       ],

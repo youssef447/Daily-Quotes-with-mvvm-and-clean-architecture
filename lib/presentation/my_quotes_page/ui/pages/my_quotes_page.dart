@@ -28,13 +28,12 @@ class MyQuotesPage extends StatelessWidget {
   const MyQuotesPage({super.key});
 
   @override
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MyQuotesPageCubit()..getMyQuotesPage(),
       child: BlocConsumer<MyQuotesPageCubit, MyQuotesPageStates>(
         listener: (context, state) {
-          if (state is RemoveMyQuotesPageuccessState) {
+          if (state is RemoveMyQuoteSuccessState) {
             Navigator.of(context).pop();
           }
         },
@@ -50,13 +49,13 @@ class MyQuotesPage extends StatelessWidget {
                     shape: const CircleBorder(),
                     onPressed: () {
                       DefaultBottomSheet.Default(
-                          context: context, child: AddEditQuoteSheet());
+                          context: context, child: const AddEditQuoteSheet());
                     },
+                    backgroundColor: AppColors.primary,
                     child: Icon(
                       Icons.format_quote_outlined,
-                      color: AppColors.icon,
+                      color: AppColors.FloatingIcon,
                     ),
-                    backgroundColor: AppColors.primary,
                   )
                 : null,
             body: RefreshIndicator(
@@ -69,7 +68,7 @@ class MyQuotesPage extends StatelessWidget {
               child: state is GetMyQuotesPageLoadingState
                   ? const DefaultLoadingIndicator()
                   : cubit.MyQuotesPage.isEmpty
-                      ? NoQuotes()
+                      ? const NoQuotes()
                       : Stack(
                           alignment: Alignment.center,
                           children: [

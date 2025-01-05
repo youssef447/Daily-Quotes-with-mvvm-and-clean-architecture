@@ -29,7 +29,7 @@ class MyQuotesPageCubit extends Cubit<MyQuotesPageStates> {
   removeMyQuote(int id) {
     emit(RemoveMyQuoteLoadingState());
     locators.get<QuoteRepo>().deleteMyQuote(id).then((value) {
-      emit(RemoveMyQuotesPageuccessState());
+      emit(RemoveMyQuoteSuccessState());
       getMyQuotesPage();
     }).catchError((onError) {
       emit(RemoveMyQuoteErrorState(onError.toString()));

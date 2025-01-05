@@ -13,7 +13,7 @@ class GetMyQuotesPageErrorState extends MyQuotesPageStates {
 
 class RemoveMyQuoteLoadingState extends MyQuotesPageStates {}
 
-class RemoveMyQuotesPageuccessState extends MyQuotesPageStates {}
+class RemoveMyQuoteSuccessState extends MyQuotesPageStates {}
 
 class RemoveMyQuoteErrorState extends MyQuotesPageStates {
   final String err;
