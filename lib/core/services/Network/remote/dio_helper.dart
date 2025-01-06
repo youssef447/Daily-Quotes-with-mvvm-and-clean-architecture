@@ -7,7 +7,7 @@ class DioHelper {
       BaseOptions(
         baseUrl: baseUrl,
         receiveDataWhenStatusError: true,
-   //  validateStatus: (_) => true,
+        //  validateStatus: (_) => true,
       ),
     );
   }

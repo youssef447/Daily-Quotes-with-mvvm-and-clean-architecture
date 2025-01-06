@@ -1,6 +1,9 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:dailyquotes/core/constants/api_constants.dart';
 import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
+import 'package:dailyquotes/core/services/Network/remote/dio_helper.dart';
 import 'package:dailyquotes/data/repositories/quote_repo.dart';
+import 'package:flutter/material.dart';
 import '../../../data/data_sources/quote_local_service.dart';
 import '../../../data/data_sources/quote_remote_service.dart';
 import '../notifications/awesome_notification_service.dart';
@@ -10,21 +13,25 @@ abstract class WorkManagerService {
   ///init work manager service
   static Future<void> init() async {
     await Workmanager().initialize(
-      todayQuoteNotification,
+      actionTasks,
       isInDebugMode: false,
     );
     registerMyTask();
   }
 
   static void registerMyTask() async {
-    // if (DateTime.now().hour == 8 && DateTime.now().minute == 0) {
-    await Workmanager().registerOneOffTask(
-      'UNIQUE1',
-      'show simple notification',
-      constraints: Constraints(
-        networkType: NetworkType.connected,
-      ),
-    );
+    if (DateTime.now().hour == 8 &&
+        DateTime.now().minute == 0 &&
+        DateTime.now().second == 0) {
+      await Workmanager().registerOneOffTask(
+        'UNIQUE1',
+        'show simple notification',
+        constraints: Constraints(
+          networkType: NetworkType.connected,
+        ),
+      );
+      //add more
+    }
   }
 
   static void cancelTasks() {
@@ -37,18 +44,19 @@ abstract class WorkManagerService {
 }
 
 @pragma('vm-entry-point')
-void todayQuoteNotification() async {
+void actionTasks() async {
   //show notification
-
+  WidgetsFlutterBinding.ensureInitialized();
   String? quote;
-  print('a7aaaaaaaa');
 
+  DioHelper.init(baseUrl: ApiConstants.baseUrl);
+  await CacheHelper.init();
   final repo = QuoteRepo(
     remoteService: QuoteRemoteService(),
     localService: QuoteLocalService(),
   );
   final res = await repo.reqTodayQuote();
-  print('a7aaaaaaaa ${res.data?.quote}');
+
   if (res.isError) {
     //indicating that the task has failed to request new quote from repo when user opens the app
     await CacheHelper.saveData(key: 'success', value: false);
@@ -59,7 +67,7 @@ void todayQuoteNotification() async {
   try {
     Workmanager().executeTask(
       (taskName, inputData) async {
-        AwesomeNotificationService().showNotification(
+        await AwesomeNotificationService().showNotification(
           payload: {
             'type': 'share',
             'quote': quote!,
@@ -81,7 +89,5 @@ void todayQuoteNotification() async {
   } catch (e) {
     //indicating that the task has failed to request new quote from repo when user opens the app
     await CacheHelper.saveData(key: 'success', value: false);
-    print('a7a $e');
-    // return Future.value(true);
   }
 }

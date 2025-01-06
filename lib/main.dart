@@ -24,11 +24,9 @@ import 'presentation/custom_color_theme/controller/custom_color_theme_states.dar
 import 'presentation/home_page/controller/home_cubit.dart';
 
 void main() async {
-  WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
-
-  await initUiConfigs(binding);
+  WidgetsFlutterBinding.ensureInitialized();
   configurationDependencies();
-
+  await initUiConfigs();
   await initNetworkServices();
   await initNotifications();
 
@@ -116,9 +114,9 @@ Future<void> initNotifications() async {
 /// 2. Sets the preferred orientations for the app.
 /// 3. Sets the [BlocObserver] for the app.
 
-Future<void> initUiConfigs(WidgetsBinding binding) async {
+Future<void> initUiConfigs() async {
   FlutterNativeSplash.preserve(
-    widgetsBinding: binding,
+    widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),
   );
 
   await SystemChrome.setPreferredOrientations(
