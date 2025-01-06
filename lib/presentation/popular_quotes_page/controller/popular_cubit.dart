@@ -37,9 +37,7 @@ class PopularCubit extends Cubit<PopularStates> {
   }
 
   removeFromPopular(QuoteEntity quote) async {
-    emit(
-      RemoveFromPopularLoadingState(),
-    );
+    emit(RemoveFromPopularLoadingState());
 
     final res =
         await removeQuoteFromPopularUsecase.removeQuoteFromPopular(quote);
@@ -48,38 +46,9 @@ class PopularCubit extends Cubit<PopularStates> {
       return;
     }
 
-    final todayQuote = await getTodayQuote();
-    if (quote.quote == todayQuote?.quote) {
-      final res = await removeTodayQuote(todayQuote!);
-      if (res) {
-        getPopularQuotes();
-      }
-    } else {
-      //update popular quotes
-      getPopularQuotes();
-      emit(RemoveFromPopularSuccessState());
-    }
-  }
-
-  Future<QuoteEntity?> getTodayQuote() async {
-    final res = await getTodayQuoteUsecase.getTodayQuote();
-    if (res.isError) {
-      emit(RemoveFromPopularErrorState(res.errorMessage!));
-      return null;
-    }
-
-    return res.data!;
-  }
-
-  Future<bool> removeTodayQuote(QuoteEntity quote) async {
-    quote.toggleFav(false);
-    final res = await updateTodayQuoteUsecase.updateTodayQuote(quote);
-    if (res.isError) {
-      emit(RemoveFromPopularErrorState(res.errorMessage!));
-      return false;
-    }
-
-    return true;
+    //update popular quotes
+    getPopularQuotes();
+    emit(RemoveFromPopularSuccessState());
   }
 
   shareQuote(QuoteEntity quote) async {

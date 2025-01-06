@@ -1,10 +1,12 @@
 import 'package:dailyquotes/presentation/add_edit_quote/controller/add_edit_quote_states.dart';
+import 'package:dailyquotes/presentation/my_quotes_page/controller/my_quotes_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/di/injection.dart';
 import 'package:dailyquotes/data/repositories/quote_repo.dart';
 
+import '../../../core/widgets/dialogs/default_awesome_dialog.dart';
 import '../../../domain/entity/quote_entity.dart';
 
 class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
@@ -20,7 +22,7 @@ class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
     authorController = TextEditingController(text: quote?.author);
   }
 
-  Future<void> addMyQuote() async {
+  Future<void> addMyQuote(BuildContext context) async {
     emit(AddMyQuoteLoadingState());
     QuoteEntity model = QuoteEntity(
         quote: quoteController.text.trim(),
@@ -28,12 +30,32 @@ class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
     final res = await locators.get<QuoteRepo>().addMyQuote(model);
     if (res.isSuccess) {
       emit(AddMyQuotesPageuccessState());
-    } else {
-      emit(AddMyQuoteErrorState(res.errorMessage!));
+      if (context.mounted) {
+        {
+          context.read<MyQuotesCubit>().getMyQuotes();
+          AwesomeDialogUtil.sucess(
+            context: context,
+            body: 'Quote Added Successfully',
+            title: 'Done',
+            onDismissCallback: (_) => Navigator.of(context).pop(),
+          );
+        }
+      } else {
+        emit(AddMyQuoteErrorState(res.errorMessage!));
+        if (context.mounted) {
+          AwesomeDialogUtil.error(
+            context: context,
+            body: 'Error Adding Your Quote, please try again',
+            title: 'Failed',
+            onDismissCallback: (_) => Navigator.of(context).pop(),
+          );
+        }
+      }
     }
   }
 
-  Future<void> editMyQuote(QuoteEntity quote) async {
+  Future<void> editMyQuote(QuoteEntity quote,
+      {required BuildContext context}) async {
     quote.author = authorController.text.trim();
     quote.quote = quoteController.text.trim();
     emit(EditMyQuoteLoadingState());
@@ -41,8 +63,25 @@ class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
 
     if (res.isSuccess) {
       emit(EditMyQuotesPageuccessState());
+      if (context.mounted) {
+        context.read<MyQuotesCubit>().getMyQuotes();
+        AwesomeDialogUtil.sucess(
+          context: context,
+          body: 'Quote Upadated!',
+          title: 'Done',
+          onDismissCallback: (_) => Navigator.of(context).pop(),
+        );
+      }
     } else {
       emit(EditMyQuoteErrorState(res.errorMessage!));
+      if (context.mounted) {
+        AwesomeDialogUtil.error(
+          context: context,
+          body: 'Error Upadting Your Quote, please try again',
+          title: 'Failed',
+          onDismissCallback: (_) => Navigator.of(context).pop(),
+        );
+      }
     }
   }
 }

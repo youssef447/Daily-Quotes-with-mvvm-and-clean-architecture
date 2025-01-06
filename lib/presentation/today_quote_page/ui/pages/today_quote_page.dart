@@ -24,128 +24,133 @@ class TodayQuotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TodayQuoteCubit, TodayQuoteStates>(
-        listener: (context, state) {
-      /* if (state is AddToPopularSuccessState) {
-        AwesomeDialogUtil.sucess(
-            context: context, body: 'Quote Added To Favorite', title: 'Done');
-      } */
-      if (state is AddToPopularErrorState) {
-        AwesomeDialogUtil.error(
-          context: context,
-          body: 'Error Adding Quote To Favorite',
-          title: 'Failed',
-        );
-      }
-      if (state is SharingQuoteErrorState) {
-        AwesomeDialogUtil.error(
-          context: context,
-          body: 'Error Sharing Quote, ${state.err} please try again',
-          title: 'Failed',
-        );
-      }
-    }, builder: (context, state) {
-      var cubit = context.read<TodayQuoteCubit>();
+    return BlocProvider(
+      create: (_) => TodayQuoteCubit()..getTodayQuote(),
+      child: BlocConsumer<TodayQuoteCubit, TodayQuoteStates>(
+          listener: (context, state) {
+        /* if (state is AddToPopularSuccessState) {
+          AwesomeDialogUtil.sucess(
+              context: context, body: 'Quote Added To Favorite', title: 'Done');
+        } */
+        if (state is AddToPopularErrorState) {
+          AwesomeDialogUtil.error(
+            context: context,
+            body: 'Error Adding Quote To Favorite',
+            title: 'Failed',
+          );
+        }
+        if (state is SharingQuoteErrorState) {
+          AwesomeDialogUtil.error(
+            context: context,
+            body: 'Error Sharing Quote, ${state.err} please try again',
+            title: 'Failed',
+          );
+        }
+      }, builder: (context, state) {
+        var cubit = context.read<TodayQuoteCubit>();
 
-      if (state is GetTodayQuoteLoadingState) {
-        return const DefaultLoadingIndicator();
-      }
-      if (state is GetTodayQuoteErrorState) {
-        return ErrorPage(errMsg: state.err, retry: () async {});
-      }
+        if (state is GetTodayQuoteLoadingState) {
+          return const DefaultLoadingIndicator();
+        }
+        if (state is GetTodayQuoteErrorState) {
+          return ErrorPage(errMsg: state.err, retry: () async {});
+        }
 
-      return RefreshIndicator(
-        backgroundColor: AppColorsProvider.of(context).appColors.background,
-        color: AppColorsProvider.of(context).appColors.primary,
-        triggerMode: RefreshIndicatorTriggerMode.anywhere,
-        onRefresh: () async {
-          return await cubit.getTodayQuote();
-        },
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: SizedBox(
-                height: constraints.maxHeight,
-                child: Stack(
-                  children: [
-                    Center(
-                      child: FadeInDownAnimation(
-                        child: QuoteCard(
-                          quote: cubit.todayQuote,
-                          stackButtons: [
-                            Positioned(
-                              right: 50.w,
-                              bottom: -15.h,
-                              child: InkWell(
-                                overlayColor:
-                                    const WidgetStatePropertyAll<Color>(
-                                  Colors.transparent,
-                                ),
-                                onTap: () {
-                                  cubit.todayQuote.fav == false
-                                      ? cubit.addToPopular()
-                                      : cubit.removeFromPopular();
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: AppColorsProvider.of(context)
-                                      .appColors
-                                      .secondaryPrimary,
-                                  child: Icon(
+        return RefreshIndicator(
+          backgroundColor: AppColorsProvider.of(context).appColors.background,
+          color: AppColorsProvider.of(context).appColors.primary,
+          triggerMode: RefreshIndicatorTriggerMode.anywhere,
+          onRefresh: () async {
+            return await cubit.getTodayQuote();
+          },
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: SizedBox(
+                  height: constraints.maxHeight,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: FadeInDownAnimation(
+                          child: QuoteCard(
+                            quote: cubit.todayQuote,
+                            stackButtons: [
+                              Positioned(
+                                right: 50.w,
+                                bottom: -15.h,
+                                child: InkWell(
+                                  overlayColor:
+                                      const WidgetStatePropertyAll<Color>(
+                                    Colors.transparent,
+                                  ),
+                                  onTap: () {
                                     cubit.todayQuote.fav == false
-                                        ? Icons.favorite_outline
-                                        : Icons.favorite,
-                                    color: AppColorsProvider.of(context)
-                                        .appColors
-                                        .icon,
+                                        ? cubit.addToPopular()
+                                        : cubit.removeFromPopular();
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor:
+                                        AppColorsProvider.of(context)
+                                            .appColors
+                                            .secondaryPrimary,
+                                    child: Icon(
+                                      cubit.todayQuote.fav == false
+                                          ? Icons.favorite_outline
+                                          : Icons.favorite,
+                                      color: AppColorsProvider.of(context)
+                                          .appColors
+                                          .icon,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              bottom: -15.h,
-                              child: InkWell(
-                                overlayColor:
-                                    const WidgetStatePropertyAll<Color>(
-                                  Colors.transparent,
-                                ),
-                                onTap: () async {
-                                  await cubit.shareQuote();
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: AppColorsProvider.of(context)
-                                      .appColors
-                                      .secondaryPrimary,
-                                  child: FaIcon(
-                                    FontAwesomeIcons.share,
-                                    color: AppColorsProvider.of(context)
-                                        .appColors
-                                        .icon,
+                              Positioned(
+                                bottom: -15.h,
+                                child: InkWell(
+                                  overlayColor:
+                                      const WidgetStatePropertyAll<Color>(
+                                    Colors.transparent,
+                                  ),
+                                  onTap: () async {
+                                    await cubit.shareQuote();
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor:
+                                        AppColorsProvider.of(context)
+                                            .appColors
+                                            .secondaryPrimary,
+                                    child: FaIcon(
+                                      FontAwesomeIcons.share,
+                                      color: AppColorsProvider.of(context)
+                                          .appColors
+                                          .icon,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    if (state is AddToPopularLoadingState)
-                      ClipRRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                            sigmaX: 3.0,
-                            sigmaY: 3.0,
+                      if (state is AddToPopularLoadingState)
+                        ClipRRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 3.0,
+                              sigmaY: 3.0,
+                            ),
+                            child: const DefaultLoadingIndicator(),
                           ),
-                          child: const DefaultLoadingIndicator(),
-                        ),
-                      )
-                  ],
+                        )
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
-      );
-    });
+              );
+            },
+          ),
+        );
+      }),
+    );
   }
 }

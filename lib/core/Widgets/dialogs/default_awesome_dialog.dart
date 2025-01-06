@@ -10,23 +10,27 @@ abstract class AwesomeDialogUtil {
     required String body,
     required String title,
     Function()? btnOkOnPress,
+    Function(DismissType)? onDismissCallback,
   }) {
     AwesomeDialog(
       context: context,
+      autoHide: const Duration(seconds: 2),
+      onDismissCallback: onDismissCallback,
       dialogBorderRadius: BorderRadius.circular(30.r),
       body: Text(
         body,
         style: AppTextStyles.font14MediumABeeZee.copyWith(
-          color: AppColorsProvider.of(context).appColors.primary,
+          color: AppColorsProvider.of(context).appColors.textBG,
         ),
       ),
       title: title,
       dialogType: DialogType.success,
-      padding: const EdgeInsets.all(15),
+      padding: EdgeInsets.all(15.h),
       dialogBackgroundColor: AppColorsProvider.of(context).appColors.background,
-      btnOkColor: AppColorsProvider.of(context).appColors.primary,
+      btnOkColor: AppColorsProvider.of(context).appColors.secondaryPrimary,
       buttonsTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
+            color: AppColorsProvider.of(context).appColors.icon,
           ),
       btnOkOnPress: btnOkOnPress ?? () {},
     ).show();
@@ -37,35 +41,34 @@ abstract class AwesomeDialogUtil {
     String? msg,
     required String body,
     required String title,
-    Function()? btnOkOnPress,
+    Function(DismissType)? onDismissCallback,
   }) {
     AwesomeDialog(
       dialogBackgroundColor: AppColorsProvider.of(context).appColors.background,
       dialogBorderRadius: BorderRadius.circular(30.r),
+      autoHide: const Duration(seconds: 2),
       context: context,
       body: msg == null
           ? Text(
               body,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+              style: AppTextStyles.font14MediumABeeZee.copyWith(
+                color: AppColorsProvider.of(context).appColors.textBG,
+              ),
             )
           : Text(
               "$body , $msg",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(fontWeight: FontWeight.bold),
+              style: AppTextStyles.font14MediumABeeZee.copyWith(
+                color: AppColorsProvider.of(context).appColors.textBG,
+              ),
             ),
       title: title,
       dialogType: DialogType.error,
       btnOkColor: AppColorsProvider.of(context).appColors.defaultAddbtnColor,
       buttonsTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
+            color: AppColorsProvider.of(context).appColors.icon,
           ),
       padding: EdgeInsets.all(15.h),
-      btnOkOnPress: btnOkOnPress ?? () {},
     ).show();
   }
 }

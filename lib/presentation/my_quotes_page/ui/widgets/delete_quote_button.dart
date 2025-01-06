@@ -8,7 +8,7 @@ class DeleteQuoteButton extends StatelessWidget {
     required this.itemIndex,
   });
 
-  final MyQuotesPageCubit cubit;
+  final MyQuotesCubit cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +24,9 @@ class DeleteQuoteButton extends StatelessWidget {
                   context: context,
                   content: 'Are You sure you want to delete this quote?',
                   icon: Icons.question_mark_sharp,
-                  iconColor: AppColorsProvider.of(context).appColors.background,
-                  defaultTextStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(
-                        fontWeight: FontWeight.bold,
-                        color:
-                            AppColorsProvider.of(context).appColors.background,
-                      ),
                   onNoClicked: () => Navigator.of(context).pop(),
                   onYesClicked: () {
-                    cubit.removeMyQuote(cubit.MyQuotesPage[itemIndex].id!);
+                    cubit.removeMyQuote(cubit.myQuotes[itemIndex].id!);
                   }),
             ),
           );

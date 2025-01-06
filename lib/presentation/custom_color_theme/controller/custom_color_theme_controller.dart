@@ -69,77 +69,98 @@ class CustomColorThemeController extends Cubit<CustomColorThemeStates> {
   Color? secondaryColor;
   Color? background;
   void changeTheme(BuildContext context) async {
-    AppColorsProvider.of(context).appColors.primary =
-        primaryColor ?? AppColorsProvider.of(context).appColors.primary;
-    AppColorsProvider.of(context).appColors.secondaryPrimary = secondaryColor ??
-        AppColorsProvider.of(context).appColors.secondaryPrimary;
-    AppColorsProvider.of(context).appColors.background =
-        background ?? AppColorsProvider.of(context).appColors.background;
-    AppColorsProvider.of(context).appColors.gradientColors = [
-      AppColorsProvider.of(context).appColors.primary,
-      AppColorsProvider.of(context).appColors.secondaryPrimary
-    ];
-    await CacheHelper.saveData(
-        key: 'primaryColor',
-        value: AppColorsProvider.of(context).appColors.primary.toHexString());
-
-    if (context.mounted) {
+    try {
+      AppColorsProvider.of(context).appColors.primary =
+          primaryColor ?? AppColorsProvider.of(context).appColors.primary;
+      AppColorsProvider.of(context).appColors.secondaryPrimary =
+          secondaryColor ??
+              AppColorsProvider.of(context).appColors.secondaryPrimary;
+      AppColorsProvider.of(context).appColors.background =
+          background ?? AppColorsProvider.of(context).appColors.background;
+      AppColorsProvider.of(context).appColors.gradientColors = [
+        AppColorsProvider.of(context).appColors.primary,
+        AppColorsProvider.of(context).appColors.secondaryPrimary
+      ];
       await CacheHelper.saveData(
-          key: 'secondaryColor',
-          value: AppColorsProvider.of(context)
-              .appColors
-              .secondaryPrimary
-              .toHexString());
-    }
+          key: 'primaryColor',
+          value: AppColorsProvider.of(context).appColors.primary.toHexString());
 
-    if (context.mounted) {
-      await CacheHelper.saveData(
-          key: 'backgroundColor',
-          value:
-              AppColorsProvider.of(context).appColors.background.toHexString());
-    }
+      if (context.mounted) {
+        await CacheHelper.saveData(
+            key: 'secondaryColor',
+            value: AppColorsProvider.of(context)
+                .appColors
+                .secondaryPrimary
+                .toHexString());
+      }
 
-    if (context.mounted) {
-      setSystemBarAndNavColors(context);
-    }
+      if (context.mounted) {
+        await CacheHelper.saveData(
+            key: 'backgroundColor',
+            value: AppColorsProvider.of(context)
+                .appColors
+                .background
+                .toHexString());
+      }
 
-    emit(ConfigThemeStateSuccess());
-    if (context.mounted) {
-      AwesomeDialogUtil.sucess(
+      if (context.mounted) {
+        await setSystemBarAndNavColors(context);
+      }
+
+      emit(ConfigThemeStateSuccess());
+
+      if (context.mounted) {
+        AwesomeDialogUtil.sucess(
           context: context,
           body: 'Theme Changed Successfully',
-          title: 'Success');
-      Navigator.of(context).pop();
+          title: 'Success',
+          onDismissCallback: (type) {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
+        );
+      }
+    } catch (e) {
+      emit(ConfigThemeStateError(e.toString()));
     }
   }
 
   void resetTheme(BuildContext context) async {
-    AppColorsProvider.of(context).appColors.background =
-        const Color(0xff303b4d);
-    AppColorsProvider.of(context).appColors.primary = const Color(0xfff48bc4);
-    AppColorsProvider.of(context).appColors.secondaryPrimary =
-        const Color(0xffa23bae);
-    AppColorsProvider.of(context).appColors.gradientColors =
-        AppColorsProvider.of(context).appColors.gradientColors = [
-      AppColorsProvider.of(context).appColors.primary,
-      AppColorsProvider.of(context).appColors.secondaryPrimary
-    ];
-    await CacheHelper.removeData(key: 'primaryColor');
-    await CacheHelper.removeData(key: 'secondaryColor');
-    await CacheHelper.removeData(key: 'backgroundColor');
+    try {
+      AppColorsProvider.of(context).appColors.background =
+          const Color(0xff303b4d);
+      AppColorsProvider.of(context).appColors.primary = const Color(0xfff48bc4);
+      AppColorsProvider.of(context).appColors.secondaryPrimary =
+          const Color(0xffa23bae);
+      AppColorsProvider.of(context).appColors.gradientColors =
+          AppColorsProvider.of(context).appColors.gradientColors = [
+        AppColorsProvider.of(context).appColors.primary,
+        AppColorsProvider.of(context).appColors.secondaryPrimary
+      ];
+      await CacheHelper.removeData(key: 'primaryColor');
+      await CacheHelper.removeData(key: 'secondaryColor');
+      await CacheHelper.removeData(key: 'backgroundColor');
 
-    if (context.mounted) {
-      setSystemBarAndNavColors(context);
-    }
+      if (context.mounted) {
+        await setSystemBarAndNavColors(context);
+      }
 
-    emit(ConfigThemeStateSuccess());
-    if (context.mounted) {
-      AwesomeDialogUtil.sucess(
-          context: context, body: 'Theme Reset Successfully', title: 'Success');
+      emit(ConfigThemeStateSuccess());
+      if (context.mounted) {
+        AwesomeDialogUtil.sucess(
+          context: context,
+          body: 'Theme Reset Successfully',
+          title: 'Success',
+          onDismissCallback: (type) {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
+        );
+      }
+    } catch (e) {
+      emit(ConfigThemeStateError(e.toString()));
     }
   }
 
-  setSystemBarAndNavColors(BuildContext context) async {
+  Future<void> setSystemBarAndNavColors(BuildContext context) async {
     await FlutterStatusbarcolor.setStatusBarColor(
         AppColorsProvider.of(context).appColors.background);
 

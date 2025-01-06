@@ -60,18 +60,7 @@ class AwesomeNotificationService {
 
         /// Use this method to detect when the user taps on a notification or action button
 
-        onActionReceivedMethod: (receivedAction) async {
-          if (receivedAction.payload != null &&
-              receivedAction.payload!['type'] == 'share') {
-            await Share.share(
-              '“${receivedAction.payload!['quote']}”\n\n- ${receivedAction.payload!['author']}\n\n\n $sharingMyGit',
-            );
-          }
-          /*  if (navigatorKey.currentState != null) {
-            navigatorKey.currentState!
-                .push(MaterialPageRoute(builder: (_) => TestScreen()));
-          } */
-        },
+        onActionReceivedMethod: _onActionReceivedMethod,
 
         /// Use this method to detect if the user dismissed a notification
 
@@ -120,4 +109,18 @@ class AwesomeNotificationService {
           : null,
     );
   }
+}
+
+@pragma('vm-entry-point')
+Future<void> _onActionReceivedMethod(receivedAction) async {
+  if (receivedAction.payload != null &&
+      receivedAction.payload!['type'] == 'share') {
+    await Share.share(
+      '“${receivedAction.payload!['quote']}”\n\n- ${receivedAction.payload!['author']}\n\n\n $sharingMyGit',
+    );
+  }
+  /*  if (navigatorKey.currentState != null) {
+            navigatorKey.currentState!
+                .push(MaterialPageRoute(builder: (_) => TestScreen()));
+          } */
 }

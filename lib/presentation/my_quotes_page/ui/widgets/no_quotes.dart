@@ -20,7 +20,8 @@ class NoQuotes extends StatelessWidget {
                 onTap: () {
                   DefaultBottomSheet.Default(
                     context: context,
-                    child: const AddEditQuoteSheet(),
+                    child: AddEditQuoteSheet(
+                        myQuotesCubit: context.read<MyQuotesCubit>()),
                   );
                 },
                 child: Lottie.asset(

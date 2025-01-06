@@ -4,7 +4,7 @@ class DefaultButton extends StatelessWidget {
   final Function()? onClicked;
   final double? elevation;
   final Color? shadowColor;
-  final Color? foregroundColor;
+
   final Color? backgroundColor;
 
   final Color? sideColor;
@@ -20,7 +20,6 @@ class DefaultButton extends StatelessWidget {
       this.height,
       this.backgroundColor,
       this.elevation,
-      this.foregroundColor,
       this.shadowColor,
       required this.child,
       this.sideColor,
@@ -32,8 +31,6 @@ class DefaultButton extends StatelessWidget {
       style: ButtonStyle(
         elevation: WidgetStatePropertyAll<double>(elevation ?? 0),
         shadowColor: WidgetStatePropertyAll<Color>(shadowColor ?? Colors.white),
-        foregroundColor:
-            WidgetStatePropertyAll<Color>(foregroundColor ?? Colors.white),
         shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(raduis ?? 0),

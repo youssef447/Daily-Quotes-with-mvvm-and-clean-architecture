@@ -3,36 +3,36 @@ import 'package:dailyquotes/main.dart';
 import 'package:flutter/Material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../theme/text/app_text_styles.dart';
 import '../buttons/default_button.dart';
 
 abstract class DefaultAlertDialog {
   static AlertDialog Info({
     required IconData icon,
-    Color? iconColor,
     String? buttonText,
     required Function() onOkClicked,
-    required TextStyle defaultTextStyle,
     required String content,
     required BuildContext context,
   }) {
     return AlertDialog(
       icon: Icon(
         icon,
-        color: iconColor ?? Colors.black,
+        color: AppColorsProvider.of(context).appColors.textBG,
         size: 45.sp,
       ),
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         DefaultButton(
           height: 35.h,
-          foregroundColor: Colors.white,
-          backgroundColor: AppColorsProvider.of(context).appColors.primary,
           raduis: 20.r,
           width: 70.w,
           onClicked: onOkClicked,
           child: Text(
             buttonText ?? 'OK',
             textAlign: TextAlign.center,
+            style: AppTextStyles.font14MediumABeeZee.copyWith(
+              color: AppColorsProvider.of(context).appColors.textBG,
+            ),
           ),
         ),
       ],
@@ -42,7 +42,9 @@ abstract class DefaultAlertDialog {
         children: [
           Text(
             content,
-            style: defaultTextStyle,
+            style: AppTextStyles.font14MediumABeeZee.copyWith(
+              color: AppColorsProvider.of(context).appColors.textBG,
+            ),
             textAlign: TextAlign.center,
           ),
         ],
@@ -55,43 +57,47 @@ abstract class DefaultAlertDialog {
 
   static AlertDialog Confirm({
     required IconData icon,
-    Color? iconColor,
     String? buttonText,
     required Function() onNoClicked,
     required Function() onYesClicked,
-    required TextStyle defaultTextStyle,
     required String content,
     required BuildContext context,
   }) {
     return AlertDialog(
       icon: Icon(
         icon,
-        color: iconColor ?? Colors.black,
-        size: 45,
+        color: AppColorsProvider.of(context).appColors.textBG,
+        size: 45.sp,
       ),
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
         DefaultButton(
+          backgroundColor:
+              AppColorsProvider.of(context).appColors.secondaryPrimary,
           height: 35.h,
-          foregroundColor: Colors.white,
-          backgroundColor: AppColorsProvider.of(context).appColors.primary,
           raduis: 20.r,
           width: 100.w,
           onClicked: onYesClicked,
           child: Text(
             buttonText ?? 'Yes',
             textAlign: TextAlign.center,
+            style: AppTextStyles.font14MediumABeeZee.copyWith(
+              color: AppColorsProvider.of(context).appColors.textBG,
+            ),
           ),
         ),
         DefaultButton(
+          backgroundColor:
+              AppColorsProvider.of(context).appColors.secondaryPrimary,
           height: 35.h,
-          foregroundColor: Colors.white,
-          backgroundColor: AppColorsProvider.of(context).appColors.primary,
           raduis: 20.r,
           width: 100.w,
           onClicked: onNoClicked,
           child: Text(
             buttonText ?? 'No',
+            style: AppTextStyles.font14MediumABeeZee.copyWith(
+              color: AppColorsProvider.of(context).appColors.textBG,
+            ),
             textAlign: TextAlign.center,
           ),
         ),
@@ -102,7 +108,9 @@ abstract class DefaultAlertDialog {
         children: [
           Text(
             content,
-            style: defaultTextStyle,
+            style: AppTextStyles.font14MediumABeeZee.copyWith(
+              color: AppColorsProvider.of(context).appColors.textBG,
+            ),
             textAlign: TextAlign.center,
           ),
         ],

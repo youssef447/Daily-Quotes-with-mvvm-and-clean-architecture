@@ -35,18 +35,12 @@ class HomeAppbar extends StatelessWidget {
                   builder: (context) => DefaultAlertDialog.Confirm(
                         context: context,
                         icon: Icons.notification_important_outlined,
-                        iconColor:
-                            AppColorsProvider.of(context).appColors.primary,
                         onYesClicked: () {
                           cubit.changeNotification();
                         },
                         onNoClicked: () {
                           Navigator.of(context).pop();
                         },
-                        defaultTextStyle: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontWeight: FontWeight.bold),
                         content: noitificationsEnabled
                             ? 'Do You Wish To Disable Notifications'
                             : 'Do You Wish To Enable Notifications',

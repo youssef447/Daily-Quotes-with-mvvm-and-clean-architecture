@@ -29,26 +29,28 @@ class MyQuotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MyQuotesPageCubit()..getMyQuotesPage(),
-      child: BlocConsumer<MyQuotesPageCubit, MyQuotesPageStates>(
+      create: (context) => MyQuotesCubit()..getMyQuotes(),
+      child: BlocConsumer<MyQuotesCubit, MyQuotesPageStates>(
         listener: (context, state) {
           if (state is RemoveMyQuoteSuccessState) {
             Navigator.of(context).pop();
           }
         },
         builder: (context, state) {
-          var cubit = context.read<MyQuotesPageCubit>();
+          var cubit = context.read<MyQuotesCubit>();
 
           return Scaffold(
             backgroundColor: AppColorsProvider.of(context).appColors.background,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: cubit.MyQuotesPage.isNotEmpty
+            floatingActionButton: cubit.myQuotes.isNotEmpty
                 ? FloatingActionButton(
                     shape: const CircleBorder(),
                     onPressed: () {
                       DefaultBottomSheet.Default(
-                          context: context, child: const AddEditQuoteSheet());
+                          context: context,
+                          child: AddEditQuoteSheet(
+                              myQuotesCubit: context.read<MyQuotesCubit>()));
                     },
                     backgroundColor:
                         AppColorsProvider.of(context).appColors.primary,
@@ -65,17 +67,17 @@ class MyQuotesPage extends StatelessWidget {
               color: AppColorsProvider.of(context).appColors.primary,
               triggerMode: RefreshIndicatorTriggerMode.anywhere,
               onRefresh: () async {
-                return await cubit.getMyQuotesPage();
+                return await cubit.getMyQuotes();
               },
               child: state is GetMyQuotesPageLoadingState
                   ? const DefaultLoadingIndicator()
-                  : cubit.MyQuotesPage.isEmpty
+                  : cubit.myQuotes.isEmpty
                       ? const NoQuotes()
                       : Stack(
                           alignment: Alignment.center,
                           children: [
                             DefaultCarouselSlider(
-                              itemCount: cubit.MyQuotesPage.length,
+                              itemCount: cubit.myQuotes.length,
                               itemBuilder: (BuildContext context, int itemIndex,
                                   int pageViewIndex) {
                                 return FadeInDownAnimation(
@@ -84,14 +86,14 @@ class MyQuotesPage extends StatelessWidget {
                                     alignment: Alignment.topRight,
                                     children: [
                                       QuoteCard(
-                                        quote: cubit.MyQuotesPage[itemIndex],
+                                        quote: cubit.myQuotes[itemIndex],
                                         stackButtons: [
                                           Positioned(
                                             bottom: -15.h,
                                             child: GestureDetector(
                                               onTap: () async {
-                                                await cubit.shareQuote(cubit
-                                                    .MyQuotesPage[itemIndex]);
+                                                await cubit.shareQuote(
+                                                    cubit.myQuotes[itemIndex]);
                                               },
                                               child: CircleAvatar(
                                                 backgroundColor:
@@ -117,9 +119,11 @@ class MyQuotesPage extends StatelessWidget {
                                                 DefaultBottomSheet.Default(
                                                     context: context,
                                                     child: AddEditQuoteSheet(
-                                                      quote: cubit.MyQuotesPage[
-                                                          itemIndex],
-                                                    ));
+                                                        quote: cubit.myQuotes[
+                                                            itemIndex],
+                                                        myQuotesCubit:
+                                                            context.read<
+                                                                MyQuotesCubit>()));
                                               },
                                               child: CircleAvatar(
                                                 backgroundColor:
@@ -155,7 +159,7 @@ class MyQuotesPage extends StatelessWidget {
                                     sigmaX: 3.0,
                                     sigmaY: 3.0,
                                   ),
-                                  child: DefaultLoadingIndicator(),
+                                  child: const DefaultLoadingIndicator(),
                                 ),
                               ),
                           ],

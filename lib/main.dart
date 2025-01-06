@@ -13,7 +13,7 @@ import 'core/routes/app_route_generator.dart';
 import 'core/routes/app_routes.dart';
 import 'core/services/Network/local/cach_helper.dart';
 import 'core/services/Network/remote/dio_helper.dart';
-import 'core/services/background/work_manager.dart';
+import 'core/services/background/work_manager_service.dart';
 import 'core/services/notifications/awesome_notification_service.dart';
 
 import 'core/theme/colors/app_colors.dart';
@@ -22,7 +22,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'presentation/custom_color_theme/controller/custom_color_theme_states.dart';
 import 'presentation/home_page/controller/home_cubit.dart';
-import 'presentation/today_quote_page/controller/today_quotes_cubit.dart';
 
 void main() async {
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
@@ -67,9 +66,6 @@ class MyApp extends StatelessWidget {
               ),
               BlocProvider(
                 create: (_) => HomeCubit()..getNotificationShapeCaches(),
-              ),
-              BlocProvider(
-                create: (_) => TodayQuoteCubit()..getTodayQuote(),
               ),
             ],
             child:

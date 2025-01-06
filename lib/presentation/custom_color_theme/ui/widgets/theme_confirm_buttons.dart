@@ -11,7 +11,6 @@ class ThemeConfirmButtons extends StatelessWidget {
       children: [
         DefaultButton(
           height: 35.h,
-          foregroundColor: Colors.white,
           backgroundColor:
               AppColorsProvider.of(context).appColors.secondaryPrimary,
           raduis: 20.r,
@@ -28,7 +27,6 @@ class ThemeConfirmButtons extends StatelessWidget {
         ),
         DefaultButton(
           height: 35.h,
-          foregroundColor: Colors.white,
           backgroundColor:
               AppColorsProvider.of(context).appColors.secondaryPrimary,
           raduis: 20.r,

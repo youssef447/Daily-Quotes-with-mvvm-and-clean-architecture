@@ -37,6 +37,6 @@ configurationDependencies() {
     () => AddQuoteToPopularUsecase(locators(), locators()),
   );
   locators.registerLazySingleton<RemoveQuoteFromPopularUsecase>(
-    () => RemoveQuoteFromPopularUsecase(locators(), locators()),
+    () => RemoveQuoteFromPopularUsecase(locators(), locators(), locators()),
   );
 }

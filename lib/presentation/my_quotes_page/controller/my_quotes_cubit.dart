@@ -8,18 +8,18 @@ import 'package:share_plus/share_plus.dart';
 import '../../../core/utils/globales.dart';
 import '../../../domain/entity/quote_entity.dart';
 
-class MyQuotesPageCubit extends Cubit<MyQuotesPageStates> {
-  MyQuotesPageCubit() : super(MyQuotesPageInitialState());
+class MyQuotesCubit extends Cubit<MyQuotesPageStates> {
+  MyQuotesCubit() : super(MyQuotesPageInitialState());
 
-  List<QuoteEntity> MyQuotesPage = [];
+  List<QuoteEntity> myQuotes = [];
 
-  getMyQuotesPage() async {
+  getMyQuotes() async {
     emit(GetMyQuotesPageLoadingState());
 
     final res = await locators.get<QuoteRepo>().getMyQuotesPage();
 
     if (res.isSuccess) {
-      MyQuotesPage = res.data!;
+      myQuotes = res.data!;
       emit(GetMyQuotesPageSuccessState());
     } else {
       emit(GetMyQuotesPageErrorState(res.errorMessage!));
@@ -30,7 +30,7 @@ class MyQuotesPageCubit extends Cubit<MyQuotesPageStates> {
     emit(RemoveMyQuoteLoadingState());
     locators.get<QuoteRepo>().deleteMyQuote(id).then((value) {
       emit(RemoveMyQuoteSuccessState());
-      getMyQuotesPage();
+      getMyQuotes();
     }).catchError((onError) {
       emit(RemoveMyQuoteErrorState(onError.toString()));
     });

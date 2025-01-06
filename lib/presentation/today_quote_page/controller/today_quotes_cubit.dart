@@ -49,8 +49,8 @@ class TodayQuoteCubit extends Cubit<TodayQuoteStates> {
   removeFromPopular() async {
     emit(RemoveFromPopularLoadingState());
 
-    final res = await removeQuoteFromPopularUsecase.removeQuoteFromPopular(
-        _todayQuote, true);
+    final res =
+        await removeQuoteFromPopularUsecase.removeQuoteFromPopular(_todayQuote);
     if (res.isError) {
       emit(RemoveFromPopularErrorState(res.errorMessage!));
     }
