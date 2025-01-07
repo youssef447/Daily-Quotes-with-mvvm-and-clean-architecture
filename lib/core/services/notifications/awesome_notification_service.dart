@@ -11,7 +11,7 @@ class AwesomeNotificationService {
 
   List<NotificationChannel> channels = [
     NotificationChannel(
-      channelKey: 'Custom sound notifications',
+      channelKey: 'custom sound notifications',
       channelName: 'today quote channel',
       channelDescription: 'Notification channel for basic tests',
       playSound: true,
@@ -87,7 +87,7 @@ class AwesomeNotificationService {
     await _service.createNotification(
       content: NotificationContent(
         id: 21,
-        channelKey: 'Custom sound notifications',
+        channelKey: 'custom sound notifications',
         title: title,
         body: body,
         actionType: actionType,

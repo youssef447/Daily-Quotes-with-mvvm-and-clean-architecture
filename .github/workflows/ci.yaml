@@ -21,9 +21,9 @@ jobs:
           java-version: '17.0.12'
           cache: gradle
       - name: Set Up Flutter    
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
         with:
-          channel: "master"
+          channel: "main"
       #- name: Set up Dart SDK
         #uses: dart-lang/setup-dart@v1
         #with:

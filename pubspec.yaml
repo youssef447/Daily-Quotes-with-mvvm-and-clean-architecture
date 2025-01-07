@@ -55,6 +55,7 @@ dependencies:
   flutter_svg: ^2.0.16
   flutter_statusbarcolor_ns: ^0.6.0
   workmanager: ^0.5.2
+
 flutter_native_splash:
   android: true
   ios: true
@@ -64,7 +65,17 @@ flutter_native_splash:
     color: "#687389"
     image: "assets/images/icon.png"
 
+# flutter pub run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon_launch.png"
 
+
+  remove_alpha_channel_ios: true
+  # image_path_ios_dark_transparent: "assets/icon/icon_dark.png"
+  # image_path_ios_tinted_grayscale: "assets/icon/icon_tinted.png"
+  # desaturate_tinted_to_grayscale_ios: true
 dev_dependencies:
   flutter_test:
     sdk: flutter
