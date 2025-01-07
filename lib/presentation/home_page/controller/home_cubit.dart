@@ -1,4 +1,5 @@
 import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
+import 'package:dailyquotes/core/services/background/work_manager_service.dart';
 import 'package:dailyquotes/core/services/notifications/awesome_notification_service.dart';
 import 'package:dailyquotes/presentation/home_page/controller/home_states.dart';
 import 'package:flutter/widgets.dart';
@@ -20,13 +21,13 @@ class HomeCubit extends Cubit<HomeStates> {
   Widget getCurrentTab() {
     switch (currentTab) {
       case QuoteTab.today:
-        return TodayQuotePage();
+        return const TodayQuotePage();
       case QuoteTab.popular:
-        return PopularQuotesPage();
+        return const PopularQuotesPage();
       case QuoteTab.random:
-        return RandomQuotePage();
-      case QuoteTab.MyQuotesPage:
-        return MyQuotesPage();
+        return const RandomQuotePage();
+      case QuoteTab.myQuotesPage:
+        return const MyQuotesPage();
     }
   }
 
@@ -64,9 +65,15 @@ class HomeCubit extends Cubit<HomeStates> {
       locators
           .get<AwesomeNotificationService>()
           .cancelNotificatons()
-          .then((value) {
-        noitificationsEnabled = false;
-        emit(ChangeNotificationSuccessState());
+          .then((value) async {
+        WorkManagerService.cancelTaskByID(
+          uniqueName: 'today_quote',
+        ).then((value) {
+          noitificationsEnabled = false;
+          emit(ChangeNotificationSuccessState());
+        }).catchError((onError) {
+          emit(ChangeNotificationErrorState(onError.toString()));
+        });
       }).catchError((onError) {
         emit(ChangeNotificationErrorState(onError.toString()));
       });
@@ -89,7 +96,7 @@ enum QuoteTab {
   today,
   popular,
   random,
-  MyQuotesPage,
+  myQuotesPage,
 }
 
 extension QuoteTabExtension on QuoteTab {
@@ -101,7 +108,7 @@ extension QuoteTabExtension on QuoteTab {
         return 'Popular';
       case QuoteTab.random:
         return 'Random';
-      case QuoteTab.MyQuotesPage:
+      case QuoteTab.myQuotesPage:
         return 'My Quotes';
     }
   }

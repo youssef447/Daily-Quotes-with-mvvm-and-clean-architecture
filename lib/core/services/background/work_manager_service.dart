@@ -21,8 +21,8 @@ abstract class WorkManagerService {
 
   static Future<void> registerMyTask() async {
     await Workmanager().registerPeriodicTask(
-      'UNIQUE1',
-      'today_quote_task',
+      'today_quote',
+      'notification_task',
       constraints: Constraints(
           networkType: NetworkType.connected,
           requiresBatteryNotLow: false,
@@ -33,12 +33,12 @@ abstract class WorkManagerService {
     //add more
   }
 
-  static void cancelTasks() {
-    Workmanager().cancelAll();
+  static Future<void> cancelTasks() async {
+    await Workmanager().cancelAll();
   }
 
-  static void cancelTaskByID(String id) {
-    Workmanager().cancelByUniqueName(id);
+  static Future<void> cancelTaskByID({required String uniqueName}) async {
+    await Workmanager().cancelByUniqueName(uniqueName);
   }
 }
 
@@ -46,7 +46,9 @@ abstract class WorkManagerService {
 void actionTasks() async {
   //show notification
   WidgetsFlutterBinding.ensureInitialized();
-  if (DateTime.now().hour == 8) {
+  final DateTime cachedDate =
+      DateTime.parse(await CacheHelper.getData(key: 'cached_date'));
+  if (DateTime.now().hour == 8 && DateTime.now().day != cachedDate.day) {
     String? quote;
     DioHelper.init(baseUrl: ApiConstants.baseUrl);
     await CacheHelper.init();
@@ -82,6 +84,9 @@ void actionTasks() async {
             ],
           );
           await CacheHelper.saveData(key: 'success', value: true);
+          await CacheHelper.saveData(
+              key: 'cached_date', value: DateTime.now().toString());
+
           return Future.value(true);
         },
       );
