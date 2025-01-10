@@ -37,8 +37,9 @@ class QuoteRepo {
 
   ///called once when we first put our first stored quote, after calling reqTodayQuote Function
 
-  Future<ApiResult<QuoteEntity>> cacheTodayQuote(QuoteModel model) async {
+  Future<ApiResult<QuoteEntity>> cacheTodayQuote(QuoteEntity entity) async {
     try {
+      final model = QuoteModel.fromEntity(entity);
       await _localService.cacheTodayQuote(model.toMap());
 
       return ApiResult.success(data: model);

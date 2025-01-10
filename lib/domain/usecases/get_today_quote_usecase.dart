@@ -1,6 +1,6 @@
 import '../../core/helpers/api_result_helper.dart';
 import '../../core/services/Network/local/cach_helper.dart';
-import '../../data/models/quote_model.dart';
+
 import '../../data/repositories/quote_repo.dart';
 import '../entity/quote_entity.dart';
 
@@ -29,9 +29,9 @@ class GetTodayQuoteUsecase {
     if (res.isError) {
       return ApiResult.error(res.errorMessage!);
     }
-    final quoteModel = QuoteModel.fromEntity(res.data!);
+
     //cache quote
-    final cacheRes = await _quoteRepo.cacheTodayQuote(quoteModel);
+    final cacheRes = await _quoteRepo.cacheTodayQuote(res.data!);
     if (cacheRes.isError) {
       return ApiResult.error(cacheRes.errorMessage!);
     }

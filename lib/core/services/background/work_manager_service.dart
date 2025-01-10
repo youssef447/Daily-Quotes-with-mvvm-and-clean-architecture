@@ -46,12 +46,17 @@ abstract class WorkManagerService {
 void actionTasks() async {
   //show notification
   WidgetsFlutterBinding.ensureInitialized();
-  final DateTime cachedDate =
-      DateTime.parse(await CacheHelper.getData(key: 'cached_date'));
-  if (DateTime.now().hour == 8 && DateTime.now().day != cachedDate.day) {
+  await CacheHelper.init();
+  DateTime? cachedDate;
+
+  if (CacheHelper.containsKey('cached_date')) {
+    cachedDate = DateTime.parse(await CacheHelper.getData(key: 'cached_date'));
+  }
+
+  if (DateTime.now().hour == 8 && DateTime.now().day != cachedDate?.day) {
     String? quote;
     DioHelper.init(baseUrl: ApiConstants.baseUrl);
-    await CacheHelper.init();
+
     final repo = QuoteRepo(
       remoteService: QuoteRemoteService(),
       localService: QuoteLocalService(),
@@ -63,9 +68,13 @@ void actionTasks() async {
       await CacheHelper.saveData(key: 'success', value: false);
       return;
     }
-    quote = res.data!.quote;
 
+    await repo.cacheTodayQuote(res.data!);
+    quote = res.data!.quote;
     try {
+      await CacheHelper.saveData(key: 'success', value: true);
+      await CacheHelper.saveData(
+          key: 'cached_date', value: DateTime.now().toString());
       Workmanager().executeTask(
         (taskName, inputData) async {
           await AwesomeNotificationService().showNotification(
@@ -83,9 +92,6 @@ void actionTasks() async {
               ),
             ],
           );
-          await CacheHelper.saveData(key: 'success', value: true);
-          await CacheHelper.saveData(
-              key: 'cached_date', value: DateTime.now().toString());
 
           return Future.value(true);
         },
