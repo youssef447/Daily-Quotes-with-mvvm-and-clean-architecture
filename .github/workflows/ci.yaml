@@ -29,8 +29,8 @@ jobs:
         #uses: dart-lang/setup-dart@v1
         #with:
           #sdk: 3.5.0-47.0.dev          
-      #- name: Install Dependencies    
-        #run: flutter pub get
+        name: Install Dependencies    
+        run: flutter pub get
       #- name: Test flutter app
        # run: flutter test
         # build apk
