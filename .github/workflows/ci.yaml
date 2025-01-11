@@ -33,7 +33,7 @@ jobs:
         run: flutter clean
       - name: Install Dependencies    
         run: flutter pub get
-      #- name: Test flutter app
+      #- name: Test flutter app 
        # run: flutter test
         # build apk
       - name: Build APK
