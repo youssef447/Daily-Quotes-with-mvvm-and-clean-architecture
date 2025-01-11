@@ -65,11 +65,7 @@ flutter_native_splash:
     color: "#687389"
     image: "assets/images/icon.png"
 
-# flutter pub run flutter_launcher_icons
-flutter_launcher_icons:
-  android: true
-  ios: true
-  image_path: "assets/images/icon_launch.png"
+
 
 
   remove_alpha_channel_ios: true
@@ -80,7 +76,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.14.2
-  
+# flutter pub run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon_launch.png"  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
