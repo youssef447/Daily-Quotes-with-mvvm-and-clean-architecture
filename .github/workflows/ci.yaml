@@ -55,3 +55,17 @@ jobs:
           artifacts: "build/app/outputs/flutter-apk/app-release.apk,build/app/outputs/bundle/release/app-release.aab"
           tag: v1.0.0
           token: ${{secrets.github_token}}
+
+      #- name: Setup Git
+      #  run: |
+      #    git config user.name "CI Bot"
+      #    git config user.email "ci-bot@example.com"
+
+      #- name: Fetch All Branches
+      #  run: git fetch --all
+
+      #- name: Merge Branch
+      #  run: |
+      #    git checkout main
+      #    git merge feature-branch
+      #    git push origin main      
