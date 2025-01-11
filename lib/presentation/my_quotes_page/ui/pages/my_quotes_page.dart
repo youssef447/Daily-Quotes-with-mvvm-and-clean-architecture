@@ -15,7 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/widgets/sliders/default_carousel_slider.dart';
-import '../../../../core/widgets/animations/fade_In_down_animation.dart';
+import '../../../../core/widgets/animations/fade_in_down_animation.dart';
 
 import 'package:dailyquotes/core/constants/assets.dart';
 import '../../../add_edit_quote/ui/pages/add_edit_quote_page.dart';

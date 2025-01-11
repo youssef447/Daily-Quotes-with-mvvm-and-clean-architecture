@@ -73,6 +73,5 @@ class ScaleAnimationState extends State<ScaleAnimation>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

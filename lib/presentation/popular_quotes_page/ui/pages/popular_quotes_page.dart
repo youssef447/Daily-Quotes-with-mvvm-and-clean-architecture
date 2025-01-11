@@ -11,7 +11,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../core/theme/text/app_text_styles.dart';
 import '../../../../core/widgets/loading/default_loading_indicator.dart';
 import '../../../../core/widgets/sliders/default_carousel_slider.dart';
-import '../../../../core/widgets/animations/fade_In_down_animation.dart';
+import '../../../../core/widgets/animations/fade_in_down_animation.dart';
 import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
 
 import 'package:dailyquotes/core/constants/assets.dart';

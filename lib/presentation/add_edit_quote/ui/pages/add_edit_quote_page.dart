@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/widgets/animations/fade_In_down_animation.dart';
+import '../../../../core/widgets/animations/fade_in_down_animation.dart';
 import '../../../../domain/entity/quote_entity.dart';
 import '../../controller/add_edit_quote_cubit.dart';
 import '../../../../core/widgets/cards/quote_card.dart';

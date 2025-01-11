@@ -6,10 +6,10 @@ class FadeInDownAnimation extends StatefulWidget {
   const FadeInDownAnimation({required this.child});
 
   @override
-  _FadeInDownAnimationState createState() => _FadeInDownAnimationState();
+  FadeInDownAnimationState createState() => FadeInDownAnimationState();
 }
 
-class _FadeInDownAnimationState extends State<FadeInDownAnimation>
+class FadeInDownAnimationState extends State<FadeInDownAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<Offset> translateAnimation;
@@ -36,12 +36,6 @@ class _FadeInDownAnimationState extends State<FadeInDownAnimation>
     );
     controller.forward();
     super.initState();
-  }
-
-  @override
-  void deactivate() {
-    // TODO: implement deactivate
-    super.deactivate();
   }
 
   @override
