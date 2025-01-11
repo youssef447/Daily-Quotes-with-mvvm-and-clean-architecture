@@ -30,6 +30,7 @@ jobs:
         with:
           sdk: 3.6.0          
       - name: Install Dependencies    
+        run: flutter clean
         run: flutter pub get
       #- name: Test flutter app
        # run: flutter test
