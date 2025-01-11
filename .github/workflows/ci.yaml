@@ -1,4 +1,4 @@
-name: CI
+name: DailyQuote CI/CD
 on:
   pull_request:
     branches:
@@ -14,16 +14,16 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      -  name: Build & Release
+      -  name: Setup Java
          uses: actions/setup-java@v4
          with:
           distribution: 'zulu'
           java-version: '17'
-          #cache: gradle
+          cache: gradle
       - name: Set Up Flutter    
         uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          channel: "stable"
           #flutter-version: 3.24.4
       - name: Set up Dart SDK
         uses: dart-lang/setup-dart@v1
