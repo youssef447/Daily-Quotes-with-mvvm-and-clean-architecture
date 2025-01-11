@@ -25,10 +25,10 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.27.1
-      #- name: Set up Dart SDK
-        #uses: dart-lang/setup-dart@v1
-        #with:
-          #sdk: 3.5.0-47.0.dev          
+      - name: Set up Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0          
       - name: Install Dependencies    
         run: flutter pub get
       #- name: Test flutter app
