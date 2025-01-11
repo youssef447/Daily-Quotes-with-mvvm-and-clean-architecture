@@ -1,27 +1,25 @@
-import 'package:dailyquotes/core/utils/globales.dart';
-
 import 'package:dailyquotes/presentation/custom_color_theme/controller/custom_color_theme_controller.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
 
-import 'core/di/injection.dart';
-import 'core/constants/api_constants.dart';
-import 'core/routes/app_route_generator.dart';
-import 'core/routes/app_routes.dart';
-import 'core/services/Network/local/cach_helper.dart';
-import 'core/services/Network/remote/dio_helper.dart';
-import 'core/services/background/work_manager_service.dart';
-import 'core/services/notifications/awesome_notification_service.dart';
+import 'package:dailyquotes/core/di/injection.dart';
+import 'package:dailyquotes/core/constants/api_constants.dart';
+import 'package:dailyquotes/core/routes/app_route_generator.dart';
+import 'package:dailyquotes/core/routes/app_routes.dart';
+import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
+import 'package:dailyquotes/core/services/Network/remote/dio_helper.dart';
+import 'package:dailyquotes/core/services/background/work_manager_service.dart';
+import 'package:dailyquotes/core/services/notifications/awesome_notification_service.dart';
 
-import 'core/theme/colors/app_colors.dart';
-import 'core/utils/bloc_observer.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
+import 'package:dailyquotes/core/utils/bloc_observer.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'presentation/custom_color_theme/controller/custom_color_theme_states.dart';
-import 'presentation/home_page/controller/home_cubit.dart';
+import 'package:dailyquotes/presentation/custom_color_theme/controller/custom_color_theme_states.dart';
+import 'package:dailyquotes/presentation/home_page/controller/home_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

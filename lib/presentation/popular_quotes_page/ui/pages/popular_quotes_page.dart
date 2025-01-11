@@ -1,6 +1,8 @@
 import 'package:dailyquotes/core/helpers/spacing_helper.dart';
 
 import 'package:dailyquotes/core/widgets/error_page.dart';
+import 'package:dailyquotes/presentation/popular_quotes_page/controller/popular_cubit.dart';
+import 'package:dailyquotes/presentation/popular_quotes_page/controller/popular_states.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,17 +10,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../core/theme/text/app_text_styles.dart';
-import '../../../../core/widgets/loading/default_loading_indicator.dart';
-import '../../../../core/widgets/sliders/default_carousel_slider.dart';
-import '../../../../core/widgets/animations/fade_in_down_animation.dart';
-import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
+import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
+import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
+import 'package:dailyquotes/core/widgets/sliders/default_carousel_slider.dart';
+import 'package:dailyquotes/core/widgets/animations/fade_in_down_animation.dart';
+import 'package:dailyquotes/core/widgets/dialogs/default_awesome_dialog.dart';
 
 import 'package:dailyquotes/core/constants/assets.dart';
-import '../../../../main.dart';
-import '../../controller/popular_cubit.dart';
-import '../../controller/popular_states.dart';
-import '../../../../core/widgets/cards/quote_card.dart';
+import 'package:dailyquotes/main.dart';
+
+import 'package:dailyquotes/core/widgets/cards/quote_card.dart';
 part '../widgets/no_popular_widget.dart';
 part '../widgets/erro_popular_widget.dart';
 

@@ -1,8 +1,12 @@
 import 'dart:ui';
 
+import 'package:dailyquotes/core/widgets/animations/fade_in_down_animation.dart';
+import 'package:dailyquotes/core/widgets/cards/quote_card.dart';
 import 'package:dailyquotes/core/widgets/dialogs/default_alert_dialog.dart';
 import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
+import 'package:dailyquotes/domain/entity/quote_entity.dart';
 import 'package:dailyquotes/main.dart';
+import 'package:dailyquotes/presentation/add_edit_quote/controller/add_edit_quote_cubit.dart';
 
 import 'package:dailyquotes/presentation/add_edit_quote/controller/add_edit_quote_states.dart';
 import 'package:dailyquotes/presentation/my_quotes_page/controller/my_quotes_cubit.dart';
@@ -10,10 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/widgets/animations/fade_in_down_animation.dart';
-import '../../../../domain/entity/quote_entity.dart';
-import '../../controller/add_edit_quote_cubit.dart';
-import '../../../../core/widgets/cards/quote_card.dart';
 part '../widgets/fill_quote_dialog.dart';
 
 class AddEditQuoteSheet extends StatelessWidget {

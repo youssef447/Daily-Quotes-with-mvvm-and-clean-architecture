@@ -1,13 +1,12 @@
+import 'package:dailyquotes/core/di/injection.dart';
+import 'package:dailyquotes/core/widgets/dialogs/default_awesome_dialog.dart';
+import 'package:dailyquotes/domain/entity/quote_entity.dart';
 import 'package:dailyquotes/presentation/add_edit_quote/controller/add_edit_quote_states.dart';
 import 'package:dailyquotes/presentation/my_quotes_page/controller/my_quotes_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/di/injection.dart';
 import 'package:dailyquotes/data/repositories/quote_repo.dart';
-
-import '../../../core/widgets/dialogs/default_awesome_dialog.dart';
-import '../../../domain/entity/quote_entity.dart';
 
 class AddEditQuoteCubit extends Cubit<AddEditQuoteStates> {
   AddEditQuoteCubit() : super(AddEditQuoteInitialState());

@@ -1,6 +1,9 @@
 import 'package:dailyquotes/core/constants/assets.dart';
 import 'package:dailyquotes/core/helpers/spacing_helper.dart';
+import 'package:dailyquotes/core/theme/text/app_text_styles.dart';
+import 'package:dailyquotes/core/widgets/animations/horizontal_animation.dart';
 import 'package:dailyquotes/core/widgets/animations/scale_animation.dart';
+import 'package:dailyquotes/core/widgets/buttons/default_button.dart';
 import 'package:dailyquotes/main.dart';
 import 'package:dailyquotes/presentation/custom_color_theme/controller/custom_color_theme_controller.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +12,6 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/theme/text/app_text_styles.dart';
-import '../../../../core/widgets/animations/horizontal_animation.dart';
-import '../../../../core/widgets/buttons/default_button.dart';
 part '../widgets/color_picker_appbar.dart';
 part '../widgets/theme_confirm_buttons.dart';
 

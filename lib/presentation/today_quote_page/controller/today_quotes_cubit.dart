@@ -6,9 +6,9 @@ import 'package:dailyquotes/domain/usecases/get_today_quote_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../core/utils/globales.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
 
-import '../../../domain/entity/quote_entity.dart';
+import 'package:dailyquotes/domain/entity/quote_entity.dart';
 import 'today_quotes_states.dart';
 
 class TodayQuoteCubit extends Cubit<TodayQuoteStates> {

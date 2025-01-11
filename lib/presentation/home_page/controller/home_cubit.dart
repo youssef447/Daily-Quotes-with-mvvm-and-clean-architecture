@@ -2,18 +2,17 @@ import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
 import 'package:dailyquotes/core/services/background/work_manager_service.dart';
 import 'package:dailyquotes/core/services/notifications/awesome_notification_service.dart';
 import 'package:dailyquotes/presentation/home_page/controller/home_states.dart';
+import 'package:dailyquotes/presentation/my_quotes_page/ui/pages/my_quotes_page.dart';
+import 'package:dailyquotes/presentation/popular_quotes_page/ui/pages/popular_quotes_page.dart';
+import 'package:dailyquotes/presentation/random_quote_page/ui/pages/random_quote_page.dart';
+import 'package:dailyquotes/presentation/today_quote_page/ui/pages/today_quote_page.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/di/injection.dart';
-import '../../../core/enums/card_shape.dart';
-import '../../../core/utils/globales.dart';
-
-import '../../my_quotes_page/ui/pages/my_quotes_page.dart';
-import '../../popular_quotes_page/ui/pages/popular_quotes_page.dart';
-import '../../random_quote_page/ui/pages/random_quote_page.dart';
-import '../../today_quote_page/ui/pages/today_quote_page.dart';
+import 'package:dailyquotes/core/di/injection.dart';
+import 'package:dailyquotes/core/enums/card_shape.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());

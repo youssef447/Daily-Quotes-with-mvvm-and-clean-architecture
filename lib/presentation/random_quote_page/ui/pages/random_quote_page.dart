@@ -7,16 +7,17 @@ import 'package:dailyquotes/core/constants/assets.dart';
 
 import 'package:dailyquotes/core/widgets/cards/quote_card.dart';
 import 'package:dailyquotes/main.dart';
+import 'package:dailyquotes/presentation/random_quote_page/controller/random_cubit.dart';
+import 'package:dailyquotes/presentation/random_quote_page/controller/random_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../core/widgets/animations/bouncing_slide_animation.dart';
-import '../../../../core/widgets/buttons/default_button.dart';
-import '../../controller/random_cubit.dart';
-import '../../controller/random_states.dart';
+import 'package:dailyquotes/core/widgets/animations/bouncing_slide_animation.dart';
+import 'package:dailyquotes/core/widgets/buttons/default_button.dart';
+
 part '../widgets/random_genrator_button.dart';
 
 class RandomQuotePage extends StatelessWidget {

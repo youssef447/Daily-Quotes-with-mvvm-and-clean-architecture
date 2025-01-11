@@ -6,6 +6,7 @@ import 'package:dailyquotes/core/widgets/dialogs/default_alert_dialog.dart';
 import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
 import 'package:dailyquotes/core/widgets/sheets/default_botom_sheet.dart';
 import 'package:dailyquotes/main.dart';
+import 'package:dailyquotes/presentation/add_edit_quote/ui/pages/add_edit_quote_page.dart';
 import 'package:dailyquotes/presentation/my_quotes_page/controller/my_quotes_cubit.dart';
 import 'package:dailyquotes/presentation/my_quotes_page/controller/my_quotes_states.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../core/widgets/sliders/default_carousel_slider.dart';
-import '../../../../core/widgets/animations/fade_in_down_animation.dart';
+import 'package:dailyquotes/core/widgets/sliders/default_carousel_slider.dart';
+import 'package:dailyquotes/core/widgets/animations/fade_in_down_animation.dart';
 
 import 'package:dailyquotes/core/constants/assets.dart';
-import '../../../add_edit_quote/ui/pages/add_edit_quote_page.dart';
-import '../../../../core/widgets/cards/quote_card.dart';
+import 'package:dailyquotes/core/widgets/cards/quote_card.dart';
 part '../widgets/no_quotes.dart';
 part '../widgets/delete_quote_button.dart';
 

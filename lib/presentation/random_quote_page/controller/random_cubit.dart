@@ -6,7 +6,7 @@ import 'package:dailyquotes/domain/entity/quote_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../core/utils/globales.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
 import 'random_states.dart';
 
 class RandomCubit extends Cubit<RandomStates> {

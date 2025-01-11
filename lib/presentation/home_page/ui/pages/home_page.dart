@@ -7,22 +7,21 @@ import 'package:dailyquotes/core/utils/globales.dart';
 
 import 'package:dailyquotes/core/widgets/error_page.dart';
 import 'package:dailyquotes/main.dart';
+import 'package:dailyquotes/presentation/home_page/controller/home_cubit.dart';
+import 'package:dailyquotes/presentation/home_page/controller/home_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/widgets/dialogs/default_awesome_dialog.dart';
-import '../../../../core/widgets/loading/default_loading_indicator.dart';
+import 'package:dailyquotes/core/routes/app_routes.dart';
+import 'package:dailyquotes/core/widgets/dialogs/default_awesome_dialog.dart';
+import 'package:dailyquotes/core/widgets/loading/default_loading_indicator.dart';
 
-import '../../../../core/constants/assets.dart';
-import '../../../../core/enums/card_shape.dart';
-import '../../../../core/helpers/spacing_helper.dart';
-
-import '../../controller/home_cubit.dart';
-import '../../controller/home_states.dart';
+import 'package:dailyquotes/core/constants/assets.dart';
+import 'package:dailyquotes/core/enums/card_shape.dart';
+import 'package:dailyquotes/core/helpers/spacing_helper.dart';
 
 part '../widgets/home_tabs.dart';
 part '../widgets/home_appbar.dart';

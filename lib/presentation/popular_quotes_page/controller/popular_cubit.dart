@@ -7,9 +7,9 @@ import 'package:dailyquotes/domain/usecases/update_today_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../core/utils/globales.dart';
-import '../../../domain/usecases/get_today_quote_usecase.dart';
-import '../../../domain/usecases/remove_quote_from_popular_usecase.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
+import 'package:dailyquotes/domain/usecases/get_today_quote_usecase.dart';
+import 'package:dailyquotes/domain/usecases/remove_quote_from_popular_usecase.dart';
 import 'popular_states.dart';
 
 class PopularCubit extends Cubit<PopularStates> {

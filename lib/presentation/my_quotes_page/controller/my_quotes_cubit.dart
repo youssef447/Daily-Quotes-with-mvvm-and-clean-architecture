@@ -5,8 +5,8 @@ import 'package:dailyquotes/presentation/my_quotes_page/controller/my_quotes_sta
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../core/utils/globales.dart';
-import '../../../domain/entity/quote_entity.dart';
+import 'package:dailyquotes/core/utils/globales.dart';
+import 'package:dailyquotes/domain/entity/quote_entity.dart';
 
 class MyQuotesCubit extends Cubit<MyQuotesPageStates> {
   MyQuotesCubit() : super(MyQuotesPageInitialState());

@@ -1,4 +1,5 @@
 import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
+import 'package:dailyquotes/core/theme/colors/app_colors.dart';
 import 'package:dailyquotes/core/theme/colors/contrast_color_helper.dart';
 import 'package:dailyquotes/core/widgets/dialogs/default_awesome_dialog.dart';
 import 'package:dailyquotes/main.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
-import '../../../core/theme/colors/app_colors.dart';
 import 'custom_color_theme_states.dart';
 
 class CustomColorThemeController extends Cubit<CustomColorThemeStates> {
