@@ -7,7 +7,7 @@ abstract class ContrastColorHelper {
   /// If both colors are dark (luminance <= 0.5), white is returned.
   /// If one color is light and the other is dark, a contrasting color is returned (currently white, but can be changed).
 
-  static Color CardContrastColor(Color primary, Color secondaryPrimary) {
+  static Color cardContrastColor(Color primary, Color secondaryPrimary) {
     final double primaryLuminance = primary.computeLuminance();
     final double secondaryPrimaryLuminance =
         secondaryPrimary.computeLuminance();

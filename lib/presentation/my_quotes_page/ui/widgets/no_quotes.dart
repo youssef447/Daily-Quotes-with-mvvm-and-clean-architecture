@@ -18,7 +18,7 @@ class NoQuotes extends StatelessWidget {
                   Colors.transparent,
                 ),
                 onTap: () {
-                  DefaultBottomSheet.Default(
+                  DefaultBottomSheet.sheet(
                     context: context,
                     child: AddEditQuoteSheet(
                         myQuotesCubit: context.read<MyQuotesCubit>()),

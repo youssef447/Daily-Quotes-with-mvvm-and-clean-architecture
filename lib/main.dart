@@ -17,7 +17,7 @@ import 'core/services/background/work_manager_service.dart';
 import 'core/services/notifications/awesome_notification_service.dart';
 
 import 'core/theme/colors/app_colors.dart';
-import 'core/utils/blocObserver.dart';
+import 'core/utils/bloc_observer.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'presentation/custom_color_theme/controller/custom_color_theme_states.dart';

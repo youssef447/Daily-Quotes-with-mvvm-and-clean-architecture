@@ -47,7 +47,7 @@ class MyQuotesPage extends StatelessWidget {
                 ? FloatingActionButton(
                     shape: const CircleBorder(),
                     onPressed: () {
-                      DefaultBottomSheet.Default(
+                      DefaultBottomSheet.sheet(
                           context: context,
                           child: AddEditQuoteSheet(
                               myQuotesCubit: context.read<MyQuotesCubit>()));
@@ -116,7 +116,7 @@ class MyQuotesPage extends StatelessWidget {
                                             right: 50.w,
                                             child: GestureDetector(
                                               onTap: () async {
-                                                DefaultBottomSheet.Default(
+                                                DefaultBottomSheet.sheet(
                                                     context: context,
                                                     child: AddEditQuoteSheet(
                                                         quote: cubit.myQuotes[

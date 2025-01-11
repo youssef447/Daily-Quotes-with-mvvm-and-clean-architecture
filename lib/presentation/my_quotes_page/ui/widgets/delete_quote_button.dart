@@ -20,7 +20,7 @@ class DeleteQuoteButton extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => FadeInDownAnimation(
-              child: DefaultAlertDialog.Confirm(
+              child: DefaultAlertDialog.confirm(
                   context: context,
                   content: 'Are You sure you want to delete this quote?',
                   icon: Icons.question_mark_sharp,

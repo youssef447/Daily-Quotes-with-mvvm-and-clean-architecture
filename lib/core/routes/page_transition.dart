@@ -40,8 +40,7 @@ abstract class PageTransitionHelper {
             );
           case PageTransitionType.scale:
             return ScaleTransition(scale: animation, child: child);
-          default:
-            return child; // No animation
+          // No animation
         }
       },
     );

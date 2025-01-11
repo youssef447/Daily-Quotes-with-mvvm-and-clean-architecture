@@ -9,7 +9,6 @@ class UpdateTodayQuoteUseCase {
 
   Future<ApiResult> updateTodayQuote(QuoteEntity entity) async {
     entity.toggleFav();
-    print('55555555555555555555555555555 ${entity.fav}');
 
     return await _quoteRepo.updateTodayQuote(entity);
   }

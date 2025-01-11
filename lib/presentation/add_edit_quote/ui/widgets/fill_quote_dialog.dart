@@ -6,7 +6,7 @@ class FillQuoteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FadeInDownAnimation(
-      child: DefaultAlertDialog.Info(
+      child: DefaultAlertDialog.info(
           context: context,
           content: 'You Need To fill Card Content',
           icon: Icons.warning_rounded,

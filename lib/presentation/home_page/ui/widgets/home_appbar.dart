@@ -32,7 +32,7 @@ class HomeAppbar extends StatelessWidget {
             onTap: () {
               showDialog(
                   context: context,
-                  builder: (context) => DefaultAlertDialog.Confirm(
+                  builder: (context) => DefaultAlertDialog.confirm(
                         context: context,
                         icon: Icons.notification_important_outlined,
                         onYesClicked: () {

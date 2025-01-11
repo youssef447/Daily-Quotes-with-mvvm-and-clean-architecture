@@ -7,7 +7,7 @@ import '../../theme/text/app_text_styles.dart';
 import '../buttons/default_button.dart';
 
 abstract class DefaultAlertDialog {
-  static AlertDialog Info({
+  static AlertDialog info({
     required IconData icon,
     String? buttonText,
     required Function() onOkClicked,
@@ -55,7 +55,7 @@ abstract class DefaultAlertDialog {
     );
   }
 
-  static AlertDialog Confirm({
+  static AlertDialog confirm({
     required IconData icon,
     String? buttonText,
     required Function() onNoClicked,

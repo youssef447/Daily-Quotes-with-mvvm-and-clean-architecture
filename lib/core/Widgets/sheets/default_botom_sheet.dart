@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class DefaultBottomSheet {
-  static Default(
+  static sheet(
       {required BuildContext context,
       AnimationController? transitionAnimationController,
       required Widget child}) {

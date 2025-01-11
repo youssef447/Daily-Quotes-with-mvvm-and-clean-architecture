@@ -9,7 +9,7 @@ class AppColors {
   Color secondaryPrimary = const Color(0xffa23bae);
   Color get text => Colors.white;
   Color get iconCard =>
-      ContrastColorHelper.CardContrastColor(primary, secondaryPrimary);
+      ContrastColorHelper.cardContrastColor(primary, secondaryPrimary);
   Color get icon => ContrastColorHelper.contrastColor(secondaryPrimary);
   Color get floatingIcon => ContrastColorHelper.contrastColor(primary);
   Color get textBG => ContrastColorHelper.contrastBGColor(background);
