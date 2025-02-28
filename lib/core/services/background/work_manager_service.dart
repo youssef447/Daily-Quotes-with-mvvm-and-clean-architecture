@@ -30,7 +30,6 @@ abstract class WorkManagerService {
           requiresDeviceIdle: false,
           requiresStorageNotLow: false),
     );
-    //add more
   }
 
   static Future<void> cancelTasks() async {

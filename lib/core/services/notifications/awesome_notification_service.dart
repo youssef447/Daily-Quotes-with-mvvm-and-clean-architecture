@@ -15,12 +15,13 @@ class AwesomeNotificationService {
       channelName: 'today quote channel',
       channelDescription: 'Notification channel for basic tests',
       playSound: true,
-      soundSource: 'resource://raw/notification',
+      // soundSource: 'resource://raw/notification',
       importance: NotificationImportance.Max,
       defaultPrivacy: NotificationPrivacy.Public,
       channelShowBadge: true,
     ),
   ];
+
   Future<void> init() async {
     bool isAllowed = await checkPermission();
     if (isAllowed) {
@@ -101,8 +102,9 @@ class AwesomeNotificationService {
       actionButtons: actionButtons,
       schedule: scheduled
           ? NotificationCalendar(
-              hour: 00,
+              hour: 08,
               minute: 00,
+              allowWhileIdle: true,
               timeZone:
                   await _service.getLocalTimeZoneIdentifier() //America/New_York
               )
