@@ -82,6 +82,7 @@ class HomeCubit extends Cubit<HomeStates> {
           await CacheHelper.saveData(key: 'notifications', value: true);
 
           noitificationsEnabled = true;
+          await WorkManagerService.init();
           emit(ChangeNotificationSuccessState());
         },
       ).catchError((onError) {

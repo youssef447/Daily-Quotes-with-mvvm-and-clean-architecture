@@ -14,7 +14,7 @@ abstract class WorkManagerService {
   static Future<void> init() async {
     await Workmanager().initialize(
       actionTasks,
-      isInDebugMode: false,
+      isInDebugMode: true,
     );
     await registerMyTask();
   }
@@ -43,61 +43,59 @@ abstract class WorkManagerService {
 
 @pragma('vm-entry-point')
 void actionTasks() async {
-  //show notification
-  WidgetsFlutterBinding.ensureInitialized();
-  await CacheHelper.init();
-  DateTime? cachedDate;
-
-  if (CacheHelper.containsKey('cached_date')) {
-    cachedDate = DateTime.parse(await CacheHelper.getData(key: 'cached_date'));
-  }
-
-  if (DateTime.now().hour == 8 && DateTime.now().day != cachedDate?.day) {
-    String? quote;
-    DioHelper.init(baseUrl: ApiConstants.baseUrl);
-
-    final repo = QuoteRepo(
-      remoteService: QuoteRemoteService(),
-      localService: QuoteLocalService(),
-    );
-    final res = await repo.reqTodayQuote();
-
-    if (res.isError) {
-      //indicating that the task has failed to request new quote from repo when user opens the app
-      await CacheHelper.saveData(key: 'success', value: false);
-      return;
-    }
-
-    await repo.cacheTodayQuote(res.data!);
-    quote = res.data!.quote;
+  Workmanager().executeTask((taskName, inputData) async {
     try {
-      await CacheHelper.saveData(key: 'success', value: true);
-      await CacheHelper.saveData(
-          key: 'cached_date', value: DateTime.now().toString());
-      Workmanager().executeTask(
-        (taskName, inputData) async {
-          await AwesomeNotificationService().showNotification(
-            payload: {
-              'type': 'share',
-              'quote': quote!,
-              'author': res.data!.author,
-            },
-            title: 'Today\'s Quote',
-            body: quote,
-            actionButtons: [
-              NotificationActionButton(
-                key: 'Share',
-                label: 'Share Now',
-              ),
-            ],
-          );
+      //show notification
+      WidgetsFlutterBinding.ensureInitialized();
+      await CacheHelper.init();
+      DateTime? cachedDate;
 
-          return Future.value(true);
-        },
-      );
+      if (CacheHelper.containsKey('cached_date')) {
+        cachedDate =
+            DateTime.parse(await CacheHelper.getData(key: 'cached_date'));
+      }
+
+      if (DateTime.now().hour == 8 && DateTime.now().day != cachedDate?.day) {
+        String? quote;
+        DioHelper.init(baseUrl: ApiConstants.baseUrl);
+
+        final repo = QuoteRepo(
+          remoteService: QuoteRemoteService(),
+          localService: QuoteLocalService(),
+        );
+        final res = await repo.reqTodayQuote();
+
+        if (res.isError) {
+          //indicating that the task has failed to request new quote from repo when user opens the app
+          await CacheHelper.saveData(key: 'success', value: false);
+        } else {
+          await repo.cacheTodayQuote(res.data!);
+          quote = res.data!.quote;
+          await CacheHelper.saveData(key: 'success', value: true);
+          await CacheHelper.saveData(
+              key: 'cached_date', value: DateTime.now().toString());
+        }
+        await AwesomeNotificationService().showNotification(
+          payload: {
+            'type': 'share',
+            'quote': quote!,
+            'author': res.data!.author,
+          },
+          title: 'Today\'s Quote',
+          body: quote,
+          actionButtons: [
+            NotificationActionButton(
+              key: 'Share',
+              label: 'Share Now',
+            ),
+          ],
+        );
+      }
+      return Future.value(true);
     } catch (e) {
       //indicating that the task has failed to request new quote from repo when user opens the app
       await CacheHelper.saveData(key: 'success', value: false);
+      return Future.value(false);
     }
-  }
+  });
 }

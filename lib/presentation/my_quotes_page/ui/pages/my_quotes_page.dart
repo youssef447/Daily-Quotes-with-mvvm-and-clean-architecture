@@ -73,17 +73,16 @@ class MyQuotesPage extends StatelessWidget {
                   ? const DefaultLoadingIndicator()
                   : cubit.myQuotes.isEmpty
                       ? const NoQuotes()
-                      : Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            DefaultCarouselSlider(
-                              itemCount: cubit.myQuotes.length,
-                              itemBuilder: (BuildContext context, int itemIndex,
-                                  int pageViewIndex) {
-                                return FadeInDownAnimation(
-                                  child: Stack(
+                      : Center(
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              DefaultCarouselSlider(
+                                itemCount: cubit.myQuotes.length,
+                                itemBuilder: (BuildContext context,
+                                    int itemIndex, int pageViewIndex) {
+                                  return Stack(
                                     clipBehavior: Clip.none,
-                                    alignment: Alignment.topRight,
                                     children: [
                                       QuoteCard(
                                         quote: cubit.myQuotes[itemIndex],
@@ -148,21 +147,21 @@ class MyQuotesPage extends StatelessWidget {
                                         itemIndex: itemIndex,
                                       ),
                                     ],
-                                  ),
-                                );
-                              },
-                            ),
-                            if (state is RemoveMyQuoteLoadingState)
-                              ClipRRect(
-                                child: BackdropFilter(
-                                  filter: ImageFilter.blur(
-                                    sigmaX: 3.0,
-                                    sigmaY: 3.0,
-                                  ),
-                                  child: const DefaultLoadingIndicator(),
-                                ),
+                                  );
+                                },
                               ),
-                          ],
+                              if (state is RemoveMyQuoteLoadingState)
+                                ClipRRect(
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                      sigmaX: 3.0,
+                                      sigmaY: 3.0,
+                                    ),
+                                    child: const DefaultLoadingIndicator(),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
             ),
           );

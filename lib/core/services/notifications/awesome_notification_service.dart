@@ -12,7 +12,7 @@ class AwesomeNotificationService {
   List<NotificationChannel> channels = [
     NotificationChannel(
       channelKey: 'custom sound notifications',
-      channelName: 'today quote channel',
+      channelName: 'today quote channel', //shown in settings
       channelDescription: 'Notification channel for basic tests',
       playSound: true,
       // soundSource: 'resource://raw/notification',
