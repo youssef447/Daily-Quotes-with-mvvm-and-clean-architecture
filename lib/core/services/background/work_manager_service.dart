@@ -3,7 +3,6 @@ import 'package:dailyquotes/core/constants/api_constants.dart';
 import 'package:dailyquotes/core/services/Network/local/cach_helper.dart';
 import 'package:dailyquotes/core/services/Network/remote/dio_helper.dart';
 import 'package:dailyquotes/data/repositories/quote_repo.dart';
-import 'package:flutter/material.dart';
 import '../../../data/data_sources/quote_local_service.dart';
 import '../../../data/data_sources/quote_remote_service.dart';
 import '../notifications/awesome_notification_service.dart';
@@ -13,8 +12,8 @@ abstract class WorkManagerService {
   ///init work manager service
   static Future<void> init() async {
     await Workmanager().initialize(
-      actionTasks,
-      isInDebugMode: false,
+      callbackDispatcher,
+      isInDebugMode: true,
     );
     await registerMyTask();
   }
@@ -41,12 +40,12 @@ abstract class WorkManagerService {
   }
 }
 
-@pragma('vm-entry-point')
-void actionTasks() async {
+@pragma('vm:entry-point')
+callbackDispatcher() async {
   Workmanager().executeTask((taskName, inputData) async {
     try {
-      //show notification
-      WidgetsFlutterBinding.ensureInitialized();
+      //
+
       await CacheHelper.init();
       DateTime? cachedDate;
 
@@ -55,7 +54,8 @@ void actionTasks() async {
             DateTime.parse(await CacheHelper.getData(key: 'cached_date'));
       }
 
-      if (DateTime.now().hour == 8 && DateTime.now().day != cachedDate?.day) {
+      if (DateTime.now().hour == 8 &&
+          DateTime.now().difference(cachedDate ?? DateTime.now()).inDays != 0) {
         String? quote;
         DioHelper.init(baseUrl: ApiConstants.baseUrl);
 

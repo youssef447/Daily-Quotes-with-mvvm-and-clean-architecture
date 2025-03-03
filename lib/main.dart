@@ -97,6 +97,7 @@ Future<void> initNetworkServices() async {
 /// If cache has no value, it's the first time, so we request permission
 /// and store the value in the cache.
 /// If the value is `false`, we don't initialize the service.
+
 Future<void> initNotifications() async {
   noitificationsEnabled = CacheHelper.getData(key: 'notifications') ?? true;
   //if null this means that's the first time requestion permission cuz when refused we store false value

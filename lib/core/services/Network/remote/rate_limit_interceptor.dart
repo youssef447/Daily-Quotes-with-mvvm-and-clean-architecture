@@ -16,12 +16,14 @@ class RateLimitingInterceptor extends Interceptor {
     );
 
     if (requestTimes.length > maxRequests) {
-      return handler.reject(
+      handler.reject(
         DioException(
           requestOptions: options,
           error: 'Too many requests. Please try again later.',
         ),
       );
+      return;
     }
+    handler.next(options);
   }
 }
