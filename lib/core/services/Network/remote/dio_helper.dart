@@ -1,3 +1,5 @@
+import 'package:dailyquotes/core/services/Network/remote/error_handler_interceptor.dart';
+import 'package:dailyquotes/core/services/Network/remote/rate_limit_interceptor.dart';
 import 'package:dio/dio.dart';
 
 class DioHelper {
@@ -9,7 +11,8 @@ class DioHelper {
         receiveDataWhenStatusError: true,
         //  validateStatus: (_) => true,
       ),
-    );
+    )..interceptors
+        .addAll([ErrorHandlerInterceptor(), RateLimitingInterceptor()]);
   }
 
   static Future<Response> getData({

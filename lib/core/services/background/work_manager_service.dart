@@ -14,7 +14,7 @@ abstract class WorkManagerService {
   static Future<void> init() async {
     await Workmanager().initialize(
       actionTasks,
-      isInDebugMode: true,
+      isInDebugMode: false,
     );
     await registerMyTask();
   }
